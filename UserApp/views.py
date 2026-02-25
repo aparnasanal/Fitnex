@@ -1,14 +1,92 @@
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.models import User
+from UserApp.models import ProfileDb
+from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 
 def homepage(request):
   return render(request, "home.html")
 
-def login(request):
+def user_login(request):
+  if request.user.is_authenticated:
+    return redirect('home')
+  
+  if request.method == "POST":
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+
+    user = authenticate(request, username=username, password=password)
+
+    if user is not None:
+      login(request, user)
+      return redirect('home')
+    else:
+      messages.error(request, "Invalid Username or Password")
+      return redirect('login')
+
   return render(request, "login.html")
 
 def signup(request):
+  if request.method == "POST":
+    username = request.POST.get('username')
+    email = request.POST.get('email')
+    password = request.POST.get('password')
+    password2 = request.POST.get('password2')
+
+    if User.objects.filter(username=username).exists():
+      messages.error(request, "Username already taken")
+      return redirect(signup)
+    
+    elif User.objects.filter(email=email).exists():
+      messages.error(request, "Email already exists")
+      return redirect(signup)
+    
+    elif password != password2:
+      messages.error(request, "Passwords do not match")
+      return redirect(signup)
+
+    user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+    
+    ProfileDb.objects.create(user=user)
+    login(request, user)
+
+    return redirect('profile_setup')
+  
   return render(request, "signup.html")
+
+
+@login_required
+def profile_setup(request):
+
+  profile = ProfileDb.objects.get(user=request.user)
+
+  if request.method == "POST":
+      profile.Age = request.POST.get('age')
+      profile.Gender = request.POST.get('gender')
+      profile.Height = request.POST.get('height')
+      profile.Weight = request.POST.get('weight')
+      profile.Target_weight = request.POST.get('targetweight')
+      profile.Goal = request.POST.get('goal')
+      profile.Activity_level = request.POST.get('activity')
+      profile.Experience_level = request.POST.get('experience')
+
+      profile.save()
+
+      return redirect('home')
+  
+  return render(request, "profile_setup.html")
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
+
+
 
 
 

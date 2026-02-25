@@ -28,19 +28,18 @@ class ProfileDb(models.Model):
         ('advanced', 'Advanced'),
     ]
 
-  User = models.OneToOneField(User, on_delete=models.CASCADE)
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
   
-  Name = models.CharField(max_length=100)
-  Age = models.IntegerField()
-  Gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+  Age = models.IntegerField(null=True, blank=True)
+  Gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
 
-  Height = models.FloatField(help_text="Height in cm")
-  Weight = models.FloatField(help_text="Weight in kg")
+  Height = models.FloatField(help_text="Height in cm", null=True, blank=True)
+  Weight = models.FloatField(help_text="Weight in kg", null=True, blank=True)
   Target_weight = models.FloatField(null=True, blank=True)
 
-  Goal = models.CharField(max_length=20, choices=GOAL_CHOICES)
-  Activity_level = models.CharField(max_length=20, choices=ACTIVITY_LEVEL)
-  Experience_level = models.CharField(max_length=20, choices=EXPERIENCE_LEVEL)
+  Goal = models.CharField(max_length=20, choices=GOAL_CHOICES, null=True, blank=True)
+  Activity_level = models.CharField(max_length=20, choices=ACTIVITY_LEVEL, null=True, blank=True)
+  Experience_level = models.CharField(max_length=20, choices=EXPERIENCE_LEVEL, null=True, blank=True)
 
   def __str__(self):
         return self.user.username

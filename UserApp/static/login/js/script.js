@@ -198,7 +198,7 @@ class LoginForm2 {
     }
     
     handleForgotPassword(e) {
-        e.preventDefault();
+       
         // Add neon pulse effect
         const link = e.target;
         link.style.textShadow = '0 0 10px rgba(0, 255, 136, 0.8)';
@@ -214,7 +214,7 @@ class LoginForm2 {
     }
     
     handleSignupLink(e) {
-        e.preventDefault();
+        
         // Add neon pulse effect
         const link = e.target;
         link.style.textShadow = '0 0 10px rgba(0, 153, 255, 0.8)';
@@ -251,7 +251,7 @@ class LoginForm2 {
     }
     
     async handleSubmit(e) {
-        e.preventDefault();
+        
         
         if (this.isSubmitting) return;
         
@@ -487,7 +487,7 @@ class LoginForm2 {
         document.addEventListener('keydown', (e) => {
             // Enter key submits form if focus is on form elements
             if (e.key === 'Enter' && e.target.closest('#loginForm')) {
-                e.preventDefault();
+                
                 this.handleSubmit(e);
             }
             

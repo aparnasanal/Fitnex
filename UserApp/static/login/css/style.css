@@ -93,6 +93,25 @@ body {
 }
 
 /* Form Group & Input Styles */
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 992px) {
+    .form-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
 .form-group {
     margin-bottom: 10px;
     position: relative;
@@ -102,25 +121,25 @@ body {
     position: relative;
 }
 
-.input-wrapper input {
+/* Shared style for input & select */
+.input-wrapper input,
+.input-wrapper select {
     width: 100%;
-    background: #1a1a25;
-    border: 1px solid #2a2a35;
-    border-radius: 6px;
-    padding: 16px 14px;
+    padding: 12px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 46, 99, 0.3);
     color: #ffffff;
-    font-size: 16px;
-    font-weight: 400;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 15px;
     outline: none;
+    appearance: none;
 }
 
-.input-wrapper input:focus {
-    border-color: #ff2e63;
-    background: rgba(26, 26, 37, 0.8);
-    box-shadow: 
-        0 0 0 3px rgba(255, 46, 99, 0.1),
-        0 4px 20px rgba(255, 46, 99, 0.1);
+/* Focus glow */
+.input-wrapper input:focus,
+.input-wrapper select:focus {
+    border-bottom: 1px solid #ff2e63;
+    box-shadow: 0 2px 10px rgba(255, 46, 99, 0.2);
 }
 
 .input-wrapper input:focus + label,
@@ -130,16 +149,42 @@ body {
     font-weight: 500;
 }
 
+select {
+    background-color: transparent;
+    color: #fff;
+}
+
+/* Dropdown options */
+select option {
+    background-color: #111;
+    color: #fff;
+}
+
+/* Only select gets arrow */
+.input-wrapper select {
+    padding-right: 20px;
+}
+
+.input-wrapper select + label + .input-line::after,
+.input-wrapper select::after {
+    display: none;
+}
+
+/* Custom arrow */
+.input-wrapper select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23ff2e63' height='10' viewBox='0 0 20 20' width='10' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 6 5-6z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+
 .input-wrapper label {
     position: absolute;
-    left: 16px;
-    top: 16px;
-    color: #a0a0b0;
-    font-size: 16px;
-    font-weight: 400;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    left: 0;
+    top: 12px;
+    color: #888;
+    font-size: 14px;
+    transition: 0.3s;
     pointer-events: none;
-    transform-origin: left top;
 }
 
 .input-line {
@@ -154,9 +199,14 @@ body {
     border-radius: 2px;
 }
 
-.input-wrapper input:focus ~ .input-line {
-    width: 100%;
+.input-wrapper input:focus + label,
+.input-wrapper input:valid + label,
+.input-wrapper select:focus + label,
+.input-wrapper select:valid + label {
+    transform: translateY(-18px) scale(0.85);
+    color: #ff2e63;
 }
+
 
 /* Password Toggle */
 .password-wrapper input {
