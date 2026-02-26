@@ -52,7 +52,9 @@
                                     <nav>
                                         <ul id="navigation">
                                             <li><a href="index.html">home</a></li>
-                                            <li><a href="about.html">about</a></li>
+                                            <li><a href="{% url 'diet' %}" class="btn btn-primary">
+                                                    My Diet
+                                                </a></li>
                                             <li><a href="pricing.html">pricing</a></li>
                                             <li><a href="gallery.html">gallery</a></li>
                                             <li><a href="#">pages <i class="ti-angle-down"></i></a>
@@ -77,7 +79,7 @@
                                     {% if request.user.is_authenticated %}
                                     <div class="book_btn dropdown d-none d-lg-block ">
                                         <a class="dropdown-toggle" class="dropdown-toggle" href="#"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Welcome {{ request.user.username }} !</a>
                                         <ul class="dropdown-menu">
                                             <li>

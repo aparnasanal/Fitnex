@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 import AdminApp.urls
 import UserApp.urls
+import DietApp.urls
 from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
 from fitnex import settings
 
@@ -25,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('AdminApp/', include(AdminApp.urls)),
     path('Fitnex/', include(UserApp.urls)),
+    path('', include(DietApp.urls)),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

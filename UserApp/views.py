@@ -17,10 +17,14 @@ def user_login(request):
     password = request.POST.get('password')
 
     user = authenticate(request, username=username, password=password)
-
     if user is not None:
       login(request, user)
-      return redirect('home')
+
+      next_url = request.POST.get('next')
+      if next_url:
+        return redirect(next_url)
+      else:
+        return redirect('home')
     else:
       messages.error(request, "Invalid Username or Password")
       return redirect('login')
@@ -77,8 +81,13 @@ def profile_setup(request):
 
       profile.save()
 
-      return redirect('home')
-  
+      next_url = request.POST.get('next')
+
+      if next_url:
+          return redirect(next_url)
+      else:
+          return redirect('home')
+      
   return render(request, "profile_setup.html")
 
 

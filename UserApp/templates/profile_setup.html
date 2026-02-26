@@ -16,10 +16,20 @@
                 <p style="padding-bottom: 20px;"><b>Tell us about yourself to unlock your perfect plan.</b></p>
             </div>
             
+            {% if messages %}
+    {% for message in messages %}
+        <div style="color:red;">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
             <form class="login-form" id="loginForm" method="POST" novalidate action="{% url 'profile_setup' %}">
     {% csrf_token %}
 
     <!-- ROW 1 -->
+     <input type="hidden" name="next" value="{{ request.GET.next }}">
+
     <div class="form-row" style="margin-bottom: 50px; margin-top: 50px;">
         <div class="form-group">
             <div class="input-wrapper">

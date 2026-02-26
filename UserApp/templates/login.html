@@ -28,6 +28,16 @@
 
       <form method="post" action="{% url 'login' %}" class="login-form" id="loginForm" novalidate>
         {% csrf_token %}
+
+        <div class="form-group">
+          <div class="input-wrapper">
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+            <label for="username"></label>
+            <span class="input-line"></span>
+          </div>
+          <span class="error-message" id="emailError"></span>
+        </div>
+
         <div class="form-group">
           <div class="input-wrapper">
             <input type="text" id="username" name="username" required autocomplete="username">
