@@ -5,7 +5,25 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
+
+# profile completion
+def is_profile_complete(profile):
+    required_fields = [
+        profile.Age,
+        profile.Weight,
+        profile.Target_weight,
+        profile.Activity_level,
+    ]
+    return all(field is not None and field != "" for field in required_fields)
+
+@login_required
 def homepage(request):
+  if request.user.is_authenticated:
+        profile, created = ProfileDb.objects.get_or_create(user=request.user)
+        if not is_profile_complete(profile):
+          messages.warning(request, "Please complete your profile.")
+          return redirect('profile_setup')
+        
   return render(request, "home.html")
 
 def user_login(request):
@@ -20,11 +38,13 @@ def user_login(request):
     if user is not None:
       login(request, user)
 
-      next_url = request.POST.get('next')
-      if next_url:
-        return redirect(next_url)
+      profile, _ = ProfileDb.objects.get_or_create(user=user)
+      if not is_profile_complete(profile):
+          messages.warning(request, "Please complete your profile.")
+          return redirect('profile_setup')
       else:
         return redirect('home')
+      
     else:
       messages.error(request, "Invalid Username or Password")
       return redirect('login')
@@ -32,6 +52,11 @@ def user_login(request):
   return render(request, "login.html")
 
 def signup(request):
+  if request.user.is_authenticated:
+        profile, _ = ProfileDb.objects.get_or_create(user=request.user)
+        if not is_profile_complete(profile):
+            return redirect('profile_setup')
+        return redirect('home')
   if request.method == "POST":
     username = request.POST.get('username')
     email = request.POST.get('email')
@@ -40,15 +65,15 @@ def signup(request):
 
     if User.objects.filter(username=username).exists():
       messages.error(request, "Username already taken")
-      return redirect(signup)
+      return redirect('signup')
     
     elif User.objects.filter(email=email).exists():
       messages.error(request, "Email already exists")
-      return redirect(signup)
+      return redirect('signup')
     
     elif password != password2:
       messages.error(request, "Passwords do not match")
-      return redirect(signup)
+      return redirect('signup')
 
     user = User.objects.create_user(
             username=username,
@@ -67,7 +92,7 @@ def signup(request):
 @login_required
 def profile_setup(request):
 
-  profile = ProfileDb.objects.get(user=request.user)
+  profile = ProfileDb.objects.get_or_create(user=request.user)[0]
 
   if request.method == "POST":
       profile.Age = request.POST.get('age')
@@ -81,12 +106,7 @@ def profile_setup(request):
 
       profile.save()
 
-      next_url = request.POST.get('next')
-
-      if next_url:
-          return redirect(next_url)
-      else:
-          return redirect('home')
+      return redirect('home')
       
   return render(request, "profile_setup.html")
 
@@ -94,6 +114,8 @@ def profile_setup(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+
 
 
 

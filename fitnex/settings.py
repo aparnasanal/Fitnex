@@ -45,13 +45,30 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
     'rest_framework',
     'AdminApp',
-    'UserApp',
+    'UserApp.apps.UserappConfig',
     'DietApp',
     'WorkoutApp',
     'ProgressApp',
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+  "google" : {
+    "SCOPE" : [
+      "profile",
+      "email"
+    ],
+    "AUTH_PARAMS" : {"access_type" : "online"}
+  }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,7 +78,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
+
+SITE_ID = 2
 
 ROOT_URLCONF = 'fitnex.urls'
 
@@ -136,3 +156,18 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = (
+  "django.contrib.auth.backends.ModelBackend",
+  "allauth.account.auth_backends.AuthenticationBackend"
+)
+
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+
+LOGIN_REDIRECT_URL = '/home/'
+
+LOGOUT_REDIRECT_URL = '/login/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/login/'

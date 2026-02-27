@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  {% load socialaccount %}
   <div class="login-container">
     <div class="login-card">
       <div class="login-header">
@@ -59,6 +60,8 @@
           <span class="error-message" id="passwordError"></span>
         </div>
 
+        
+
         <!-- <div class="form-options">
                     <div class="remember-wrapper">
                         <input type="checkbox" id="remember" name="remember">
@@ -76,6 +79,19 @@
           <span class="btn-glow"></span>
         </button>
       </form>
+
+      <div class="divider">
+        <span>or</span>
+      </div>
+
+      <div class="social-login">
+        <a class="social-btn google-btn" href="{% provider_login_url 'google' %}?next={{ request.GET.next|default:'/' }}" 
+        style="text-decoration: none;">
+          <span class="social-icon google-icon"></span>
+          <span>Continue with Google</span>
+        </a>
+      </div>
+
 
 
       <div class="signup-link">

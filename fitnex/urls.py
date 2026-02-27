@@ -24,9 +24,10 @@ from fitnex import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include("allauth.urls")),
     path('AdminApp/', include(AdminApp.urls)),
-    path('Fitnex/', include(UserApp.urls)),
-    path('', include(DietApp.urls)),
+    path('', include(UserApp.urls)),
+    path('diet/', include(DietApp.urls)),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

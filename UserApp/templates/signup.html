@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  {% load socialaccount %}
   <div class="login-container">
     <div class="login-card">
       <div class="login-header">
@@ -82,14 +83,11 @@
       </div>
 
       <div class="social-login">
-        <button type="button" class="social-btn google-btn">
+        <a class="social-btn google-btn" href="{% provider_login_url 'google' %}?next={{ request.GET.next|default:'/' }}"
+        style="text-decoration: none;">
           <span class="social-icon google-icon"></span>
           <span>Continue with Google</span>
-        </button>
-        <button type="button" class="social-btn apple-btn">
-          <span class="social-icon apple-icon"></span>
-          <span>Continue with Apple</span>
-        </button>
+        </a>
       </div>
 
       <div class="signup-link">

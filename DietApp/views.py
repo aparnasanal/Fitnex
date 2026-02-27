@@ -11,6 +11,14 @@ activity_multipliers = {
     'Active': 1.725,
 } 
 
+def is_profile_complete(profile):
+    return all([
+        profile.Age,
+        profile.Weight,
+        profile.Target_weight,
+        profile.Activity_level
+    ])
+
 @login_required
 def diet_engine(request):
   profile = ProfileDb.objects.get(user=request.user)
