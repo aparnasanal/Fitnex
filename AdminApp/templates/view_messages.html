@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% extends 'dashboard.html' %}
+{% block content %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages</title>
+</head>
+<body>
+
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                <div class="mdc-card p-0">
+                  <h6 class="card-title card-padding pb-0">Messages</h6>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="text-center">NAME</th>
+                          <th class="text-center">EMAIL</th>
+                          <th class="text-center">SUBJECT</th>
+                          <th class="text-center">MESSAGE</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for m in msg %}
+                        <tr>
+                          <td class="text-center">{{m.Name}}</td>
+                          <td class="text-center">{{m.Email}}</td>
+                          <td class="text-center">{{m.Subject}}</td>
+                          <td class="text-center">{{m.Message}}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                          
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+ 
+</body>
+</html>
+{% endblock %}

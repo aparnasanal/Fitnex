@@ -13,4 +13,7 @@ urlpatterns = [
 
   path('profile_setup/', views.profile_setup, name="profile_setup"),
 
+
+  path('contact/', views.contact, name="contact"),
+  path('save_message/', views.save_message, name="save_message"),
 ]

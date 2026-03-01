@@ -7,7 +7,9 @@ urlpatterns = [
   path('admin_login/', views.admin_login, name="admin_login"),
   path('admin_logout/', views.admin_logout, name="admin_logout"),
 
-  path('add_msucle', views.add_muscle, name="add_muscle"),
-  path('save_muscle', views.save_muscle, name="save_muscle"),
-  path('view_muscle', views.view_muscle, name="view_muscle"),
+  path('add_msucle/', views.add_muscle, name="add_muscle"),
+  path('save_muscle/', views.save_muscle, name="save_muscle"),
+  path('view_muscle/', views.view_muscle, name="view_muscle"),
+
+  path('view_messages/', views.view_message, name="view_messages"),
 ]

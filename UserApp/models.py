@@ -43,3 +43,10 @@ class ProfileDb(models.Model):
 
   def __str__(self):
         return self.user.username
+  
+
+class ContactDb(models.Model):
+    Name = models.CharField(max_length=100)
+    Email = models.EmailField(max_length=100)
+    Subject = models.CharField(max_length=200)
+    Message = models.TextField()

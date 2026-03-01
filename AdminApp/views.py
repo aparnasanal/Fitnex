@@ -4,6 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from AdminApp.models import *
+from UserApp.models import *
 
 # Create your views here.
 
@@ -58,3 +59,7 @@ def view_muscle(request):
   muscles = MuscleDb.objects.all()
   return render(request, "view_muscle.html",
                 {"mus" : muscles})
+
+def view_message(request):
+   msg = ContactDb.objects.all()
+   return render(request, "view_messages.html", {"msg" : msg})

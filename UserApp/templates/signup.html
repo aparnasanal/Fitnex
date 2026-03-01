@@ -27,13 +27,13 @@
       {% endfor %}
       {% endif %}
 
-      <form method="post" class="login-form" id="loginForm" novalidate action="{% url 'signup' %}">
+      <form method="post" class="login-form" id="loginForm" onsubmit="return password_validation()" novalidate action="{% url 'signup' %}">
         {% csrf_token %}
         <div class="form-group">
           <div class="input-wrapper">
             <input type="text" id="username" name="username" required autocomplete="username">
             <label for="username">Username</label>
-            <span class="input-line"></span>
+            <span id="userError" style="color: red;"></span>
           </div>
           <span class="error-message" id="userError"></span>
         </div>
@@ -42,22 +42,22 @@
           <div class="input-wrapper">
             <input type="email" id="email" name="email" required autocomplete="email">
             <label for="email">Email</label>
-            <span class="input-line"></span>
+            <span id="emailError" style="color: red;"></span>
           </div>
           <span class="error-message" id="emailError"></span>
         </div>
 
         <div class="form-group">
           <div class="input-wrapper password-wrapper">
-            <input type="password" id="password" name="password" required autocomplete="current-password">
-            <label for="password">Password</label>
+            <input type="password" id="password1" name="password1" required autocomplete="current-password">
+            <label for="password1">Password</label>
             <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
               <span class="toggle-icon"></span>
             </button>
-            <span class="input-line"></span>
+            
           </div>
-          <span class="error-message" id="passwordError"></span>
-        </div>
+          <span id="pass1Error" style="color: red;"></span>
+        </div><br>
 
         <div class="form-group">
           <div class="input-wrapper password-wrapper">
@@ -68,8 +68,8 @@
             </button>
             <span class="input-line"></span>
           </div>
-          <span class="error-message" id="password2Error"></span>
-        </div>
+          <span id="pass2Error" style="color: red;"></span>
+        </div><br>
 
         <button type="submit" class="login-btn btn">
           <span class="btn-text">Create Account</span>
@@ -110,6 +110,28 @@
 
   <!-- <script src="../../shared/js/form-utils.js"></script> -->
   <!-- <script src="{% static 'login/js/script.js' %}"></script> -->
+
+  <script>
+    function password_validation(){
+      pass1 = document.getElementById('password1').value;
+
+      // clear errors
+      document.getElementById('pass1Error').innerHTML = ""
+
+      // strong password pattern
+
+      pattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/
+
+      if(!pattern.test(pass1)){
+        document.getElementById('pass1Error').innerHTML = "Password must contain atleast 6 characters including 1 Upper Case, 1 Special Character and 1 Digit."
+        return false;
+      }
+
+      else{
+        return true;
+      }
+    }
+  </script>
 </body>
 
 </html>

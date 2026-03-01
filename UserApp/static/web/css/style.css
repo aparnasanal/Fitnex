@@ -2267,23 +2267,14 @@ h3 {
   }
 }
 
-/* line 1, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_catagory.scss */
-.cat_bg_1 {
-  background-image: url(../img/catagory/1.png);
-}
-
-/* line 4, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_catagory.scss */
-.cat_bg_2 {
-  background-image: url(../img/catagory/2.png);
-}
 
 /* line 8, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_catagory.scss */
 .catagory_area .single_catagory {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  padding: 186px 0;
-  background-size: 100% 100%;
+  padding: 120px 0;
+  background-size: cover;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
@@ -2293,14 +2284,14 @@ h3 {
 @media (max-width: 767px) {
   /* line 8, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_catagory.scss */
   .catagory_area .single_catagory {
-    padding: 136px 0;
+    padding: 100px 0;
   }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
   /* line 8, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_catagory.scss */
   .catagory_area .single_catagory {
-    padding: 136px 20px;
+    padding: 100px 20px;
   }
 }
 
@@ -2338,7 +2329,7 @@ h3 {
 
 /* line 47, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_catagory.scss */
 .catagory_area .single_catagory:hover {
-  background-size: 105% 105%;
+  transform: scale(1.05);
 }
 
 /* line 1, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_features.scss */
@@ -6418,3 +6409,34 @@ h6 {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.single_catagory {
+    height: 200px !important;
+    aspect-ratio: auto;
+}
+
+.muscle-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.muscle-img {
+    width: 100%;
+    display: block;
+}
+
+.muscle-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    z-index: 2;
+}
