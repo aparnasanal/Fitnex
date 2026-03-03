@@ -11,5 +11,11 @@ urlpatterns = [
   path('save_muscle/', views.save_muscle, name="save_muscle"),
   path('view_muscle/', views.view_muscle, name="view_muscle"),
 
+  path('add_workout/', views.add_workout, name="add_workout"),
+  path('save_workout/', views.save_workout, name="save_workout"),
+  path('view_workout/', views.view_workout, name="view_workout"),
+  path('delete_workout/<int:w_id>/', views.delete_workout, name="delete_workout"),
+
+
   path('view_messages/', views.view_message, name="view_messages"),
 ]

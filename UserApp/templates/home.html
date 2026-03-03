@@ -62,7 +62,7 @@
                                             <li><a href="{% url 'diet' %}">
                                                     My Diet
                                                 </a></li>
-                                            <li><a href="pricing.html">pricing</a></li>
+                                            <li><a href="{% url 'workout_videos' %}">Workouts</a></li>
                                             <li><a href="gallery.html">gallery</a></li>
                                             <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
@@ -188,7 +188,7 @@
                      style="background-image: url('{{ m.M_Image.url }}');">
 
                     <h3>{{ m.M_Name }}</h3>
-                    <a href="#" class="boxed-btn3 mt-3" style="margin-bottom: 10px;">Train Now</a>
+                    <a href="{% url 'filtered_workout' m_name=m.M_Name %}" class="boxed-btn3 mt-3" style="margin-bottom: 10px;">Train Now</a>
 
                 </div>
             </div>

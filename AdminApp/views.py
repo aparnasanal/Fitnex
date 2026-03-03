@@ -63,3 +63,30 @@ def view_muscle(request):
 def view_message(request):
    msg = ContactDb.objects.all()
    return render(request, "view_messages.html", {"msg" : msg})
+
+def add_workout(request):
+   muscle = MuscleDb.objects.all()
+   return render(request, "add_workout.html",
+                 {"muscle" : muscle})
+
+def save_workout(request):
+   if request.method == "POST":
+      name = request.POST.get('name')
+      muscle = request.POST.get('m_group')
+      description = request.POST.get('description')
+      video = request.FILES['video']
+
+      obj = WorkoutDb(Name=name, Muscle_Group=muscle, Description=description, Video=video)
+      obj.save()
+
+      return redirect(add_workout)
+
+def view_workout(request):
+   videos = WorkoutDb.objects.all()
+   return render(request, "view_workout.html", {"videos" : videos})
+
+def delete_workout(request, w_id):
+   workout = WorkoutDb.objects.filter(id=w_id)
+   workout.delete()
+
+   return redirect(view_workout)

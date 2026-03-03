@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends 'dashboard.html' %}
+{% block content %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages</title>
+</head>
+<body>
+
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                <div class="mdc-card p-0">
+                  <h6 class="card-title card-padding pb-0">WORKOUT VIDEOS</h6>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="text-center">NAME</th>
+                          <th class="text-center">MUSCLE GROUP</th>
+                          <th class="text-center">DESCRIPTION</th>
+                          <th class="text-center">VIDEO</th>
+                          <th class="text-center">OPTIONS</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for v in videos %}
+                        <tr>
+                          <td class="text-center">{{v.Name}}</td>
+                          <td class="text-center">{{v.Muscle_Group}}</td>
+                          <td class="text-center">{{v.Description}}</td>
+                          <td class="text-center">
+                            <video src="{{v.Video.url}}" height="80px" width="100px" alt="">
+                          </td>
+                          <td class="text-center">
+                            <a href="" class="btn btn-primary" style="margin-right: 10px;">Edit</a>
+                            <a href="{% url 'delete_workout' w_id=v.id %}" class="btn btn-danger" style="margin-right: 10px;">Delete</a>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                        
+                          
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+ 
+</body>
+</html>
+{% endblock %}
