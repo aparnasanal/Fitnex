@@ -92,7 +92,16 @@
         <!-- header-end -->
 
 <div class="container mt-5 pt-5">
-  <div class="row">
+    <div>
+    <a href="{% url 'ai_suggestions' %}" class="ai-float-btn">
+    <img src="{% static 'img/ai-logo.jpg' %}"
+         width="22"
+         class="ai-icon">
+    AI Workout
+</a>
+
+    </div>
+  <div class="row mt-5">
     {% for i in workout %}
     <div class="col-md-3 mb-4">
     <video class="workout-video" height="400px" width="200px" controls muted>
@@ -261,6 +270,38 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!-- footer_end  -->
+
+    <!-- Style -->
+     <style>
+        a.ai-float-btn {
+    position: fixed;
+    left: 30px;
+    top: 150px;
+    background: linear-gradient(90deg, #8b0000, #570000) !important;
+    color: white !important;
+    padding: 12px 20px !important;
+    border-radius: 50px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    box-shadow: 0 0 15px rgba(185, 1, 1, 0.968);
+    z-index: 999;
+}
+
+a.ai-float-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    color: white;
+}
+
+a.ai-icon {
+    width: 22px;
+    height: 22px;
+    filter: brightness(0) invert(1); /* makes logo white */
+}
+     </style>
 
     <!-- JS here -->
     <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>

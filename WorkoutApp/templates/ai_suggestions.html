@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Diet</title>
+    <title>AI Workout Suggestion</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -52,8 +52,8 @@
                                         <nav>
                                             <ul id="navigation">
                                                 <li><a href="{% url 'home' %}">home</a></li>
-                                                <li><a class="active" href="{% url 'diet' %}">my diet</a></li>
-                                                <li><a href="{% url 'workout_videos' %}">workouts</a></li>
+                                                <li><a href="{% url 'diet' %}">my diet</a></li>
+                                                <li><a class="active" href="{% url 'workout_videos' %}">workouts</a></li>
                                                 <li><a href="gallery.html">gallery</a></li>
                                                 <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                                     <ul class="submenu">
@@ -93,13 +93,27 @@
 
 <div class="container mt-5 pt-5">
 
-    <h2 class="fw-bold text-light mt-5 mb-4">
-        Your Daily Calorie Target: {{ calories }} kcal
-    </h2>
+   <h2 class="text-white fw-bold mb-4 mt-5">AI Suggested 6-Day Workout Plan</h2>
 
-    <div class="card bg-dark text-light p-4 shadow">
-        {{ diet_plan|linebreaks }}
+{% for day, exercises in workouts.items %}
+<h3 class="text-white">{{ day }}</h3>
+<div class="row mb-4">
+    {% for ex in exercises %}
+    <div class="col-md-4 mb-3">
+        <div class="card bg-dark text-light p-3 shadow">
+            <h5 style="color: #ffc107; text-shadow: 0 0 6px rgba(255, 193, 7, 0.5);">{{ ex.name }}</h5>
+            <h6>Muscle Group: {{ ex.muscle_group }}</h6>
+            <p>{{ ex.description }}</p>
+            <p>Experience Level: {{ ex.experience_level }}</p>
+
+            {% if ex.video_url %}
+            <video src="{{ ex.video_url }}" controls muted width="100%" style="margin-top:10px;"></video>
+            {% endif %}
+        </div>
     </div>
+    {% endfor %}
+</div>
+{% endfor %}
 
 </div>
 
