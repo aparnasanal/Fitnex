@@ -73,6 +73,14 @@ def signup(request):
             messages.error(request, "Email can't be empty")
             return redirect('signup')
     
+    if not password1:
+        messages.error(request, "Enter a Password")
+        return redirect('signup')
+
+    if not password2:
+        messages.error(request, "Enter Confirm Password")
+        return redirect('signup')
+    
     if password1 != password2:
             messages.error(request, "Passwords do not match")
             return redirect('signup')

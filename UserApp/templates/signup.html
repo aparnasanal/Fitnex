@@ -113,14 +113,37 @@
 
   <script>
     function password_validation(){
+      username = document.getElementById('username').value;
+      email = document.getElementById('email').value;
       pass1 = document.getElementById('password1').value;
-
-      // clear errors
-      document.getElementById('pass1Error').innerHTML = ""
+      pass2 = document.getElementById('password2').value;
 
       // strong password pattern
 
       pattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/
+
+      // clear errors
+      document.getElementById('userError').innerHTML = ""
+      document.getElementById('emailError').innerHTML = ""
+      document.getElementById('pass1Error').innerHTML = ""
+      document.getElementById('pass2Error').innerHTML = ""
+
+
+      if(username == ""){
+        document.getElementById('userError').innerHTML = "Please enter username"
+      }
+
+      if(email == ""){
+        document.getElementById('emailError').innerHTML = "Please enter email address"
+      }
+
+      if(pass1 == ""){
+        document.getElementById('pass1Error').innerHTML = "Please enter password"
+      }
+
+      if(pass2 == ""){
+        document.getElementById('pass2Error').innerHTML = "Please enter confirm password"
+      }
 
       if(!pattern.test(pass1)){
         document.getElementById('pass1Error').innerHTML = "Password must contain atleast 6 characters including 1 Upper Case, 1 Special Character and 1 Digit."
