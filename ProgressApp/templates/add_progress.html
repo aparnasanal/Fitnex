@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Progress</title>
+  <link rel="stylesheet" href="{% static 'login/css/style.css' %}">
+</head>
+
+<body>
+
+  <div class="login-container" style="max-width:1300px;margin:auto;">
+    <div class="login-card" style="max-width:1200px;width:100%;margin:auto;">
+
+      <div class="login-header">
+        <h2 style="padding-top:20px;"><b>ADD PROGRESS</b></h2>
+        <p style="padding-bottom:20px;"><b>Track your body stats and improvements.</b></p>
+      </div>
+
+      {% if messages %}
+      {% for message in messages %}
+      <div style="color:red;">
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      <form class="login-form" method="post" action="{% url 'save_progress' %}">
+        {% csrf_token %}
+
+        <!-- DATE -->
+
+        <div class="form-group" style="width:200px;margin-top:50px;">
+          <div class="input-wrapper">
+            <input type="date" name="date" required>
+            <label class="active">Date</label>
+            <span class="input-line"></span>
+          </div>
+        </div>
+
+
+        <h3 style="margin-top:40px;margin-bottom:20px;color:white;">Personal Details</h3>
+
+        <div class="form-row" style="margin-bottom:50px;">
+
+          <div class="form-group">
+            <div class="input-wrapper">
+              <input type="text" name="bodyweight" required>
+              <label>Weight (kg)</label>
+              <span class="input-line"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-wrapper">
+              <input type="text" name="bodyfat" required>
+              <label>Body Fat (%)</label>
+              <span class="input-line"></span>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- WORKOUT SECTION -->
+
+        <h3 style="margin-bottom:20px;color:white;">Workout Details</h3>
+
+        <div id="workout-container">
+
+          <div class="form-row workout-row">
+
+            <div class="form-group" style="width:200px;">
+              <div class="input-wrapper">
+                <select name="workout[]" required name="workout[]">
+                  <option value="" disabled selected hidden></option>
+                  {% for w in workouts %}
+                  <option value="{{w.id}}">{{w.Name}}</option>
+                  {% endfor %}
+                </select>
+                <label>Workout</label>
+              </div>
+            </div>
+
+            <div class="form-group" style="width:200px;">
+              <div class="input-wrapper">
+                <input type="number" name="weight[]" placeholder=" ">
+                <label>Weight (kg)</label>
+              </div>
+            </div>
+
+            <div class="form-group" style="width:200px;">
+              <div class="input-wrapper">
+                <input type="number" name="reps[]" placeholder=" ">
+                <label>Reps</label>
+              </div>
+            </div>
+
+            <div class="form-group" style="width:200px;">
+              <div class="input-wrapper">
+                <input type="number" name="sets[]" placeholder=" ">
+                <label>Sets</label>
+              </div>
+            </div>
+
+            <div class="form-group remove-btn">
+              <button type="button" onclick="removeExercise(this)">❌</button>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ADD EXERCISE BUTTON -->
+
+        <button type="button" onclick="addExercise()"
+          style="margin-top:20px;background:#ff2e63;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;">
+          + Add Exercise
+        </button>
+
+
+        <!-- SAVE BUTTON -->
+
+        <button type="submit" class="login-btn btn" style="width:50%;margin-left:300px;margin-top:40px;">
+          <span class="btn-text">Save Progress</span>
+        </button>
+
+      </form>
+
+    </div>
+
+    <div class="background-effects">
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="glow-orb glow-orb-2"></div>
+      <div class="glow-orb glow-orb-3"></div>
+    </div>
+
+  </div>
+
+
+  <style>
+    input[type="date"]~label {
+      top: -20px;
+      font-size: 12px;
+    }
+
+    .input-wrapper label.active {
+      top: -18px;
+      font-size: 12px;
+    }
+
+    /* grey text like date */
+
+    input[type="number"] {
+      color: #bfbfbf;
+    }
+
+    .input-wrapper label {
+      color: #bfbfbf !important;
+    }
+
+    .form-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .remove-btn button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      height: 42px;
+    }
+
+    .workout-row:first-child .remove-btn {
+      display: none;
+    }
+  </style>
+
+
+  <script>
+
+    function addExercise() {
+
+      let container = document.getElementById("workout-container");
+
+      let firstRow = document.querySelector(".workout-row");
+
+      let newRow = firstRow.cloneNode(true);
+
+      let inputs = newRow.querySelectorAll("input, select");
+
+      inputs.forEach(input => {
+        input.value = "";
+      });
+
+      container.appendChild(newRow);
+
+    }
+
+    function removeExercise(button) {
+
+      let row = button.closest(".workout-row");
+
+      let container = document.getElementById("workout-container");
+
+      if (container.children.length > 1) {
+        row.remove();
+      }
+
+    }
+  </script>
+
+  <script src="{% static 'login/js/script.js' %}"></script>
+
+</body>
+
+</html>
