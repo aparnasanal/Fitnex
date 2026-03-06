@@ -364,9 +364,9 @@ a.graph-icon {
   <script src="{% static 'web/js/main.js' %}"></script>
 
 <script>
+  
 let goal = "{{ goal }}";
 let chartColor = "#00ff9d";
-
 if(goal == "Fat Loss") chartColor = "#00e5ff";
 if(goal == "Muscle Gain") chartColor = "#ff4c4c";
 if(goal == "Maintenance") chartColor = "#ffa500";
@@ -374,60 +374,164 @@ if(goal == "Maintenance") chartColor = "#ffa500";
 let dates = JSON.parse('{{ dates|escapejs }}');
 let weights = JSON.parse('{{ weights|escapejs }}');
 let body_fats = JSON.parse('{{ body_fats|escapejs }}');
-
-let raw_labels = JSON.parse('{{ strength_labels|escapejs }}');
-let raw_data = JSON.parse('{{ strength_data|escapejs }}');
+let strength_labels = JSON.parse('{{ strength_labels|escapejs }}');
+let strength_data = JSON.parse('{{ strength_data|escapejs }}');
 
 // Weight Chart
 new Chart(document.getElementById("weightChart"), {
-    type:'line',
-    data:{ labels: dates, datasets:[{ label: 'Weight (kg)', data: weights, borderColor: chartColor, backgroundColor: 'rgba(255,76,76,0.2)', tension: 0.4 }] },
-    options: { responsive:true }
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: [{
+            label: 'Weight (kg)',
+            data: weights,
+            borderColor: chartColor,
+            backgroundColor: 'rgba(255,76,76,0.2)',
+            tension: 0.4
+        }]
+    },
+    options: { responsive: true }
 });
 
 // Body Fat Chart
 new Chart(document.getElementById("fatChart"), {
-    type:'line',
-    data:{ labels: dates, datasets:[{ label: 'Body Fat %', data: body_fats, borderColor: '#00e5ff', backgroundColor: 'rgba(0,229,255,0.2)', tension: 0.4 }] },
-    options: { responsive:true }
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: [{
+            label: 'Body Fat %',
+            data: body_fats,
+            borderColor: '#00e5ff',
+            backgroundColor: 'rgba(0,229,255,0.2)',
+            tension: 0.4
+        }]
+    },
+    options: { responsive: true }
 });
 
-// Strength Chart
-let labels = [];
-let data = [];
-let colors = [];
-let workoutMax = {};
+// Strength Chart — One bar per exercise (date stripped from label)
+// Shows most recent weight with green/red difference vs previous session
 
-for (let i = 0; i < raw_labels.length; i++) {
-    let workout = raw_labels[i].trim();
-    let weight = parseFloat(raw_data[i]);
+let exerciseHistory = {};  // { exerciseName: [w1, w2, ...] }
+let exerciseOrder = [];    // preserve first-seen order
 
-    labels.push(workout);
+for (let i = 0; i < strength_labels.length; i++) {
+    // Strip the date portion: "Bicep Curls (2026-03-06)" → "Bicep Curls"
+    let rawLabel = strength_labels[i];
+    let workout = rawLabel.replace(/\s*\(\d{4}-\d{2}-\d{2}\)\s*$/, '').trim();
+    let weight = parseFloat(strength_data[i]);
 
-    if (!(workout in workoutMax)) {
-        data.push(weight);
-        colors.push('#FFD700'); // first lift yellow
-        workoutMax[workout] = weight;
+    if (!(workout in exerciseHistory)) {
+        exerciseHistory[workout] = [];
+        exerciseOrder.push(workout);
+    }
+    exerciseHistory[workout].push(weight);
+}
+
+let chartLabels = [];
+let baseData = [];
+let deltaData = [];
+let baseColors = [];
+let deltaColors = [];
+
+for (let workout of exerciseOrder) {
+    let history = exerciseHistory[workout];
+    let latest = history[history.length - 1];
+    let prev = history.length >= 2 ? history[history.length - 2] : null;
+
+    chartLabels.push(workout);
+
+    if (prev === null) {
+        // Only one session — full yellow, no delta
+        baseData.push(latest);
+        baseColors.push('#FFD700');
+        deltaData.push(0);
+        deltaColors.push('rgba(0,0,0,0)');
+
     } else {
-        let prevMax = workoutMax[workout];
-        if (weight > prevMax) {
-            data.push(weight - prevMax);
-            colors.push('#3EFFC1'); // green
-            workoutMax[workout] = weight;
-        } else if (weight < prevMax) {
-            data.push(prevMax - weight);
-            colors.push('#ff4c4c'); // red
+        let diff = latest - prev;
+
+        if (diff > 0) {
+            // Increased — yellow base up to prev, green on top
+            baseData.push(prev);
+            baseColors.push('#FFD700');
+            deltaData.push(diff);
+            deltaColors.push('#3EFFC1');
+
+        } else if (diff < 0) {
+            // Decreased — yellow base up to latest, red on top
+            baseData.push(latest);
+            baseColors.push('#FFD700');
+            deltaData.push(Math.abs(diff));
+            deltaColors.push('#ff4c4c');
+
         } else {
-            data.push(0);
-            colors.push('#FFD700'); // same weight → yellow
+            // Same weight — full yellow, no delta
+            baseData.push(latest);
+            baseColors.push('#FFD700');
+            deltaData.push(0);
+            deltaColors.push('rgba(0,0,0,0)');
         }
     }
 }
 
 new Chart(document.getElementById("strengthChart"), {
     type: 'bar',
-    data: { labels: labels, datasets: [{ label: 'Strength Progress', data: data, backgroundColor: colors }] },
-    options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    data: {
+        labels: chartLabels,
+        datasets: [
+            {
+                label: 'Weight (kg)',
+                data: baseData,
+                backgroundColor: baseColors,
+                stack: 'strength',
+                borderRadius: 0
+            },
+            {
+                label: 'Change',
+                data: deltaData,
+                backgroundColor: deltaColors,
+                stack: 'strength',
+                borderRadius: 4
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let idx = context.dataIndex;
+                        let base = baseData[idx];
+                        let delta = deltaData[idx];
+                        let total = base + delta;
+                        let color = deltaColors[idx];
+
+                        if (context.datasetIndex === 0) {
+                            return `Latest: ${total} kg`;
+                        }
+                        if (delta === 0) return null;
+
+                        let direction = color === '#3EFFC1' ? '▲' : '▼';
+                        return `${direction} ${delta} kg vs previous session`;
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                stacked: true,
+                ticks: { maxRotation: 45, minRotation: 20 }
+            },
+            y: {
+                stacked: true,
+                beginAtZero: true,
+                title: { display: true, text: 'Weight (kg)' }
+            }
+        }
+    }
 });
 </script>
 
