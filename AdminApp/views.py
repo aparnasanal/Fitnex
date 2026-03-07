@@ -3,13 +3,114 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+
 from AdminApp.models import *
 from UserApp.models import *
+from WorkoutApp.models import *
+from DietApp.models import *
+from ProgressApp.models import *
+
+from django.utils import timezone
+from datetime import timedelta
+from django.db.models import Count
 
 # Create your views here.
 
 def dashboard(request):
-  return render(request, "dashboard.html")
+   
+   #------------------------- users card ----------------------------
+  total_users = User.objects.count()
+  
+  two_days_ago = timezone.now() - timedelta(days=2)
+  active_users = ProfileDb.objects.filter(user__last_login__gte=two_days_ago).count()
+  
+  five_days_ago = timezone.now() - timedelta(days=5)
+  new_signups = User.objects.filter(date_joined__gte=five_days_ago).count()
+  
+  incomplete_profiles = ProfileDb.objects.filter(Age__isnull=True) | ProfileDb.objects.filter(
+         Weight__isnull=True) | ProfileDb.objects.filter(Height__isnull=True) | ProfileDb.objects.filter(
+        Goal__isnull=True) | ProfileDb.objects.filter(Activity_level__isnull=True)
+  incomplete_count = incomplete_profiles.count()
+  
+  today = timezone.now().date()
+  workouts_today = WorkoutLog.objects.filter(date_logged__date=today).count()
+  
+  #-------------- chart ----------------------------------------
+  
+  today = timezone.now().date()
+  seven_days_ago = today - timedelta(days=6)  #including today
+  
+  labels = [(today - timedelta(days=i)).strftime("%d %b") for i in reversed(range(7))]    # labels for 7 days
+  
+  # Users active per day
+  active_users_counts = []
+  for i in reversed(range(7)):
+     day = today - timedelta(days=i)
+     count = User.objects.filter(last_login__date=day).count()
+     active_users_counts.append(count)
+
+   # New signups per day
+  new_signups_counts = []
+  for i in reversed(range(7)):
+     day = today - timedelta(days=i)
+     count = User.objects.filter(date_joined__date=day).count()
+     new_signups_counts.append(count)
+
+   # Workouts logged per day
+  workouts_counts = []
+  for i in reversed(range(7)):
+     day = today - timedelta(days=i)
+     count = WorkoutLog.objects.filter(date_logged__date=day).count()
+     workouts_counts.append(count)
+     
+     # ------------------------ Table -------------------------
+     
+  recent_signups = User.objects.order_by('-date_joined')[:5]
+  recent_workouts = WorkoutLog.objects.select_related('user', 'workout').order_by('-date_logged')[:5]
+  
+  # ------------Top workouts --------------------------
+  top_workouts_raw = (
+    WorkoutLog.objects.values('workout__Name')
+    .annotate(total_logged=Count('id'))
+    .order_by('-total_logged')[:5]
+)
+  # Find the maximum count for scaling
+  max_count = max([w['total_logged'] for w in top_workouts_raw], default=1)
+
+# Add a 'bar_width' field (percentage)
+  top_workouts = []
+  for w in top_workouts_raw:
+      width = int((w['total_logged'] / max_count) * 100)  # scale to 0-100%
+      top_workouts.append({
+        'workout__Name': w['workout__Name'],
+        'total_logged': w['total_logged'],
+        'bar_width': width,
+    })
+      
+  
+  context = {
+        'total_users': total_users,
+        'active_users': active_users,
+        'new_signups': new_signups,
+        'incomplete_profiles': incomplete_count,
+        'workouts_today': workouts_today,
+        # chart
+        'labels': labels,
+        'active_users_counts': active_users_counts,
+        'new_signups_counts': new_signups_counts,
+        'workouts_counts': workouts_counts,
+        'total_users': User.objects.count(),
+        'active_users': sum(active_users_counts),
+        'new_signups': sum(new_signups_counts),
+        'workouts_today': WorkoutLog.objects.filter(date_logged__date=today).count(),
+        # table
+        'recent_signups': recent_signups,
+        'recent_workouts': recent_workouts,
+        # top workouts
+        'top_workouts' : top_workouts,
+    }
+
+  return render(request, "dashboard.html", context)
 
 def admin_loginpage(request):
   return render(request, "admin_loginpage.html")
@@ -34,8 +135,8 @@ def admin_login(request):
 
 
 def admin_logout(request):
-    del request.session['username']
-    del request.session['password']
+    request.session.pop('username', None)
+    request.session.pop('password', None)
     return redirect(admin_loginpage)
 
 def view_message(request):

@@ -8,110 +8,114 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="mdc-layout-grid">
-            <form action="{% url 'update_workout' work_id=workout.id %}" method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              <div class="mdc-layout-grid__inner">
-              <div class="mdc-layout-grid__cell--span-8">
-                <div class="mdc-card">
-                  <h6 class="card-title">Edit Workout</h6>
-                  <div class="template-demo">
-                    <div class="mdc-layout-grid__inner">
-                    
-                      <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-10-desktop">
-                        <div>
-                          <div class="mt-5">
-                            <p><b><i>Workout Name</i></b></p>
-                          </div>
-                        <div class="mdc-text-field mdc-text-field--outlined">
-                          <input class="mdc-text-field__input" id="text-field-hero-input" type="text" name="name" value="{{workout.Name}}">
-                          <div class="mdc-notched-outline mdc-notched-outline--upgraded">
-                            
-                            <div class="mdc-notched-outline__leading"></div>
-                            <div class="mdc-notched-outline__trailing"></div>
-                          </div>
-                        </div>
-                        </div>
-                        
-                      </div>
+<div class="mdc-layout-grid">
 
-                      <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-10-desktop">
-                        <div>
-                          <div class="mt-5">
-                            <p><b><i>Muscle Group Name</i></b></p>
-                          </div>
-                        <div class="mdc-text-field mdc-text-field--outlined">
-                          <select class="mdc-text-field__input" id="text-field-hero-input" type="text" name="m_group">
-                            <option selected>{{workout.Muscle_Group}}</option>
-                            {% for m in muscles %}
-                            <option value="{{m.M_Name}}">{{m.M_Name}}</option>
-                            {% endfor %}
-                          </select>
-                          
-                          <div class="mdc-notched-outline mdc-notched-outline--upgraded">
-                            
-                            <div class="mdc-notched-outline__leading"></div>
-                            <div class="mdc-notched-outline__trailing"></div>
-                          </div>
-                        </div>
-                        </div>
-                        
-                      </div>
+  <div style="max-width:800px; margin:40px auto; box-shadow: 2px 2px 10px 2px grey;">
 
+    <div class="mdc-card" style="padding:40px; width:100%;">
 
-                      <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-10-desktop">
-                        <div>
-                          <div class="mt-5">
-                            <p><b><i>Description</i></b></p>
-                          </div>
-                        <div class="mdc-text-field mdc-text-field--outlined">
-                          <input class="mdc-text-field__input" id="text-field-hero-input" type="text" name="description" value="{{workout.Description}}">
-                          <div class="mdc-notched-outline mdc-notched-outline--upgraded">
-                            
-                            <div class="mdc-notched-outline__leading"></div>
-                            <div class="mdc-notched-outline__trailing"></div>
-                          </div>
-                        </div>
-                        </div>
-                        
-                      </div>
+      <h4 style="text-align:center; margin-bottom:30px;">Edit Workout</h4>
 
+      <form action="{% url 'update_workout' work_id=workout.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
 
-                      
-                       <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8-desktop">
-                        <div>
-                          <div class="mt-5">
-                            <p><b><i>Upload Video</i></b></p>
-                          </div>
-                          <video height="300px" width="200px">
-                            <source src="{{workout.Video.url}}">
-                          </video>
-                        <div class="mdc-text-field mdc-text-field--outlined"></div>
-                          <input class="mdc-text-field__input" type="file" id="text-field-hero-input" name="video">
-                          <div class="mdc-notched-outline mdc-notched-outline--upgraded">
-                            <div class="mdc-notched-outline__leading"></div>
-                            
-                            <div class="mdc-notched-outline__trailing"></div>
-                          </div>
-                        </div>
-                        </div>
-                          
-                      </div> 
-                        
-                      </div>
+        <!-- Workout Name -->
+        <div class="mt-4">
+          <p><b><i>Workout Name</i></b></p>
 
-                      <button class="mdc-button mdc-button--raised mdc-ripple-upgraded mt-5" type="submit">
-                      Submit
-                    </button>
+          <div class="mdc-text-field mdc-text-field--outlined" style="width:100%;">
+            <input class="mdc-text-field__input" type="text" name="name" value="{{workout.Name}}">
 
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-            
+            <div class="mdc-notched-outline">
+              <div class="mdc-notched-outline__leading"></div>
+              <div class="mdc-notched-outline__trailing"></div>
             </div>
           </div>
+        </div>
+
+
+        <!-- Muscle Group -->
+        <div class="mt-4">
+          <p><b><i>Muscle Group Name</i></b></p>
+
+          <div class="mdc-text-field mdc-text-field--outlined" style="width:100%;">
+            <select class="mdc-text-field__input" name="m_group">
+
+              <option selected>{{workout.Muscle_Group}}</option>
+
+              {% for m in muscles %}
+              <option value="{{m.M_Name}}">
+                {{m.M_Name}}
+              </option>
+              {% endfor %}
+
+            </select>
+
+            <div class="mdc-notched-outline">
+              <div class="mdc-notched-outline__leading"></div>
+              <div class="mdc-notched-outline__trailing"></div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Description -->
+        <div class="mt-4">
+          <p><b><i>Description</i></b></p>
+
+          <div class="mdc-text-field mdc-text-field--outlined" style="width:100%;">
+            <textarea class="mdc-text-field__input" name="description" rows="4">{{workout.Description}}</textarea>
+
+            <div class="mdc-notched-outline">
+              <div class="mdc-notched-outline__leading"></div>
+              <div class="mdc-notched-outline__trailing"></div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Current Video -->
+        <div class="mt-4">
+          <p><b><i>Current Video</i></b></p>
+
+          <video width="100%" height="300" controls>
+            <source src="{{workout.Video.url}}">
+          </video>
+        </div>
+
+
+        <!-- Upload New Video -->
+        <div class="mt-4">
+          <p><b><i>Upload New Video</i></b></p>
+
+          <div class="mdc-text-field mdc-text-field--outlined" style="width:100%;">
+            <input class="mdc-text-field__input" type="file" name="video">
+
+            <div class="mdc-notched-outline">
+              <div class="mdc-notched-outline__leading"></div>
+              <div class="mdc-notched-outline__trailing"></div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Submit -->
+        <div style="text-align:center; margin-top:30px;">
+          <button class="mdc-button mdc-button--raised" type="submit">
+            Update Workout
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+            
+            
+           
 </body>
 </html>
 {% endblock %}

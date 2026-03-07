@@ -1,7 +1,7 @@
-
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,8 +20,9 @@
   <!-- End layout styles -->
   <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
 </head>
+
 <body>
-<script src="{% static 'assets/js/preloader.js' %}"></script>
+  <script src="{% static 'assets/js/preloader.js' %}"></script>
   <div class="body-wrapper">
     <!-- partial:partials/_sidebar.html -->
     <aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
@@ -39,20 +40,15 @@
         <div class="mdc-list-group">
           <nav class="mdc-list mdc-drawer-menu">
             <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-drawer-link" href="index.html">
+              <a class="mdc-drawer-link" href="{% url 'dashboard' %}">
                 <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">home</i>
                 Dashboard
               </a>
             </div>
             <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-drawer-link" href="pages/forms/basic-forms.html">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">track_changes</i>
-                Forms
-              </a>
-            </div>
-            <div class="mdc-list-item mdc-drawer-item">
               <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="ui-sub-menu">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">dashboard</i>
+                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon"
+                  aria-hidden="true">directions_run</i>
                 Muscle Groups
                 <i class="mdc-drawer-arrow material-icons">chevron_right</i>
               </a>
@@ -74,7 +70,8 @@
 
             <div class="mdc-list-item mdc-drawer-item">
               <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="ui-sub-menu1">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">dashboard</i>
+                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon"
+                  aria-hidden="true">fitness_center</i>
                 Workout Videos
                 <i class="mdc-drawer-arrow material-icons">chevron_right</i>
               </a>
@@ -94,98 +91,19 @@
               </div>
             </div>
             <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="ui-sub-menu1">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">dashboard</i>
-                UI Features
-                <i class="mdc-drawer-arrow material-icons">chevron_right</i>
-              </a>
-              <div class="mdc-expansion-panel" id="ui-sub-menu">
-                <nav class="mdc-list mdc-drawer-submenu">
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/ui-features/buttons.html">
-                      Buttons
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/ui-features/typography.html">
-                      Typography
-                    </a>
-                  </div>
-                </nav>
-              </div>
-            </div>
-            <div class="mdc-list-item mdc-drawer-item">
               <a class="mdc-drawer-link" href="{% url 'view_messages' %}">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">message</i>
+                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon"
+                  aria-hidden="true">message</i>
                 Messages
-              </a>
-            </div>
-            <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-drawer-link" href="pages/charts/chartjs.html">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">pie_chart_outlined</i>
-                Charts
-              </a>
-            </div>
-            <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="sample-page-submenu">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">pages</i>
-                Sample Pages
-                <i class="mdc-drawer-arrow material-icons">chevron_right</i>
-              </a>
-              <div class="mdc-expansion-panel" id="sample-page-submenu">
-                <nav class="mdc-list mdc-drawer-submenu">
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/blank-page.html">
-                      Blank Page
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/403.html">
-                      403
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/404.html">
-                      404
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/500.html">
-                      500
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/505.html">
-                      505
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/login.html">
-                      Login
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="pages/samples/register.html">
-                      Register
-                    </a>
-                  </div>
-                </nav>
-              </div>
-            </div>
-            <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-drawer-link" href="https://www.bootstrapdash.com/demo/material-admin-free/jquery/documentation/documentation.html" target="_blank">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">description</i>
-                Documentation
               </a>
             </div>
           </nav>
         </div>
-        <div class="profile-actions">
-          <a href="javascript:;">Settings</a>
+        <div class="profile-actions" style="margin-top: 300px;">
           <span class="divider"></span>
-          <a href="javascript:;">Logout</a>
+          <a href="{% url 'admin_logout' %}" style="color: white; font-weight: bold;">Logout</a>
         </div>
-        
+
       </div>
     </aside>
     <!-- partial -->
@@ -194,21 +112,11 @@
       <header class="mdc-top-app-bar">
         <div class="mdc-top-app-bar__row">
           <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-            <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button sidebar-toggler">menu</button>
+            <button
+              class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button sidebar-toggler">menu</button>
             {% if request.session.username %}
-            <span class="mdc-top-app-bar__title">Greetings {{ request.session.username }} !</span>
+            <span class="mdc-top-app-bar__title" style="color: white;">Greetings {{ request.session.username }} !</span>
             {% endif %}
-            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon search-text-field d-none d-md-flex">
-              <i class="material-icons mdc-text-field__icon">search</i>
-              <input class="mdc-text-field__input" id="text-field-hero-input">
-              <div class="mdc-notched-outline">
-                <div class="mdc-notched-outline__leading"></div>
-                <div class="mdc-notched-outline__notch">
-                  <label for="text-field-hero-input" class="mdc-floating-label">Search..</label>
-                </div>
-                <div class="mdc-notched-outline__trailing"></div>
-              </div>
-            </div>
           </div>
           <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end mdc-top-app-bar__section-right">
             <div class="menu-button-container menu-profile d-none d-md-block">
@@ -218,254 +126,430 @@
                     <img src="{% static 'assets/images/faces/admin-face.png' %}" alt="user" class="user">
                   </span>
                   {% if request.session.username %}
-                  <span class="user-name">{{ request.session.username }}</span>
+                  <span class="user-name" style="color: white;">{{ request.session.username }}</span>
                   {% endif %}
                 </span>
               </button>
+              {% if request.session.username %}
+
               <div class="mdc-menu mdc-menu-surface" tabindex="-1">
                 <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail item-thumbnail-icon-only">
-                      <i class="mdi mdi-account-edit-outline text-primary"></i>
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">Edit profile</h6>
-                    </div>
-                  </li>
-
                   <a href="{% url 'admin_logout' %}">
                     <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail item-thumbnail-icon-only">
-                      <i class="mdi mdi-account-edit-outline text-primary"></i>
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">Logout</h6>
-                    </div>
-                  </li>
+                      <div class="item-thumbnail item-thumbnail-icon-only">
+                        <i class="mdi mdi-account-edit-outline text-primary"></i>
+                      </div>
+                      <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                        <h6 class="item-subject font-weight-normal">Logout</h6>
+                      </div>
+                    </li>
                   </a>
-                  
-                  
+
+
                 </ul>
               </div>
-            </div>
-            <div class="divider d-none d-md-block"></div>
-            <div class="menu-button-container d-none d-md-block">
-              <button class="mdc-button mdc-menu-button">
-                <i class="mdi mdi-settings"></i>
-              </button>
+              {% else %}
               <div class="mdc-menu mdc-menu-surface" tabindex="-1">
                 <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail item-thumbnail-icon-only">
-                      <i class="mdi mdi-alert-circle-outline text-primary"></i>
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">Settings</h6>
-                    </div>
-                  </li>
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail item-thumbnail-icon-only">
-                      <i class="mdi mdi-progress-download text-primary"></i>                      
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">Update</h6>
-                    </div>
-                  </li>
+                  <a href="{% url 'admin_logout' %}">
+                    <li class="mdc-list-item" role="menuitem">
+                      <div class="item-thumbnail item-thumbnail-icon-only">
+                        <i class="mdi mdi-account-edit-outline text-primary"></i>
+                      </div>
+                      <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                        <h6 class="item-subject font-weight-normal">Logout</h6>
+                      </div>
+                    </li>
+                  </a>
+
+
                 </ul>
               </div>
-            </div>
-            <div class="menu-button-container">
-              <button class="mdc-button mdc-menu-button">
-                <i class="mdi mdi-bell"></i>
-              </button>
-              <div class="mdc-menu mdc-menu-surface" tabindex="-1">
-                <h6 class="title"> <i class="mdi mdi-bell-outline mr-2 tx-16"></i> Notifications</h6>
-                <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail item-thumbnail-icon">
-                      <i class="mdi mdi-email-outline"></i>
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">You received a new message</h6>
-                      <small class="text-muted"> 6 min ago </small>
-                    </div>
-                  </li>
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail item-thumbnail-icon">
-                      <i class="mdi mdi-account-outline"></i>                      
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">New user registered</h6>
-                      <small class="text-muted"> 15 min ago </small>
-                    </div>
-                  </li>
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail item-thumbnail-icon">
-                      <i class="mdi mdi-alert-circle-outline"></i>
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">System Alert</h6>
-                      <small class="text-muted"> 2 days ago </small>
-                    </div>
-                  </li> 
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail item-thumbnail-icon">
-                      <i class="mdi mdi-update"></i>
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">You have a new update</h6>
-                      <small class="text-muted"> 3 days ago </small>
-                    </div>
-                  </li> 
-                </ul>
-              </div>
-            </div>
-            <div class="menu-button-container">
-              <button class="mdc-button mdc-menu-button">
-                <i class="mdi mdi-email"></i>
-                <span class="count-indicator">
-                  <span class="count">3</span>
-                </span>
-              </button>
-              <div class="mdc-menu mdc-menu-surface" tabindex="-1">
-                <h6 class="title"><i class="mdi mdi-email-outline mr-2 tx-16"></i> Messages</h6>
-                <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail">
-                      <img src="../assets/images/faces/face4.jpg" alt="user">
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">Mark send you a message</h6>
-                      <small class="text-muted"> 1 Minutes ago </small>
-                    </div>
-                  </li>
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail">
-                      <img src="../assets/images/faces/face2.jpg" alt="user">
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">Cregh send you a message</h6>
-                      <small class="text-muted"> 15 Minutes ago </small>
-                    </div>
-                  </li>
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail">
-                      <img src="../assets/images/faces/face3.jpg" alt="user">
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">Profile picture updated</h6>
-                      <small class="text-muted"> 18 Minutes ago </small>
-                    </div>
-                  </li>                
-                </ul>
-              </div>
-            </div>
-            <div class="menu-button-container d-none d-md-block">
-              <button class="mdc-button mdc-menu-button">
-                <i class="mdi mdi-arrow-down-bold-box"></i>
-              </button>
-              <div class="mdc-menu mdc-menu-surface" tabindex="-1">
-                <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail item-thumbnail-icon-only">
-                      <i class="mdi mdi-lock-outline text-primary"></i>
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">Lock screen</h6>
-                    </div>
-                  </li>
-                  <li class="mdc-list-item" role="menuitem">
-                    <div class="item-thumbnail item-thumbnail-icon-only">
-                      <i class="mdi mdi-logout-variant text-primary"></i>                      
-                    </div>
-                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="item-subject font-weight-normal">Logout</h6>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              {% endif %}
             </div>
           </div>
         </div>
       </header>
       <!-- partial -->
-       {% block content %}
+      {% block content %}
       <div class="page-wrapper mdc-toolbar-fixed-adjust">
         <main class="content-wrapper">
+
+          <!-- Cards -->
           <div class="mdc-layout-grid">
             <div class="mdc-layout-grid__inner">
-              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
-                <div class="mdc-card info-card info-card--success">
-                  <div class="card-inner">
-                    <h5 class="card-title">Borrowed</h5>
-                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">$62,0076.00</h5>
-                    <p class="tx-12 text-muted">48% target reached</p>
-                    <div class="card-icon-wrapper">
-                      <i class="material-icons">dvr</i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
-                <div class="mdc-card info-card info-card--danger">
-                  <div class="card-inner">
-                    <h5 class="card-title">Annual Profit</h5>
-                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">$1,958,104.00</h5>
-                    <p class="tx-12 text-muted">55% target reached</p>
-                    <div class="card-icon-wrapper">
-                      <i class="material-icons">attach_money</i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
+
+              <!-- Total Users -->
+              <div
+                class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
                 <div class="mdc-card info-card info-card--primary">
                   <div class="card-inner">
-                    <h5 class="card-title">Lead Conversion</h5>
-                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">$234,769.00</h5>
-                    <p class="tx-12 text-muted">87% target reached</p>
+                    <h5 class="card-title">Total Users</h5>
+                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">{{ total_users }}</h5>
+                    <p class="tx-12 text-muted">All registered users</p>
+                    <div class="card-icon-wrapper">
+                      <i class="material-icons">people</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Active Users -->
+              <div
+                class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
+                <div class="mdc-card info-card info-card--success">
+                  <div class="card-inner">
+                    <h5 class="card-title">Active Users (2d)</h5>
+                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">{{ active_users }}</h5>
+                    <p class="tx-12 text-muted">Users active in the last 2 days</p>
                     <div class="card-icon-wrapper">
                       <i class="material-icons">trending_up</i>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
+
+              <!-- New Signups -->
+              <div
+                class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
                 <div class="mdc-card info-card info-card--info">
                   <div class="card-inner">
-                    <h5 class="card-title">Average Income</h5>
-                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">$1,200.00</h5>
-                    <p class="tx-12 text-muted">87% target reached</p>
+                    <h5 class="card-title">New Signups (5d)</h5>
+                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">{{ new_signups }}</h5>
+                    <p class="tx-12 text-muted">Users Registered in the last 5 days</p>
                     <div class="card-icon-wrapper">
-                      <i class="material-icons">credit_card</i>
+                      <i class="material-icons">person_add</i>
                     </div>
                   </div>
                 </div>
               </div>
-              
 
-              
+              <!-- Incomplete Profiles -->
+              <div
+                class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
+                <div class="mdc-card info-card info-card--danger">
+                  <div class="card-inner">
+                    <h5 class="card-title">Incomplete Profiles</h5>
+                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">{{ incomplete_profiles }}</h5>
+                    <p class="tx-12 text-muted">Profiles missing key info</p>
+                    <div class="card-icon-wrapper">
+                      <i class="material-icons">error_outline</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Workouts Today -->
+              <div
+                class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
+                <div class="mdc-card info-card info-card--success">
+                  <div class="card-inner">
+                    <h5 class="card-title">Workouts Today</h5>
+                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">{{ workouts_today }}</h5>
+                    <p class="tx-12 text-muted">Total workouts logged</p>
+                    <div class="card-icon-wrapper">
+                      <i class="material-icons">fitness_center</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
+          <!-- End of Cards -->
+
+          <!-- Chart -->
+          <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__inner">
+
+              <!-- Users Active Chart -->
+              <div
+                class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-6-tablet">
+                <div class="mdc-card">
+                  <div class="card-inner">
+                    <h5 class="card-title">Active Users (Last 7 Days)</h5>
+                    <canvas id="activeUsersChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <!-- New Signups Chart -->
+              <div
+                class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-6-tablet">
+                <div class="mdc-card">
+                  <div class="card-inner">
+                    <h5 class="card-title">New Signups (Last 7 Days)</h5>
+                    <canvas id="newSignupsChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Workouts Logged Chart -->
+              <div
+                class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-6-tablet">
+                <div class="mdc-card">
+                  <div class="card-inner">
+                    <h5 class="card-title">Workouts Logged (Last 7 Days)</h5>
+                    <canvas id="workoutsChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- End of Chart -->
+
+          <!-- Table -->
+          <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__inner">
+
+              <!-- Recent Signups Table -->
+              <div
+                class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12-desktop mdc-layout-grid__cell--span-12-tablet">
+                <div class="mdc-card glow-card">
+                  <div class="card-inner p-3">
+                    <h5 class="card-title mb-3 table-head">Recent Signups</h5>
+                    <div class="table-responsive">
+                      <table class="table table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th class="text-center">Username</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Signup Date</th>
+                            <th class="text-center">Profile Complete?</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for user in recent_signups %}
+                          <tr>
+                            <td class="text-center">{{ user.username }}</td>
+                            <td class="text-center">{{ user.email }}</td>
+                            <td class="text-center">{{ user.date_joined|date:"d M Y H:i" }}</td>
+                            <td class="text-center">
+                              {% if user.profiledb and user.profiledb.Age and user.profiledb.Weight %}
+                              <span class="text-success">✅</span>
+                              {% else %}
+                              <span class="text-danger">❌</span>
+                              {% endif %}
+                            </td>
+                          </tr>
+                          {% empty %}
+                          <tr>
+                            <td colspan="4" class="text-center">No recent signups.</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Recent Workouts Table -->
+              <div
+                class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12-desktop mdc-layout-grid__cell--span-12-tablet">
+                <div class="mdc-card glow-card">
+                  <div class="card-inner p-3">
+                    <h5 class="card-title mb-3 table-head">Recent Workouts</h5>
+                    <div class="table-responsive">
+                      <table class="table table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th class="text-center">Username</th>
+                            <th class="text-center">Workout</th>
+                            <th class="text-center">Reps</th>
+                            <th class="text-center">Sets</th>
+                            <th class="text-center">Date Logged</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for log in recent_workouts %}
+                          <tr>
+                            <td class="text-center">{{ log.user.username }}</td>
+                            <td class="text-center">{{ log.workout.Name }}</td>
+                            <td class="text-center">{{ log.reps }}</td>
+                            <td class="text-center">{{ log.sets }}</td>
+                            <td class="text-center">{{ log.date_logged|date:"d M Y H:i" }}</td>
+                          </tr>
+                          {% empty %}
+                          <tr>
+                            <td colspan="5" class="text-center">No workouts logged.</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- End of Table -->
+
+          <!-- Start of Top Workout -->
+
+          <div
+            class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12-desktop mdc-layout-grid__cell--span-12-tablet">
+            <div class="mdc-card red-black-card p-3 mb-3">
+              <div class="card-inner p-5">
+                <h5 class="card-title mb-3">Top Workouts🔥</h5>
+
+                {% for workout in top_workouts %}
+                <div class="top-workout-item">
+                  <!-- Workout Name -->
+                  <span class="name">{{ workout.workout__Name }}</span>
+
+                  <!-- Horizontal popularity bar -->
+                  <div class="workout-bar">
+                    <div class="workout-bar-fill" style="width: {{ workout.bar_width }}%;"></div>
+                  </div>
+
+                  <!-- Count badge -->
+                  <span class="badge-count">{{ workout.total_logged }}</span>
+                </div>
+                {% empty %}
+                <div class="text-center text-muted">No workouts logged yet.</div>
+                {% endfor %}
+
+              </div>
+            </div>
+          </div>
+
+          <!-- End of Top Workout -->
+
+
         </main>
-        <!-- partial:partials/_footer.html -->
+
+        <!-- Footer -->
         <footer>
           <div class="mdc-layout-grid">
             <div class="mdc-layout-grid__inner">
               <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
-                <span class="text-center text-sm-left d-block d-sm-inline-block tx-14">Copyright © <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2020. Distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a></span>
+                <span class="text-center text-sm-left d-block d-sm-inline-block tx-14">
+                  Copyright © 2026 Fitnex
+                </span>
               </div>
-              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop d-flex justify-content-end">
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center tx-14">Free <a href="https://www.bootstrapdash.com/material-design-dashboard/" target="_blank"> material admin </a> dashboards from Bootstrapdash.com</span>
+              <div
+                class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop d-flex justify-content-end">
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center tx-14">
+                  Custom Admin Dashboard
+                </span>
               </div>
             </div>
           </div>
         </footer>
-        <!-- partial -->
       </div>
       {% endblock %}
     </div>
   </div>
+
+  <style>
+    /* Glowing card effect */
+    .mdc-card.glow-card {
+      border-radius: 12px;
+      transition: 0.3s;
+      background: #ffffff;
+      /* dark card background */
+    }
+
+    .mdc-card.glow-card:hover {
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+    }
+
+    .mdc-card:hover {
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+      cursor: pointer;
+    }
+
+    /* Stylish headings */
+    .card-inner .table-head {
+      font-weight: 600;
+      font-size: 1.3rem;
+      background: linear-gradient(90deg, #080808, #000000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Center text in all table cells */
+    .table td,
+    .table th {
+      vertical-align: middle;
+    }
+
+    /* Top Workouts */
+    .mdc-card.red-black-card {
+      border-radius: 12px;
+      background: #ffffff;
+      transition: 0.3s;
+    }
+
+    .mdc-card.red-black-card:hover {
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+    }
+
+    /* Card heading */
+    .card-inner h5.card-title {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #000000;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #ff4c4c;
+      padding-bottom: 0.5rem;
+    }
+
+    /* Workout item */
+    .top-workout-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      background: #ffffff;
+      transition: 0.3s;
+    }
+
+    /* Workout name */
+    .top-workout-item span.name {
+      font-weight: 400;
+      color: #000000;
+    }
+
+    /* Horizontal bar representing popularity */
+    .workout-bar {
+      flex: 1;
+      height: 10px;
+      margin: 0 1rem;
+      background: #9c9c9c;
+      /* dark gray background for bar */
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .workout-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #c01616, #c01616);
+      /* red gradient */
+      border-radius: 5px;
+    }
+
+    /* Count badge */
+    .badge-count {
+      background: #390505;
+      color: #fff;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    
+  </style>
+
   <!-- plugins:js -->
   <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
   <!-- endinject -->
@@ -481,5 +565,61 @@
   <!-- Custom js for this page-->
   <script src="{% static 'assets/js/dashboard.js' %}"></script>
   <!-- End custom js for this page-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const labels = {{ labels| safe }};
+
+    const activeUsersData = {
+      labels: labels,
+      datasets: [{
+        label: 'Active Users',
+        data: {{ active_users_counts| safe }},
+    borderColor: 'rgba(75, 192, 192, 1)',
+      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        tension: 0.4,
+    }]
+  };
+
+    const newSignupsData = {
+      labels: labels,
+      datasets: [{
+        label: 'New Signups',
+        data: {{ new_signups_counts| safe }},
+    borderColor: 'rgba(255, 159, 64, 1)',
+      backgroundColor: 'rgba(255, 159, 64, 0.2)',
+        tension: 0.4,
+    }]
+  };
+
+    const workoutsData = {
+      labels: labels,
+      datasets: [{
+        label: 'Workouts Logged',
+        data: {{ workouts_counts| safe }},
+    borderColor: 'rgba(153, 102, 255, 1)',
+      backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        tension: 0.4,
+    }]
+  };
+
+    new Chart(document.getElementById('activeUsersChart'), {
+      type: 'line',
+      data: activeUsersData,
+      options: { responsive: true }
+    });
+
+    new Chart(document.getElementById('newSignupsChart'), {
+      type: 'line',
+      data: newSignupsData,
+      options: { responsive: true }
+    });
+
+    new Chart(document.getElementById('workoutsChart'), {
+      type: 'bar',
+      data: workoutsData,
+      options: { responsive: true }
+    });
+  </script>
 </body>
-</html> 
+
+</html>

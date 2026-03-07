@@ -28,7 +28,7 @@ class ProfileDb(models.Model):
         ('advanced', 'Advanced'),
     ]
 
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profiledb')
   
   Age = models.IntegerField(null=True, blank=True)
   Gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)

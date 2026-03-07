@@ -34,7 +34,7 @@ def save_progress(request):
                     progress=progress, workout_id=workouts[i], weight=weight[i] if weight[i] else None,
                     reps=reps[i] if reps[i] else None, sets=sets[i] if sets[i] else None)
 
-        return redirect('dashboard')
+        return redirect('progress_dashboard')
 
 def progress_dashboard(request):
     # Get user profile

@@ -9410,7 +9410,7 @@ a.mdc-list-item {
 }
 
 .mdc-top-app-bar--fixed-scrolled {
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.2), 0px 4px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 2px 0px rgba(0, 0, 0, 0.12);
   transition: box-shadow 200ms linear;
 }
 
@@ -19068,11 +19068,75 @@ a.mdc-list-item {
 
 /* === Core Styles === */
 /* Reset Styles */
+/* ===========================
+   Body & Main Layout Background
+   =========================== */
 body {
-  padding: 0;
   margin: 0;
+  padding: 0;
   overflow-x: hidden;
-  background: #e9eaef;
+  background-color: #141414;
+}
+
+.body-wrapper,
+.main-wrapper,
+.page-wrapper,
+.content-wrapper {
+  background-color:	#141414 !important; 
+}
+
+
+.mdc-top-app-bar {
+  background-color: #141414 !important; 
+  color: white;
+}
+
+/* Navbar text and icons stay white */
+.mdc-top-app-bar__title,
+.mdc-top-app-bar .material-icons,
+.mdc-top-app-bar i.mdi {
+  color: white !important;
+}
+
+
+.mdc-drawer {
+  position: relative; 
+  overflow: hidden;
+  background: none; 
+}
+
+.mdc-drawer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../../images/sidebar/sidebar-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: scaleX(-1);
+  z-index: -1;
+}
+
+.mdc-drawer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
+.mdc-drawer .mdc-drawer-link,
+.mdc-drawer .mdc-drawer-item {
+  color: black;
+}
+
+.mdc-drawer .mdc-drawer-link:hover, .mdc-expansion-panel-link:hover  {
+  background-color: rgba(255, 76, 76, 0.3);
+}
+
+
+footer {
+  background-color: #141414;
+  color: white;
 }
 
 .form-control,
@@ -22880,9 +22944,20 @@ address p {
 
 /* Sidebar */
 .mdc-drawer {
-  background: linear-gradient(#2a1c5a, #4b3a6e);
-  background: url(../../images/sidebar/sidebar-bg.jpg);
   position: fixed;
+  overflow: hidden;
+}
+
+/* Background image layer */
+.mdc-drawer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../../images/sidebar/sidebar-bg.jpg");
+  background-size: cover;
+  background-position: left;
+  transform: scaleX(-1);   /* Flip image horizontally */
+  z-index: -1;
 }
 
 .mdc-drawer--open, .mdc-drawer__drawer {

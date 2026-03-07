@@ -9,66 +9,70 @@
 </head>
 <body>
   <div class="mdc-layout-grid">
-            <form action="{% url 'update_muscle' mus_id=muscle.id %}" method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              <div class="mdc-layout-grid__inner">
-              <div class="mdc-layout-grid__cell--span-8">
-                <div class="mdc-card">
-                  <h6 class="card-title">Edit Muscle Group</h6>
-                  <div class="template-demo">
-                    <div class="mdc-layout-grid__inner">
-                    
-                      <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-10-desktop">
-                        <div>
-                          <div class="mt-5">
-                            <p><b><i>Muscle Group Name</i></b></p>
-                          </div>
-                        <div class="mdc-text-field mdc-text-field--outlined">
-                          <input class="mdc-text-field__input" id="text-field-hero-input" type="text" name="mname" value="{{muscle.M_Name}}">
-                          <div class="mdc-notched-outline mdc-notched-outline--upgraded">
-                            
-                            <div class="mdc-notched-outline__leading"></div>
-                            <div class="mdc-notched-outline__trailing"></div>
-                          </div>
-                        </div>
-                        </div>
-                        
-                      </div>
 
+  <div style="max-width:700px; margin:40px auto; box-shadow: 2px 2px 10px 2px grey;">
 
-                      
-                       <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8-desktop">
-                        <div>
-                          <div class="mt-5">
-                            <p><b><i>Upload Image</i></b></p>
-                          </div>
-                          <img src="{{muscle.M_Image.url}}" height="60px" width="80px" alt="">
-                        <div class="mdc-text-field mdc-text-field--outlined">
-                          <input class="mdc-text-field__input" type="file" id="text-field-hero-input" name="mimg">
-                          <div class="mdc-notched-outline mdc-notched-outline--upgraded">
-                            <div class="mdc-notched-outline__leading"></div>
-                            
-                            <div class="mdc-notched-outline__trailing"></div>
-                          </div>
-                        </div>
-                        </div>
-                          
-                      </div> 
-                        
-                      </div>
+    <div class="mdc-card" style="padding:40px; width:100%;">
 
-                      <button class="mdc-button mdc-button--raised mdc-ripple-upgraded mt-5" type="submit">
-                      Submit
-                    </button>
+      <h4 style="text-align:center; margin-bottom:30px;">Edit Muscle Group</h4>
 
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-            
+      <form action="{% url 'update_muscle' mus_id=muscle.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Muscle Group Name -->
+        <div class="mt-4">
+          <p><b><i>Muscle Group Name</i></b></p>
+
+          <div class="mdc-text-field mdc-text-field--outlined" style="width:100%;">
+            <input class="mdc-text-field__input" type="text" name="mname" value="{{muscle.M_Name}}">
+
+            <div class="mdc-notched-outline">
+              <div class="mdc-notched-outline__leading"></div>
+              <div class="mdc-notched-outline__trailing"></div>
             </div>
           </div>
+        </div>
+
+
+        <!-- Current Image -->
+        <div class="mt-4">
+          <p><b><i>Current Image</i></b></p>
+
+          <img src="{{muscle.M_Image.url}}" 
+               style="width:120px; height:90px; object-fit:cover; border-radius:6px;">
+        </div>
+
+
+        <!-- Upload New Image -->
+        <div class="mt-4">
+          <p><b><i>Upload New Image</i></b></p>
+
+          <div class="mdc-text-field mdc-text-field--outlined" style="width:100%;">
+            <input class="mdc-text-field__input" type="file" name="mimg">
+
+            <div class="mdc-notched-outline">
+              <div class="mdc-notched-outline__leading"></div>
+              <div class="mdc-notched-outline__trailing"></div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Submit -->
+        <div style="text-align:center; margin-top:30px;">
+          <button class="mdc-button mdc-button--raised" type="submit">
+            Update
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+          
 </body>
 </html>
 {% endblock %}
