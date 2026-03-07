@@ -35,77 +35,103 @@
         <![endif]-->
 
     <!-- header-start -->
-    <header>
-            <div class="header-area ">
-                <div id="sticky-header" class="main-header-area">
-                    <div class="container-fluid ">
-                        <div class="header_bottom_border">
-                            <div class="row align-items-center">
-                                <div class="col-xl-3 col-lg-2">
-                                    <div class="logo">
+  <header>
+        <div class="header-area ">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid ">
+                    <div class="header_bottom_border">
+                        <div class="row align-items-center">
+                            <div class="col-xl-3 col-lg-2">
+                                <div class="logo">
+                                    <a href="{% url 'home' %}">
                                         <h3 style="padding-top: 20px; color: white;">FITNEX.</h3>
                                         <img src="{% static 'web/img/logo.png' %}" height="100px" style="margin-top: -70px; margin-left: 50px;" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-7">
-                                    <div class="main-menu  d-none d-lg-block">
-                                        <nav>
-                                            <ul id="navigation">
-                                                <li><a href="{% url 'home' %}">home</a></li>
-                                                <li><a href="{% url 'diet' %}">my diet</a></li>
-                                                <li><a class="active" href="pricing.html">workouts</a></li>
-                                                <li><a href="gallery.html">gallery</a></li>
-                                                <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                                    <ul class="submenu">
-                                                        
-                                                        <li><a href="elements.html">elements</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                                    <ul class="submenu">
-                                                        <li><a href="blog.html">blog</a></li>
-                                                        <li><a href="single-blog.html">single-blog</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="{% url 'contact' %}">Contact</a></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                                    <div class="Appointment">
-                                        <div class="book_btn d-none d-lg-block">
-                                            <a href="#">Join Us</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mobile_menu d-block d-lg-none"></div>
+                                    </a>
                                 </div>
                             </div>
+                            <div class="col-xl-6 col-lg-7">
+                                <div class="main-menu  d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="{% url 'home' %}">home</a></li>
+                                            <li><a href="{% url 'diet' %}">
+                                                    My Diet
+                                                </a></li>
+                                            <li><a class="active" href="{% url 'workout_videos' %}">Workouts</a></li>
+                                            <li><a href="{% url 'dashboard' %}">Progress</a></li>
+                                            <li><a href="#">pages <i class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+
+                                                    <li><a href="elements.html">elements</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">blog <i class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="blog.html">blog</a></li>
+                                                    <li><a href="single-blog.html">single-blog</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                                <div class="Appointment">
+                                    {% if request.user.is_authenticated %}
+                                    <div class="book_btn dropdown d-none d-lg-block ">
+                                        <a class="dropdown-toggle" class="dropdown-toggle" href="#"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Welcome {{ request.user.username }} !</a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="dropdown-item" href="#">Profile</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    {% else %}
+                                    <div class="book_btn d-none d-lg-block">
+                                        <a href="#">Login</a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
                         </div>
-    
                     </div>
+
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
         <!-- header-end -->
 
         <div class="container mt-5 pt-5">
     <div>
-    <a href="{% url 'ai_suggestions' %}" class="ai-float-btn">
+    <a href="{% url 'ai_suggestions' %}" class="ai-float-btn" style="left: 30px;">
     <img src="{% static 'img/ai-logo.jpg' %}"
          width="22"
          class="ai-icon">
     AI Workout
 </a>
 
+<a href="{% url 'download_videos' Muscle_Group %}" style="right: 30px;" class="download-btn">
+    <img src="{% static 'img/download-logo.png' %}"
+         width="22"
+         class="download-icon">
+    Download
+</a>
     </div>
 
-<div class="container mt-5 pt-5">
+<div class="container mt-3 pt-5">
   
   <!-- Muscle Group Heading -->
-  <div class="text-center mb-5 mt-5">
+  <div class="text-center mb-5">
     <h2 class="text-white fw-bold">{{ Muscle_Group }} Workouts</h2>
   </div>
 
@@ -294,9 +320,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     </footer>
 
     <style>
-                a.ai-float-btn {
+    a.ai-float-btn, .download-btn {
     position: fixed;
-    left: 30px;
     top: 150px;
     background: linear-gradient(90deg, #8b0000, #570000) !important;
     color: white !important;
@@ -311,13 +336,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     z-index: 999;
 }
 
-a.ai-float-btn:hover {
+a.ai-float-btn:hover, .download-btn:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.6);
     color: white;
 }
 
-a.ai-icon {
+a.ai-icon, .download-icon {
     width: 22px;
     height: 22px;
     filter: brightness(0) invert(1); /* makes logo white */
@@ -326,9 +351,39 @@ a.ai-icon {
     <!-- footer_end  -->
 
     <!-- JS here -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'web/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <script src="{% static 'web/js/popper.min.js' %}"></script>
+    <script src="{% static 'web/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'web/js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'web/js/ajax-form.js' %}"></script>
+    <script src="{% static 'web/js/waypoints.min.js' %}"></script>
+    <script src="{% static 'web/js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'web/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'web/js/scrollIt.js' %}"></script>
+    <script src="{% static 'web/js/jquery.scrollUp.min.js' %}"></script>
+    <script src="{% static 'web/js/wow.min.js' %}"></script>
+    <script src="{% static 'web/js/gijgo.min.js' %}"></script>
+    <script src="{% static 'web/js/nice-select.min.js' %}"></script>
+    <script src="{% static 'web/js/jquery.slicknav.min.js' %}"></script>
+    <script src="{% static 'web/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'web/js/plugins.js' %}"></script>
+
+
+
+    <!--contact js-->
+    <script src="{% static 'web/js/contact.js' %}"></script>
+    <script src="{% static 'web/js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'web/js/jquery.form.js' %}"></script>
+    <script src="{% static 'web/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'web/js/mail-script.js' %}"></script>
+
+
+    <script src="{% static 'web/js/main.js' %}"></script>
     <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
   
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'web/js/jquery.sticky.js' %}"></script>
 
     <script>
         $('#datepicker').datepicker({
@@ -356,6 +411,16 @@ a.ai-icon {
             }
         });
     });
+
+    window.addEventListener("scroll", function() {
+    var header = document.getElementById("sticky-header");
+
+    if (window.scrollY > 100) {
+        header.classList.add("sticky");
+    } else {
+        header.classList.remove("sticky");
+    }
+});
 </script>
 </body>
 

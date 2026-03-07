@@ -106,7 +106,7 @@ def save_workout(request):
 
       obj = WorkoutDb(Name=name, Muscle_Group=muscle, Description=description, Video=video)
       obj.save()
-
+      
       return redirect(add_workout)
 
 def view_workout(request):

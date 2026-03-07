@@ -119,421 +119,464 @@
 
   <div class="container mt-5 pt-5">
     <div>
-    <a href="{% url 'add_progress' %}" class="graph-float-btn">
-    <img src="{% static 'assets/img/graph-logo.png' %}"
-         width="22"
-         class="graph-icon">
-    Add Progress
-</a>
+      <a href="{% url 'add_progress' %}" class="graph-float-btn">
+        <img src="{% static 'assets/img/graph-logo.png' %}" width="22" class="graph-icon">
+        Add Progress
+      </a>
 
     </div>
 
-  <!-- PROGRESS -->
+    <!-- PROGRESS -->
 
-<div class="container text-center" style="margin-top: 50px;">
+    <div class="container text-center" style="margin-top: 50px;">
 
-<h2 style="color:white;margin-bottom:30px;">Progress Dashboard</h2>
-
-
-<div class="row">
-
-<!-- Weight Card -->
-<div class="col-md-6 text">
-<div class="card bg-dark text-white p-3">
-
-<h4 style="color: white;">Body Weight Progress</h4>
-
-<canvas id="weightChart"></canvas>
-<div class="mt-3">
-    <p><i style="color: {{ weight_color }};">{{ weight_status }}</i></p>
-</div>
-
-</div>
-</div>
+      <h2 style="color:white;margin-bottom:30px;">Progress Dashboard</h2>
 
 
-<!-- Body Fat Card -->
-<div class="col-md-6">
-<div class="card bg-dark text-white p-3">
+      <div class="row">
 
-<h4 style="color: white;">Body Fat Progress</h4>
+        <!-- Weight Card -->
+        <div class="col-md-6 text">
+          <div class="card bg-dark text-white p-3">
 
-<canvas id="fatChart"></canvas>
-<div class="mt-3">
-    <p><i style="color: {{ fat_color }};">{{ fat_status }}</i></p>
-</div>
+            <h4 style="color: white;">Body Weight Progress</h4>
 
-</div>
-</div>
+            <canvas id="weightChart"></canvas>
+            <div class="mt-3">
+              <p><i style="color: {{ weight_color }};">{{ weight_status }}</i></p>
+            </div>
 
-</div>
-
-
-<div class="row mt-4">
-
-<!-- Strength Progress -->
-<div class="col-md-12">
-<div class="card bg-dark text-white p-3">
-
-<h4 style="color: white;">Strength Progress</h4>
-
-<canvas id="strengthChart" style="padding-right: 50px;"></canvas>
-
-</div>
-</div>
-
-</div>
-
-</div>
-
-  <!-- END PROGRESS -->
+          </div>
+        </div>
 
 
+        <!-- Body Fat Card -->
+        <div class="col-md-6">
+          <div class="card bg-dark text-white p-3">
+
+            <h4 style="color: white;">Body Fat Progress</h4>
+
+            <canvas id="fatChart"></canvas>
+            <div class="mt-3">
+              <p><i style="color: {{ fat_color }};">{{ fat_status }}</i></p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
 
 
-  <!-- footer_start  -->
-  <footer class="footer">
-    <div class="footer_top">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-3 col-md-6 col-lg-3 ">
-            <div class="footer_widget">
-              <div class="footer_logo">
-                <a href="#">
-                  <img src="{% static 'web/img/footer_logo.png' %}" alt="">
-                </a>
+      <div class="row mt-4">
+
+        <!-- Strength Progress -->
+        <div class="col-md-12">
+          <div class="card bg-dark text-white p-3">
+
+            <h4 style="color: white;">Strength Progress</h4>
+
+            <canvas id="strengthChart" style="padding-right: 50px;"></canvas>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- END PROGRESS -->
+
+
+
+
+    <!-- footer_start  -->
+    <footer class="footer">
+      <div class="footer_top">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-3 col-md-6 col-lg-3 ">
+              <div class="footer_widget">
+                <div class="footer_logo">
+                  <a href="#">
+                    <img src="{% static 'web/img/footer_logo.png' %}" alt="">
+                  </a>
+                </div>
+                <p>5th flora, 700/D kings road, green <br> lane New York-1782 <br>
+                  <a href="#">+10 367 826 2567</a> <br>
+                  <a href="#">contact@carpenter.com</a>
+                </p>
+                <p>
+
+
+
+                </p>
+                <div class="socail_links">
+                  <ul>
+                    <li>
+                      <a href="#">
+                        <i class="ti-facebook"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="ti-twitter-alt"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-instagram"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-pinterest"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-youtube-play"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
               </div>
-              <p>5th flora, 700/D kings road, green <br> lane New York-1782 <br>
-                <a href="#">+10 367 826 2567</a> <br>
-                <a href="#">contact@carpenter.com</a>
-              </p>
-              <p>
-
-
-
-              </p>
-              <div class="socail_links">
-                <ul>
-                  <li>
-                    <a href="#">
-                      <i class="ti-facebook"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="ti-twitter-alt"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-instagram"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-pinterest"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-youtube-play"></i>
-                    </a>
-                  </li>
+            </div>
+            <div class="col-xl-4 col-md-6 col-lg-4 offset-xl-1">
+              <div class="footer_widget">
+                <h3 class="footer_title">
+                  Useful Links
+                </h3>
+                <ul class="links">
+                  <li><a href="#">Pricing</a></li>
+                  <li><a href="#">About</a></li>
+                  <li><a href="#"> Gallery</a></li>
+                  <li><a href="#"> Contact</a></li>
                 </ul>
               </div>
-
             </div>
-          </div>
-          <div class="col-xl-4 col-md-6 col-lg-4 offset-xl-1">
-            <div class="footer_widget">
-              <h3 class="footer_title">
-                Useful Links
-              </h3>
-              <ul class="links">
-                <li><a href="#">Pricing</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#"> Gallery</a></li>
-                <li><a href="#"> Contact</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-xl-4 col-md-6 col-lg-4">
-            <div class="footer_widget">
-              <h3 class="footer_title">
-                Subscribe
-              </h3>
-              <form action="#" class="newsletter_form">
-                <input type="text" placeholder="Enter your mail">
-                <button type="submit">Subscribe</button>
-              </form>
-              <p class="newsletter_text">Esteem spirit temper too say adieus who direct esteem esteems
-                luckily.</p>
+            <div class="col-xl-4 col-md-6 col-lg-4">
+              <div class="footer_widget">
+                <h3 class="footer_title">
+                  Subscribe
+                </h3>
+                <form action="#" class="newsletter_form">
+                  <input type="text" placeholder="Enter your mail">
+                  <button type="submit">Subscribe</button>
+                </form>
+                <p class="newsletter_text">Esteem spirit temper too say adieus who direct esteem esteems
+                  luckily.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="copy-right_text">
-      <div class="container">
-        <div class="footer_border"></div>
-        <div class="row">
-          <div class="col-xl-12">
-            <p class="copy_right text-center">
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy;
-              <script>document.write(new Date().getFullYear());</script> All rights reserved | This
-              template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                target="_blank">Colorlib</a>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
+      <div class="copy-right_text">
+        <div class="container">
+          <div class="footer_border"></div>
+          <div class="row">
+            <div class="col-xl-12">
+              <p class="copy_right text-center">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                  target="_blank">Colorlib</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
-  <style>
-            a.graph-float-btn {
-    position: fixed;
-    left: 30px;
-    top: 150px;
-    background: linear-gradient(90deg, #8b0000, #570000) !important;
-    color: white !important;
-    padding: 12px 20px !important;
-    border-radius: 50px !important;
-    font-weight: 600 !important;
-    text-decoration: none !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    box-shadow: 0 0 15px rgba(185, 1, 1, 0.968);
-    z-index: 999;
-}
+    <style>
+      a.graph-float-btn {
+        position: fixed;
+        left: 30px;
+        top: 150px;
+        background: linear-gradient(90deg, #8b0000, #570000) !important;
+        color: white !important;
+        padding: 12px 20px !important;
+        border-radius: 50px !important;
+        font-weight: 600 !important;
+        text-decoration: none !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        box-shadow: 0 0 15px rgba(185, 1, 1, 0.968);
+        z-index: 999;
+      }
 
-a.graph-float-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-    color: white;
-}
+      a.graph-float-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+        color: white;
+      }
 
-a.graph-icon {
-    width: 22px;
-    height: 22px;
-    filter: brightness(0) invert(1); /* makes logo white */
-}
-  </style>
-  <!-- footer_end  -->
-
-
-
-  {{ dates|json_script:"dates-data" }}
-  {{ weights|json_script:"weights-data" }}
-  {{ bodyfat|json_script:"bodyfat-data" }}
-  <!-- JS here -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="{% static 'web/js/vendor/modernizr-3.5.0.min.js' %}"></script>
-  <script src="{% static 'web/js/vendor/jquery-1.12.4.min.js' %}"></script>
-  <script src="{% static 'web/js/popper.min.js' %}"></script>
-  <script src="{% static 'web/js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'web/js/owl.carousel.min.js' %}"></script>
-  <script src="{% static 'web/js/isotope.pkgd.min.js' %}"></script>
-  <script src="{% static 'web/js/ajax-form.js' %}"></script>
-  <script src="{% static 'web/js/waypoints.min.js' %}"></script>
-  <script src="{% static 'web/js/jquery.counterup.min.js' %}"></script>
-  <script src="{% static 'web/js/imagesloaded.pkgd.min.js' %}"></script>
-  <script src="{% static 'web/js/scrollIt.js' %}"></script>
-  <script src="{% static 'web/js/jquery.scrollUp.min.js' %}"></script>
-  <script src="{% static 'web/js/wow.min.js' %}"></script>
-  <script src="{% static 'web/js/gijgo.min.js' %}"></script>
-  <script src="{% static 'web/js/nice-select.min.js' %}"></script>
-  <script src="{% static 'web/js/jquery.slicknav.min.js' %}"></script>
-  <script src="{% static 'web/js/jquery.magnific-popup.min.js' %}"></script>
-  <script src="{% static 'web/js/plugins.js' %}"></script>
+      a.graph-icon {
+        width: 22px;
+        height: 22px;
+        filter: brightness(0) invert(1);
+        /* makes logo white */
+      }
+    </style>
+    <!-- footer_end  -->
 
 
 
-  <!--contact js-->
-  <script src="{% static 'web/js/contact.js' %}"></script>
-  <script src="{% static 'web/js/jquery.ajaxchimp.min.js' %}"></script>
-  <script src="{% static 'web/js/jquery.form.js' %}"></script>
-  <script src="{% static 'web/js/jquery.validate.min.js' %}"></script>
-  <script src="{% static 'web/js/mail-script.js' %}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{ dates|json_script:"dates-data" }}
+    {{ weights|json_script:"weights-data" }}
+    {{ bodyfat|json_script:"bodyfat-data" }}
+    <!-- JS here -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'web/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <script src="{% static 'web/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'web/js/popper.min.js' %}"></script>
+    <script src="{% static 'web/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'web/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'web/js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'web/js/ajax-form.js' %}"></script>
+    <script src="{% static 'web/js/waypoints.min.js' %}"></script>
+    <script src="{% static 'web/js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'web/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'web/js/scrollIt.js' %}"></script>
+    <script src="{% static 'web/js/jquery.scrollUp.min.js' %}"></script>
+    <script src="{% static 'web/js/wow.min.js' %}"></script>
+    <script src="{% static 'web/js/gijgo.min.js' %}"></script>
+    <script src="{% static 'web/js/nice-select.min.js' %}"></script>
+    <script src="{% static 'web/js/jquery.slicknav.min.js' %}"></script>
+    <script src="{% static 'web/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'web/js/plugins.js' %}"></script>
 
 
-  <script src="{% static 'web/js/main.js' %}"></script>
 
-<script>
-  
-let goal = "{{ goal }}";
-let chartColor = "#00ff9d";
-if(goal == "Fat Loss") chartColor = "#00e5ff";
-if(goal == "Muscle Gain") chartColor = "#ff4c4c";
-if(goal == "Maintenance") chartColor = "#ffa500";
+    <!--contact js-->
+    <script src="{% static 'web/js/contact.js' %}"></script>
+    <script src="{% static 'web/js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'web/js/jquery.form.js' %}"></script>
+    <script src="{% static 'web/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'web/js/mail-script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-let dates = JSON.parse('{{ dates|escapejs }}');
-let weights = JSON.parse('{{ weights|escapejs }}');
-let body_fats = JSON.parse('{{ body_fats|escapejs }}');
-let strength_labels = JSON.parse('{{ strength_labels|escapejs }}');
-let strength_data = JSON.parse('{{ strength_data|escapejs }}');
 
-// Weight Chart
-new Chart(document.getElementById("weightChart"), {
-    type: 'line',
-    data: {
-        labels: dates,
-        datasets: [{
+    <script src="{% static 'web/js/main.js' %}"></script>
+
+    <script>
+
+      window.addEventListener("scroll", function () {
+        var header = document.getElementById("sticky-header");
+
+        if (window.scrollY > 100) {
+          header.classList.add("sticky");
+        } else {
+          header.classList.remove("sticky");
+        }
+      });
+
+      let goal = "{{ goal }}";
+      let chartColor = "#00ff9d";
+      if (goal == "Fat Loss") chartColor = "#00e5ff";
+      if (goal == "Muscle Gain") chartColor = "#ff4c4c";
+      if (goal == "Maintenance") chartColor = "#ffa500";
+
+      let dates = JSON.parse('{{ dates|escapejs }}');
+      let weights = JSON.parse('{{ weights|escapejs }}');
+      let body_fats = JSON.parse('{{ body_fats|escapejs }}');
+      let strength_labels = JSON.parse('{{ strength_labels|escapejs }}');
+      let strength_data = JSON.parse('{{ strength_data|escapejs }}');
+
+      // Weight Chart
+      new Chart(document.getElementById("weightChart"), {
+        type: 'line',
+        data: {
+          labels: dates,
+          datasets: [{
             label: 'Weight (kg)',
             data: weights,
             borderColor: chartColor,
             backgroundColor: 'rgba(255,76,76,0.2)',
             tension: 0.4
-        }]
-    },
-    options: { responsive: true }
-});
+          }]
+        },
+        options: { responsive: true }
+      });
 
-// Body Fat Chart
-new Chart(document.getElementById("fatChart"), {
-    type: 'line',
-    data: {
-        labels: dates,
-        datasets: [{
+      // Body Fat Chart
+      new Chart(document.getElementById("fatChart"), {
+        type: 'line',
+        data: {
+          labels: dates,
+          datasets: [{
             label: 'Body Fat %',
             data: body_fats,
             borderColor: '#00e5ff',
             backgroundColor: 'rgba(0,229,255,0.2)',
             tension: 0.4
-        }]
-    },
-    options: { responsive: true }
-});
+          }]
+        },
+        options: { responsive: true }
+      });
 
-// Strength Chart — One bar per exercise (date stripped from label)
-// Shows most recent weight with green/red difference vs previous session
 
-let exerciseHistory = {};  // { exerciseName: [w1, w2, ...] }
-let exerciseOrder = [];    // preserve first-seen order
+      //Strength Chart
 
-for (let i = 0; i < strength_labels.length; i++) {
-    // Strip the date portion: "Bicep Curls (2026-03-06)" → "Bicep Curls"
-    let rawLabel = strength_labels[i];
-    let workout = rawLabel.replace(/\s*\(\d{4}-\d{2}-\d{2}\)\s*$/, '').trim();
-    let weight = parseFloat(strength_data[i]);
+      let exerciseHistory = {};
+      let exerciseOrder = [];
 
-    if (!(workout in exerciseHistory)) {
-        exerciseHistory[workout] = [];
-        exerciseOrder.push(workout);
-    }
-    exerciseHistory[workout].push(weight);
-}
+      for (let i = 0; i < strength_labels.length; i++) {
+        let rawLabel = strength_labels[i];
+        let workout = rawLabel.replace(/\s*\(\d{4}-\d{2}-\d{2}\)\s*$/, '').trim();
+        let weight = parseFloat(strength_data[i]);
 
-let chartLabels = [];
-let baseData = [];
-let deltaData = [];
-let baseColors = [];
-let deltaColors = [];
+        if (!(workout in exerciseHistory)) {
+          exerciseHistory[workout] = [];
+          exerciseOrder.push(workout);
+        }
+        exerciseHistory[workout].push(weight);
+      }
 
-for (let workout of exerciseOrder) {
-    let history = exerciseHistory[workout];
-    let latest = history[history.length - 1];
-    let prev = history.length >= 2 ? history[history.length - 2] : null;
+      let chartLabels = [];
+      let baseData = [];
+      let deltaData = [];
+      let baseColors = [];
+      let deltaColors = [];
+      let prData = [];
 
-    chartLabels.push(workout);
+      for (let workout of exerciseOrder) {
+        let history = exerciseHistory[workout];
+        let latest = history[history.length - 1];
+        let prev = history.length >= 2 ? history[history.length - 2] : null;
+        let pr = Math.max(...history);
 
-    if (prev === null) {
-        // Only one session — full yellow, no delta
-        baseData.push(latest);
-        baseColors.push('#FFD700');
-        deltaData.push(0);
-        deltaColors.push('rgba(0,0,0,0)');
+        chartLabels.push(workout);
+        prData.push(pr);
 
-    } else {
-        let diff = latest - prev;
-
-        if (diff > 0) {
-            // Increased — yellow base up to prev, green on top
+        if (prev === null) {
+          baseData.push(latest);
+          baseColors.push('#FFD700');
+          deltaData.push(0);
+          deltaColors.push('rgba(0,0,0,0)');
+        } else {
+          let diff = latest - prev;
+          if (diff > 0) {
             baseData.push(prev);
             baseColors.push('#FFD700');
             deltaData.push(diff);
             deltaColors.push('#3EFFC1');
-
-        } else if (diff < 0) {
-            // Decreased — yellow base up to latest, red on top
+          } else if (diff < 0) {
             baseData.push(latest);
             baseColors.push('#FFD700');
             deltaData.push(Math.abs(diff));
             deltaColors.push('#ff4c4c');
-
-        } else {
-            // Same weight — full yellow, no delta
+          } else {
             baseData.push(latest);
             baseColors.push('#FFD700');
             deltaData.push(0);
             deltaColors.push('rgba(0,0,0,0)');
+          }
         }
-    }
-}
+      }
 
-new Chart(document.getElementById("strengthChart"), {
-    type: 'bar',
-    data: {
-        labels: chartLabels,
-        datasets: [
+      const prOutlinePlugin = {
+        id: 'prOutline',
+        afterDatasetsDraw(chart) {
+          const ctx = chart.ctx;
+          const meta = chart.getDatasetMeta(0); // base dataset
+
+          meta.data.forEach((bar, i) => {
+            const pr = prData[i];
+            const base = baseData[i];
+            const delta = deltaData[i];
+            const latest = base + delta;
+
+            // Only draw outline if PR is higher than current latest
+            if (pr <= latest) return;
+
+            const prY = chart.scales.y.getPixelForValue(pr);
+            const barX = bar.x;
+            const barWidth = bar.width;
+            const barBottom = chart.scales.y.getPixelForValue(0);
+            const left = barX - barWidth / 2;
+
+            ctx.save();
+            ctx.strokeStyle = '#FFD700';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 3]);
+            ctx.strokeRect(left, prY, barWidth, barBottom - prY);
+            ctx.restore();
+
+            // PR label at the top of outline
+            ctx.save();
+            ctx.fillStyle = '#FFD700';
+            ctx.font = 'bold 10px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(`PR: ${pr}kg`, barX, prY - 4);
+            ctx.restore();
+          });
+        }
+      };
+
+      new Chart(document.getElementById("strengthChart"), {
+        type: 'bar',
+        plugins: [prOutlinePlugin],
+        data: {
+          labels: chartLabels,
+          datasets: [
             {
-                label: 'Weight (kg)',
-                data: baseData,
-                backgroundColor: baseColors,
-                stack: 'strength',
-                borderRadius: 0
+              label: 'Weight (kg)',
+              data: baseData,
+              backgroundColor: baseColors,
+              stack: 'strength',
+              borderRadius: 0
             },
             {
-                label: 'Change',
-                data: deltaData,
-                backgroundColor: deltaColors,
-                stack: 'strength',
-                borderRadius: 4
+              label: 'Change',
+              data: deltaData,
+              backgroundColor: deltaColors,
+              stack: 'strength',
+              borderRadius: 4
             }
-        ]
-    },
-    options: {
-        responsive: true,
-        plugins: {
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
             legend: { display: false },
             tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        let idx = context.dataIndex;
-                        let base = baseData[idx];
-                        let delta = deltaData[idx];
-                        let total = base + delta;
-                        let color = deltaColors[idx];
+              callbacks: {
+                label: function (context) {
+                  let idx = context.dataIndex;
+                  let base = baseData[idx];
+                  let delta = deltaData[idx];
+                  let total = base + delta;
+                  let color = deltaColors[idx];
+                  let pr = prData[idx];
 
-                        if (context.datasetIndex === 0) {
-                            return `Latest: ${total} kg`;
-                        }
-                        if (delta === 0) return null;
-
-                        let direction = color === '#3EFFC1' ? '▲' : '▼';
-                        return `${direction} ${delta} kg vs previous session`;
-                    }
+                  if (context.datasetIndex === 0) {
+                    return [`Latest: ${total} kg`, `PR: ${pr} kg`];
+                  }
+                  if (delta === 0) return null;
+                  let direction = color === '#3EFFC1' ? '▲' : '▼';
+                  return `${direction} ${delta} kg vs previous session`;
                 }
+              }
             }
-        },
-        scales: {
+          },
+          scales: {
             x: {
-                stacked: true,
-                ticks: { maxRotation: 45, minRotation: 20 }
+              stacked: true,
+              ticks: { maxRotation: 45, minRotation: 20 }
             },
             y: {
-                stacked: true,
-                beginAtZero: true,
-                title: { display: true, text: 'Weight (kg)' }
+              stacked: true,
+              beginAtZero: true,
+              title: { display: true, text: 'Weight (kg)' }
             }
+          }
         }
-    }
-});
-</script>
+      });
+    </script>
 
 </body>
 
