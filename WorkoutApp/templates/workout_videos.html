@@ -129,6 +129,13 @@
     <h2 class="text-white fw-bold">Workout Tutorials</h2>
   </div>
 
+  <form method="GET" class="search-box">
+    <input type="text" name="q" value="{{ query|default_if_none:'' }}" placeholder="Search workouts or muscle group...">
+    <button type="submit">
+        <i class="fa fa-search"></i>
+    </button>
+</form>
+
   <div class="row mt-5">
     {% for i in workout %}
     <div class="col-md-3 mb-4">
@@ -180,7 +187,7 @@
 
         <div class="row no-gutters mt-5">
     {% for m in muscle %}
-    <div class="col-lg-3 col-md-4 col-6">
+    <div class="col-lg-3 col-md-4 col-6 mb-3">
         <div class="single_catagory text-center overlay2"
              style="background-image: url('{{ m.M_Image.url }}'); 
                     height: 250px !important; 
@@ -357,6 +364,50 @@ a.ai-icon {
     border: 2px solid red;
 }
 
+.search-box{
+    position: relative;
+    width: 600px;
+    margin: 40px auto;
+}
+
+.search-box input{
+    width: 100%;
+    padding: 14px 50px 14px 20px;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background: #111;
+    color: #fff;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.search-box input::placeholder{
+    color:#aaa;
+}
+
+.search-box input:focus{
+    box-shadow: 0 0 10px rgba(255,20,20,0.7);
+}
+
+.search-box button{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border: none;
+    background: #ff1414;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-box button:hover{
+    transform: scale(1.1);
+}
+
 
 
      </style>
@@ -434,6 +485,10 @@ a.ai-icon {
         header.classList.remove("sticky");
     }
 });
+
+if (performance.navigation.type === 1) {
+    window.location.href = window.location.pathname;
+}
 </script>
 </body>
 

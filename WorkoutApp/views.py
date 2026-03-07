@@ -3,6 +3,7 @@ from AdminApp.models import *
 from UserApp.models import *
 from WorkoutApp.ai_workout import get_ai_workout_plan
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 import os
 import zipfile
@@ -14,17 +15,41 @@ from AdminApp.models import WorkoutDb
 # Create your views here.
 
 def workout_videos(request):
-  workout_list = WorkoutDb.objects.all().order_by('?')
-  muscle = MuscleDb.objects.all()
-  paginator = Paginator(workout_list, 12)   # 12 videos per page
 
-  page_number = request.GET.get('page')
-  workout = paginator.get_page(page_number)
-  return render(request, "workout_videos.html", {"workout" : workout, "muscle" : muscle})
+    workouts = WorkoutDb.objects.all()
+    muscle = MuscleDb.objects.all()
+    query = request.GET.get('q')
 
+    if query:
+        workouts = workouts.filter(
+            Q(Name__icontains=query) |
+            Q(Muscle_Group__icontains=query) |
+            Q(Description__icontains=query)
+        )
+    else:
+        workouts = workouts.order_by('?')  
+
+    paginator = Paginator(workouts, 12)  
+    page_number = request.GET.get('page')
+    workout = paginator.get_page(page_number)
+
+    return render(request, "workout_videos.html", {
+        "workout": workout,
+        "muscle": muscle,
+        "query": query
+    })
 def filtered_workout(request, m_name):
   workouts = WorkoutDb.objects.filter(Muscle_Group__iexact=m_name)
-  return render(request, "filtered_workout.html", {"workouts" : workouts, 'Muscle_Group': m_name})
+  query = request.GET.get('q')
+  
+  if query:
+    workouts=workouts.filter(
+      Q(Name__icontains=query) |
+      Q(Description__icontains=query)
+    )
+    
+  return render(request, "filtered_workout.html", {"workouts" : workouts, 'Muscle_Group': m_name,
+                                                    "query" : query})
 
 
 def ai_suggestions(request):

@@ -135,6 +135,13 @@
     <h2 class="text-white fw-bold">{{ Muscle_Group }} Workouts</h2>
   </div>
 
+  <form method="GET" class="search-box">
+    <input type="text" name="q" value="{{ query|default_if_none:'' }}" placeholder="Search workouts...">
+    <button type="submit">
+        <i class="fa fa-search"></i>
+    </button>
+</form>
+
   <div class="row">
     {% for i in workouts %}
     <div class="col-md-3 col-sm-6 mb-4">
@@ -347,6 +354,50 @@ a.ai-icon, .download-icon {
     height: 22px;
     filter: brightness(0) invert(1); /* makes logo white */
 }
+
+.search-box{
+    position: relative;
+    width: 600px;
+    margin: 40px auto;
+}
+
+.search-box input{
+    width: 100%;
+    padding: 14px 50px 14px 20px;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background: #111;
+    color: #fff;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.search-box input::placeholder{
+    color:#aaa;
+}
+
+.search-box input:focus{
+    box-shadow: 0 0 10px rgba(255,20,20,0.7);
+}
+
+.search-box button{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border: none;
+    background: #ff1414;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-box button:hover{
+    transform: scale(1.1);
+}
     </style>
     <!-- footer_end  -->
 
@@ -421,6 +472,10 @@ a.ai-icon, .download-icon {
         header.classList.remove("sticky");
     }
 });
+
+if (performance.navigation.type === 1) {
+    window.location.href = window.location.pathname;
+}
 </script>
 </body>
 
