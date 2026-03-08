@@ -18,9 +18,9 @@ def save_progress(request):
         date = request.POST.get('date')
         weight = request.POST.get('bodyweight')
         body_fat = request.POST.get('bodyfat')
+        user = request.POST.get('user')
 
         progress = ProgressDb.objects.create(user=request.user, date=date, body_weight=weight, body_fat=body_fat)
-
         workouts = request.POST.getlist('workout[]')
         weight = request.POST.getlist('weight[]')
         reps = request.POST.getlist('reps[]')
@@ -31,7 +31,7 @@ def save_progress(request):
             if workouts[i]:
 
                 WorkoutLog.objects.create(
-                    progress=progress, workout_id=workouts[i], weight=weight[i] if weight[i] else None,
+                    user=request.user, progress=progress, workout_id=workouts[i], weight=weight[i] if weight[i] else None,
                     reps=reps[i] if reps[i] else None, sets=sets[i] if sets[i] else None)
 
         return redirect('progress_dashboard')

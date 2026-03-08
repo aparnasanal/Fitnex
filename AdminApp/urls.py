@@ -20,6 +20,10 @@ urlpatterns = [
   path('edit_workout/<int:w_id>/', views.edit_workout, name="edit_workout"),
   path('update_workout/<int:work_id>/', views.update_workout, name="update_workout"),
   path('delete_workout/<int:w_id>/', views.delete_workout, name="delete_workout"),
+  
+  path('view_users/', views.view_users, name="view_users"),
+  path('delete_user/<int:user_id>/', views.delete_user, name="delete_user"),
+  path('users/<int:user_id>/progress/', views.user_detail, name='user_detail'),
 
 
   path('view_messages/', views.view_message, name="view_messages"),

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{% extends 'dashboard.html' %}
+{% block content %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <title>View Muscle Groups</title>
+</head>
+
+<body>
+  <a href="{% url 'view_users' %}" class="btn btn-outline-light mb-3">
+⬅ Back to Users
+</a>
+  <div class="mdc-layout-grid">
+    <div class="mdc-layout-grid__inner">
+
+      <!-- User Info Card -->
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <div class="mdc-card red-black-card p-3 mb-3">
+          <div class="card-inner p-4">
+            <h5 class="card-title mb-3">👤 {{ user.username }} - Progress Overview</h5>
+            <p>Email: {{ user.email }}</p>
+            <p>Goal: {{ user.profiledb.Goal|default:"-" }}</p>
+            <p>Activity Level: {{ user.profiledb.Activity_level|default:"-" }}</p>
+            <p>Profile Complete:
+              {% if user.profiledb.Age and user.profiledb.Weight %}
+              ✅
+              {% else %}
+              ❌
+              {% endif %}
+            </p>
+            <p>Total Workouts: <strong>{{ logs|length }}</strong></p>
+
+            <p>Last Workout:
+              {% if logs %}
+              {{ logs.0.date_logged|date:"d M Y" }}
+              {% else %}
+              -
+              {% endif %}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Workout Log Table -->
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <div class="mdc-card red-black-card p-3 mb-3">
+          <div class="card-inner p-4">
+            <h5 class="card-title mb-3">📊 All Workout Logs</h5>
+            <div class="table-responsive" style="max-height:400px; overflow-y:auto;">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-center">Date Logged</th>
+                    <th class="text-center">Workout</th>
+                    <th class="text-center">Muscle Group</th>
+                    <th class="text-center">Reps</th>
+                    <th class="text-center">Sets</th>
+                    <th class="text-center">Weight</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for log in logs %}
+                  <tr>
+                    <td class="text-center">{{ log.date_logged|date:"d M Y H:i" }}</td>
+                    <td class="text-center">{{ log.workout.Name }}</td>
+                    <td class="text-center">{{ log.workout.Muscle_Group }}</td>
+                    <td class="text-center">{{ log.reps }}</td>
+                    <td class="text-center">{{ log.sets }}</td>
+                    <td class="text-center">{{ log.weight }}</td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="6" class="text-center text-muted">No workouts logged yet.</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--x Progress Charts -->
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+        <div class="mdc-card red-black-card p-3 mb-3">
+          <div class="card-inner p-4">
+            <h5 class="card-title mb-3">📈 Performance Charts</h5>
+            <canvas id="progressChart" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('progressChart').getContext('2d');
+
+    const labels = [
+{% for log in logs reversed %}
+"{{ log.date_logged|date:'d M' }}",
+{% endfor %}
+];
+
+const repsData = [
+{% for log in logs reversed %}
+{{ log.reps|default:0 }},
+{% endfor %}
+];
+
+const weightData = [
+{% for log in logs reversed %}
+{{ log.weight|default:0 }},
+{% endfor %}
+];
+
+const chart = new Chart(ctx, {
+type: 'line',
+data: {
+labels: labels,
+datasets: [
+{
+label: 'Reps',
+data: repsData,
+borderColor: 'rgba(255,76,76,0.9)',
+backgroundColor: 'rgba(255,76,76,0.2)',
+tension: 0.3
+},
+{
+label: 'Weight',
+data: weightData,
+borderColor: 'rgba(54,162,235,0.9)',
+backgroundColor: 'rgba(54,162,235,0.2)',
+tension: 0.3
+}
+]
+},
+options: {
+responsive: true,
+scales: {
+y: { beginAtZero: true }
+}
+}
+});
+  </script>
+
+</body>
+
+</html>
+{% endblock %}

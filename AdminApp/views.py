@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
@@ -12,7 +12,7 @@ from ProgressApp.models import *
 
 from django.utils import timezone
 from datetime import timedelta
-from django.db.models import Count
+from django.db.models import Count, Max
 
 # Create your views here.
 
@@ -68,7 +68,7 @@ def dashboard(request):
   recent_signups = User.objects.order_by('-date_joined')[:5]
   recent_workouts = WorkoutLog.objects.select_related('user', 'workout').order_by('-date_logged')[:5]
   
-  # ------------Top workouts --------------------------
+  # --------------------- Top workouts --------------------------
   top_workouts_raw = (
     WorkoutLog.objects.values('workout__Name')
     .annotate(total_logged=Count('id'))
@@ -240,3 +240,22 @@ def delete_workout(request, w_id):
    workout.delete()
 
    return redirect(view_workout)
+
+#--------------------------------------------------------------------------------------------------------
+
+def view_users(request):
+    users = User.objects.select_related('profiledb').annotate(
+    total_workouts=Count('logs'),
+    last_workout=Max('logs__date_logged')
+)
+    return render(request, 'view_users.html', {'users': users})
+ 
+def delete_user(request, user_id):
+    user = User.objects.get(id=user_id)
+    user.delete()
+    return redirect(view_users)
+ 
+def user_detail(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    logs = user.logs.select_related('workout','progress').order_by('-date_logged')
+    return render(request, 'user_detail.html', {'user': user, 'logs': logs})
