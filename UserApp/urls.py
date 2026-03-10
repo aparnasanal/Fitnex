@@ -16,4 +16,6 @@ urlpatterns = [
 
   path('contact/', views.contact, name="contact"),
   path('save_message/', views.save_message, name="save_message"),
+  
+  path('chatbot/', views.chatbot, name="chatbot"),
 ]

@@ -6,6 +6,11 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
+import requests
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
 
 # profile completion
 def is_profile_complete(profile):
@@ -150,8 +155,42 @@ def save_message(request):
         obj.save()
 
         return redirect(contact)
+      
+#___________________________________________________________________________________________________________
 
+API_KEY = "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"
 
+@csrf_exempt
+def chatbot(request):
+
+    if request.method == "POST":
+
+        data = json.loads(request.body)
+        message = data.get("message")
+
+        response = requests.post(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {API_KEY}",
+                "Content-Type": "application/json",
+                "HTTP-Referer": "http://localhost:8000",
+                "X-Title": "Gym Chatbot"
+            },
+            json={
+                "model": "openai/gpt-4o-mini",
+                "messages": [
+                    {"role":"system","content": "You are a fitness chatbot. Only answer questions about workouts, diet, muscles, and gym training."},
+                    {"role":"user","content":message}
+                    
+                ]
+            }
+        )
+
+        result = response.json()
+
+        reply = result["choices"][0]["message"]["content"]
+
+        return JsonResponse({"reply": reply})
 
 
 
