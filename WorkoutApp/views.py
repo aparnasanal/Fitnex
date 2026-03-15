@@ -66,7 +66,7 @@ def download_videos(request, muscle):
 
     with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
         for video in videos:
-            video_path = video.Video.path   # FileField path
+            video_path = video.Video.path 
             filename = os.path.basename(video_path)
 
             zip_file.write(video_path, filename)

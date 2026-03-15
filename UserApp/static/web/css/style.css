@@ -2448,7 +2448,7 @@ h3 {
 }
 
 /* line 1, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_pricings.scss */
-.priscing_area {
+.pricing_area {
   background: #000000;
   padding-bottom: 140px;
   padding-top: 170px;
@@ -2456,7 +2456,7 @@ h3 {
 
 @media (max-width: 767px) {
   /* line 1, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_pricings.scss */
-  .priscing_area {
+  .pricing_area {
     padding-top: 50px;
     padding-bottom: 20px;
   }
@@ -2464,14 +2464,14 @@ h3 {
 
 @media (min-width: 768px) and (max-width: 991px) {
   /* line 1, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_pricings.scss */
-  .priscing_area {
+  .pricing_area {
     padding-top: 100px;
     padding-bottom: 70px;
   }
 }
 
 /* line 13, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_pricings.scss */
-.priscing_area .single_prising {
+.pricing_area .single_prising {
   background: #1A1A1A;
   padding: 40px 0;
   border: 1px solid transparent;
@@ -2483,12 +2483,12 @@ h3 {
 }
 
 /* line 19, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_pricings.scss */
-.priscing_area .single_prising .prising_header {
+.pricing_area .single_prising .prising_header {
   padding-bottom: 23px;
 }
 
 /* line 21, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_pricings.scss */
-.priscing_area .single_prising .prising_header h3 {
+.pricing_area .single_prising .prising_header h3 {
   font-size: 30px;
   font-weight: 400;
   color: #fff;
@@ -2496,7 +2496,7 @@ h3 {
 }
 
 /* line 27, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_pricings.scss */
-.priscing_area .single_prising .prising_header span {
+.pricing_area .single_prising .prising_header span {
   position: relative;
   font-family: "Teko", sans-serif;
   color: #FF1414;
@@ -2505,14 +2505,14 @@ h3 {
 }
 
 /* line 35, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_pricings.scss */
-.priscing_area .single_prising .pricing_body {
+.pricing_area .single_prising .pricing_body {
   border-top: 1px solid #313131;
   padding-top: 27px;
   padding-bottom: 32px;
 }
 
 /* line 40, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_pricings.scss */
-.priscing_area .single_prising .pricing_body ul li {
+.pricing_area .single_prising .pricing_body ul li {
   font-family: "Teko", sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -2521,12 +2521,12 @@ h3 {
 }
 
 /* line 46, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_pricings.scss */
-.priscing_area .single_prising .pricing_body ul li.off-color {
+.pricing_area .single_prising .pricing_body ul li.off-color {
   color: #7A838B;
 }
 
 /* line 57, ../../Arafath/CL/Cl November/227. Health _ Fitness/HTML/scss/_pricings.scss */
-.priscing_area .single_prising:hover {
+.pricing_area .single_prising:hover {
   border: 1px solid #FF1414;
 }
 

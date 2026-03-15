@@ -40,6 +40,12 @@ class ProfileDb(models.Model):
   Goal = models.CharField(max_length=20, choices=GOAL_CHOICES, null=True, blank=True)
   Activity_level = models.CharField(max_length=20, choices=ACTIVITY_LEVEL, null=True, blank=True)
   Experience_level = models.CharField(max_length=20, choices=EXPERIENCE_LEVEL, null=True, blank=True)
+  
+  is_subscribed = models.BooleanField(default=False)
+  subscription_expiry = models.DateField(null=True, blank=True)
+
+  def subscription_active(self):
+        return self.is_subscribed and self.subscription_expiry and self.subscription_expiry >= date.today()
 
   def __str__(self):
         return self.user.username

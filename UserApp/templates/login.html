@@ -20,12 +20,12 @@
       </div>
 
       {% if messages %}
-      {% for message in messages %}
-      <div class="alert alert-danger">
-        <p style="color: red;">{{ message }}</p>
-      </div>
-      {% endfor %}
-      {% endif %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
 
       <form method="post" action="{% url 'login' %}" class="login-form" id="loginForm" novalidate>
         {% csrf_token %}
@@ -60,7 +60,7 @@
           <span class="error-message" id="passwordError"></span>
         </div>
 
-        
+
 
         <!-- <div class="form-options">
                     <div class="remember-wrapper">
@@ -85,8 +85,9 @@
       </div>
 
       <div class="social-login">
-        <a class="social-btn google-btn" href="{% provider_login_url 'google' %}?next={{ request.GET.next|default:'/' }}" 
-        style="text-decoration: none;">
+        <a class="social-btn google-btn"
+          href="{% provider_login_url 'google' %}?next={{ request.GET.next|default:'/' }}"
+          style="text-decoration: none;">
           <span class="social-icon google-icon"></span>
           <span>Continue with Google</span>
         </a>

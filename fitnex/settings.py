@@ -95,6 +95,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'UserApp.context_processors.subscription_status',
             ],
         },
     },
@@ -164,6 +165,9 @@ AUTHENTICATION_BACKENDS = (
   "django.contrib.auth.backends.ModelBackend",
   "allauth.account.auth_backends.AuthenticationBackend"
 )
+
+RAZORPAY_KEY_ID = "rzp_test_0ib0jPwwZ7I1lT"
+RAZORPAY_KEY_SECRET = "VjHNO5zKeKxz8PYe7VnzwxMR"
 
 SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_LOGIN_ON_GET = True

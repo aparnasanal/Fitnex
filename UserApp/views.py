@@ -10,6 +10,9 @@ import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from datetime import date, timedelta
+from django.conf import settings
+import razorpay
 
 
 # profile completion
@@ -25,13 +28,22 @@ def is_profile_complete(profile):
 @login_required
 def homepage(request):
   muscle = MuscleDb.objects.all()
+  profile = request.user.profiledb
+  remaining_days = None
   if request.user.is_authenticated:
         profile, created = ProfileDb.objects.get_or_create(user=request.user)
         if not is_profile_complete(profile):
           messages.warning(request, "Please complete your profile.")
           return redirect('profile_setup')
+  if profile.is_subscribed and profile.subscription_expiry:
+        remaining_days = (profile.subscription_expiry - date.today()).days
+        if remaining_days <= 0:
+            profile.is_subscribed = False
+            profile.subscription_expiry = None
+            profile.save()
+            remaining_days = None
         
-  return render(request, "home.html", {"muscle" : muscle})
+  return render(request, "home.html", {"muscle" : muscle, "remaining_days": remaining_days, "profile": profile})
 
 def user_login(request):
   if request.user.is_authenticated:
@@ -156,42 +168,104 @@ def save_message(request):
 
         return redirect(contact)
       
-#___________________________________________________________________________________________________________
+#--------------------------------------------------------------------------------------------------------------------------
 
-API_KEY = "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"
+@login_required
+def subscribe(request):
+    profile = request.user.profiledb
+
+    # Render the payment page even on GET
+    client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+    order_amount = 49900  # ₹499 in paise
+    order_currency = 'INR'
+    order_receipt = f"order_rcptid_{request.user.id}"
+
+    razorpay_order = client.order.create({
+        'amount': order_amount,
+        'currency': order_currency,
+        'receipt': order_receipt,
+        'notes': {'plan': 'AI Fitness Subscription'}
+    })
+
+    context = {
+        'order_id': razorpay_order['id'],
+        'amount': order_amount,
+        'key_id': settings.RAZORPAY_KEY_ID,
+        'profile': profile
+    }
+    return render(request, "subscribe_payment.html", context)
 
 @csrf_exempt
-def chatbot(request):
-
+@login_required
+def subscribe_success(request):
     if request.method == "POST":
-
         data = json.loads(request.body)
-        message = data.get("message")
+        profile = request.user.profiledb
+        profile.is_subscribed = True
+        profile.subscription_expiry = date.today() + timedelta(days=30)
+        profile.save()
+        return JsonResponse({"message": "Payment successful! Subscription activated."})
+    return JsonResponse({"error": "Invalid request"}, status=400)
 
-        response = requests.post(
-            "https://openrouter.ai/api/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {API_KEY}",
-                "Content-Type": "application/json",
-                "HTTP-Referer": "http://localhost:8000",
-                "X-Title": "Gym Chatbot"
-            },
-            json={
-                "model": "openai/gpt-4o-mini",
+
+#--------------------------------------------------------------------------------------------------------------
+
+OPENROUTER_API_KEY = "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"
+OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+
+@csrf_exempt
+@login_required
+def chatbot(request):
+    if request.method == "POST":
+        try:
+            profile = request.user.profiledb
+
+            if not profile.subscription_active():
+                return JsonResponse({
+                    "reply": "Subscribe to access chatbot.."
+                })
+
+            data = json.loads(request.body)
+            message = data.get("message", "").strip()
+
+            if not message:
+                return JsonResponse({"reply": "Please type a message."})
+
+            payload = {
+                "model": "gpt-3.5-turbo",
                 "messages": [
-                    {"role":"system","content": "You are a fitness chatbot. Only answer questions about workouts, diet, muscles, and gym training."},
-                    {"role":"user","content":message}
-                    
+                    {
+                        "role": "system",
+                        "content": (
+                            "You are a helpful fitness and gym expert. "
+                            "Answer only questions related to workouts, nutrition, exercises, and healthy lifestyle. "
+                            "If the question is unrelated, politely say you can only answer fitness related questions."
+                        )
+                    },
+                    {"role": "user", "content": message}
                 ]
             }
-        )
 
-        result = response.json()
+            headers = {
+                "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                "Content-Type": "application/json"
+            }
 
-        reply = result["choices"][0]["message"]["content"]
+            response = requests.post(OPENROUTER_URL, json=payload, headers=headers)
+            result = response.json()
 
-        return JsonResponse({"reply": reply})
+            if "error" in result:
+                reply = f"API Error: {result['error']['message']}"
+            elif "choices" in result:
+                reply = result["choices"][0]["message"]["content"]
+            elif "output" in result:
+                reply = result["output"][0]["content"]
+            else:
+                reply = "Sorry, I could not get a response."
 
+            return JsonResponse({"reply": reply})
 
+        except Exception as e:
+            return JsonResponse({"reply": f"Error: {str(e)}"})
 
-
+    return JsonResponse({"error": "Invalid request"}, status=400)

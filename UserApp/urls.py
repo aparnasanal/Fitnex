@@ -18,4 +18,7 @@ urlpatterns = [
   path('save_message/', views.save_message, name="save_message"),
   
   path('chatbot/', views.chatbot, name="chatbot"),
+  path('subscribe/', views.subscribe, name="subscribe"),
+  path('subscribe/success', views.subscribe_success, name="subscribe_success"),
+
 ]
