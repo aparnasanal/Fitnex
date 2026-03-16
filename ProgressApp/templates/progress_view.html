@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- <link rel="manifest" href="site.webmanifest"> -->
-      <link rel="icon" type="image/x-icon" href="{% static 'web/img/logo.png' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'web/img/logo.png' %}">
 
   <!-- Place favicon.ico in the root directory -->
 
@@ -37,29 +37,24 @@
   </style>
 </head>
 
-<body>
-  <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
-
-  <!-- header-start -->
+<body data-subscription="{{ subscription_active|yesno:'true,false' }}">
   <header>
-        <div class="header-area ">
-            <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid ">
-                    <div class="header_bottom_border">
-                        <div class="row align-items-center">
-                            <div class="col-xl-3 col-lg-2" style="position: relative;">
-                                <div class="logo">
-                                    <a href="{% url 'home' %}">
-                                        <h3 style="padding-top: 20px; color: white;">FITNEX.</h3>
-                                        <img src="{% static 'web/img/logo.png' %}" height="100px"
-                                            style="margin-top: -70px; margin-left: 50px;" alt="">
-                                    </a>
-                                </div>
+    <div class="header-area ">
+      <div id="sticky-header" class="main-header-area">
+        <div class="container-fluid ">
+          <div class="header_bottom_border">
+            <div class="row align-items-center">
+              <div class="col-xl-3 col-lg-2" style="position: relative;">
+                <div class="logo">
+                  <a href="{% url 'home' %}">
+                    <h3 style="padding-top: 20px; color: white;">FITNEX.</h3>
+                    <img src="{% static 'web/img/logo.png' %}" height="100px"
+                      style="margin-top: -70px; margin-left: 50px;" alt="">
+                  </a>
+                </div>
 
-                                {% if profile.is_subscribed and profile.subscription_expiry %}
-                                <div style="
+                {% if profile.is_subscribed and profile.subscription_expiry %}
+                <div style="
                                     position: absolute;
                                     top: 100%;
                                     left: 0;
@@ -73,58 +68,56 @@
                                     font-weight: 100;
                                     text-align: center;
                                 ">
-                                    Your subscription is active! Expires in <span id="countdown"></span>
-                                </div>
-                                {% endif %}
-                            </div>
-                            <div class="col-xl-6 col-lg-7">
-                                <div class="main-menu  d-none d-lg-block">
-                                    <nav>
-                                        <ul id="navigation">
-                                            <li><a href="{% url 'home' %}">home</a></li>
-                                            <li><a href="{% url 'diet' %}">
-                                                    My Diet
-                                                </a></li>
-                                            <li><a href="{% url 'workout_videos' %}">Workouts</a></li>
-                                            <li><a class="active" href="{% url 'progress_dashboard' %}">Progress</a></li>
-                                            <li><a href="{% url 'contact' %}">Contact</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                                <div class="Appointment">
-                                    {% if request.user.is_authenticated %}
-                                    <div class="book_btn dropdown d-none d-lg-block ">
-                                        <a class="dropdown-toggle" class="dropdown-toggle" href="#"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Welcome {{ request.user.username }} !</a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a class="dropdown-item" href="#">Profile</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    {% else %}
-                                    <div class="book_btn d-none d-lg-block">
-                                        <a href="#">Login</a>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
-                            </div>
-                        </div>
-                    </div>
-
+                  Your subscription is active! Expires in <span id="countdown"></span>
                 </div>
+                {% endif %}
+              </div>
+              <div class="col-xl-6 col-lg-7">
+                <div class="main-menu  d-none d-lg-block">
+                  <nav>
+                    <ul id="navigation">
+                      <li><a href="{% url 'home' %}">home</a></li>
+                      <li><a href="{% url 'diet' %}">My Diet</a></li>
+                      <li><a href="{% url 'workout_videos' %}">Workouts</a></li>
+                      <li><a class="active" href="{% url 'progress_dashboard' %}">Progress</a></li>
+                      <li><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                <div class="Appointment">
+                  {% if request.user.is_authenticated %}
+                  <div class="book_btn dropdown d-none d-lg-block ">
+                    <a class="dropdown-toggle" class="dropdown-toggle" href="#" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      Welcome {{ request.user.username }} !</a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a class="dropdown-item" href="#">Profile</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                      </li>
+                    </ul>
+                  </div>
+                  {% else %}
+                  <div class="book_btn d-none d-lg-block">
+                    <a href="#">Login</a>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mobile_menu d-block d-lg-none"></div>
+              </div>
             </div>
+          </div>
+
         </div>
-    </header>
+      </div>
+    </div>
+  </header>
   <!-- header-end -->
 
   <div class="container mt-5 pt-5">
@@ -137,64 +130,102 @@
     </div>
 
     <!-- PROGRESS -->
+     <div id="progress-lock-wrapper">
+        <div id="progress-content" class="container text-center" style="margin-top: 50px;">
 
-    <div class="container text-center" style="margin-top: 50px;">
-
-      <h2 style="color:white;margin-bottom:30px;">Progress Dashboard</h2>
+        <h2 style="color:white;margin-bottom:30px;">Progress Dashboard</h2>
 
 
-      <div class="row">
+        <div class="row">
 
-        <!-- Weight Card -->
-        <div class="col-md-6 text">
-          <div class="card bg-dark text-white p-3">
+          <!-- Weight Card -->
+          <div class="col-md-6 text">
+            <div class="card bg-dark text-white p-3">
 
-            <h4 style="color: white;">Body Weight Progress</h4>
+              <h4 style="color: white;">Body Weight Progress</h4>
 
-            <canvas id="weightChart"></canvas>
-            <div class="mt-3">
-              <p><i style="color: {{ weight_color }};">{{ weight_status }}</i></p>
+              <canvas id="weightChart"></canvas>
+              <div class="mt-3">
+                <p><i style="color: {{ weight_color }};">{{ weight_status }}</i></p>
+              </div>
+
             </div>
-
           </div>
+
+
+          <!-- Body Fat Card -->
+          <div class="col-md-6">
+            <div class="card bg-dark text-white p-3">
+
+              <h4 style="color: white;">Body Fat Progress</h4>
+
+              <canvas id="fatChart"></canvas>
+              <div class="mt-3">
+                <p><i style="color: {{ fat_color }};">{{ fat_status }}</i></p>
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
 
-        <!-- Body Fat Card -->
-        <div class="col-md-6">
-          <div class="card bg-dark text-white p-3">
+        <div class="row mt-4">
 
-            <h4 style="color: white;">Body Fat Progress</h4>
+          <!-- Strength Progress -->
+          <div class="col-md-12">
+            <div class="card bg-dark text-white p-3">
 
-            <canvas id="fatChart"></canvas>
-            <div class="mt-3">
-              <p><i style="color: {{ fat_color }};">{{ fat_status }}</i></p>
+              <h4 style="color: white;">Strength Progress</h4>
+
+              <canvas id="strengthChart" style="padding-right: 50px;"></canvas>
+
             </div>
-
           </div>
+
         </div>
 
       </div>
+      {% if not subscription_active %}
+    <div class="lock-overlay">
 
+        <div class="lock-card" style="border: 1px solid #611c219a;">
 
-      <div class="row mt-4">
+            <h2>🔒 Premium Feature</h2>
 
-        <!-- Strength Progress -->
-        <div class="col-md-12">
-          <div class="card bg-dark text-white p-3">
+            <p>
+                Progress tracking is available only for subscribed members.
+                Unlock this feature to track your fitness journey.
+            </p>
 
-            <h4 style="color: white;">Strength Progress</h4>
+            <a href="{% url 'subscribe' %}" class="subscribe-btn">
+                Subscribe Now
+            </a>
 
-            <canvas id="strengthChart" style="padding-right: 50px;"></canvas>
+            <button class="close-lock" onclick="closeLock()">
+                Close
+            </button>
 
-          </div>
         </div>
-
-      </div>
 
     </div>
+    {% endif %}
+
+     </div>
+
+
 
     <!-- END PROGRESS -->
+
+    <div id="subscribeModal" class="subscribe-modal">
+      <div class="modal-box">
+        <h3>Subscription Required</h3>
+        <p>You need an active subscription to view your progress.</p>
+
+        <a href="{% url 'subscribe' %}" class="subscribe-btn">Subscribe</a>
+        <button id="closeModal">Close</button>
+      </div>
+    </div>
 
 
 
@@ -229,7 +260,6 @@
         width: 22px;
         height: 22px;
         filter: brightness(0) invert(1);
-        /* makes logo white */
       }
     </style>
     <!-- footer_end  -->
@@ -490,38 +520,49 @@
     </script>
 
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    let countdownEl = document.getElementById("countdown");
-    if (!countdownEl) return; 
+      document.addEventListener("DOMContentLoaded", function () {
+        let countdownEl = document.getElementById("countdown");
+        if (!countdownEl) return;
 
-    let expiryDate = new Date("{{ profile.subscription_expiry }}").getTime();
+        let expiryDate = new Date("{{ profile.subscription_expiry }}").getTime();
 
-    let x = setInterval(function() {
-        let now = new Date().getTime();
-        let distance = expiryDate - now;
+        let x = setInterval(function () {
+          let now = new Date().getTime();
+          let distance = expiryDate - now;
 
-        if (distance < 0) {
+          if (distance < 0) {
             clearInterval(x);
             countdownEl.innerHTML = "Expired";
-        } else {
+          } else {
             let days = Math.floor(distance / (1000 * 60 * 60 * 24));
             let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
-        }
-    }, 60000); 
+          }
+        }, 60000);
 
-    let now = new Date().getTime();
-    let distance = expiryDate - now;
-    if (distance >= 0) {
-        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
-    } else {
-        countdownEl.innerHTML = "Expired";
-    }
-});
+        let now = new Date().getTime();
+        let distance = expiryDate - now;
+        if (distance >= 0) {
+          let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
+        } else {
+          countdownEl.innerHTML = "Expired";
+        }
+      });
+    </script>
+
+    <script>
+
+function closeLock(){
+
+    window.location.href = "{% url 'home' %}";
+    document.querySelector(".lock-overlay").style.display = "none";
+
+}
+
 </script>
 
 </body>

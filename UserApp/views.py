@@ -10,6 +10,8 @@ import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+import os
+from dotenv import load_dotenv
 from datetime import date, timedelta
 from django.conf import settings
 import razorpay
@@ -210,8 +212,10 @@ def subscribe_success(request):
 
 #--------------------------------------------------------------------------------------------------------------
 
-OPENROUTER_API_KEY = "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"
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+
+load_dotenv()
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 @csrf_exempt
 @login_required
@@ -247,7 +251,7 @@ def chatbot(request):
             }
 
             headers = {
-                "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                "Authorization": f"Bearer {OPENAI_API_KEY}",
                 "Content-Type": "application/json"
             }
 

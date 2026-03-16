@@ -1,4 +1,3 @@
-
 <!doctype html>
 {% extends 'home.html' %}
 {% load static %}
@@ -13,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- <link rel="manifest" href="site.webmanifest"> -->
-        <link rel="icon" type="image/x-icon" href="{% static 'web/img/logo.png' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'web/img/logo.png' %}">
 
     <!-- Place favicon.ico in the root directory -->
 
@@ -38,7 +37,7 @@
         <![endif]-->
 
     <!-- header-start -->
-     <header>
+    <header>
         <div class="header-area ">
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid ">
@@ -120,33 +119,74 @@
             </div>
         </div>
     </header>
-        <!-- header-end -->
+    <!-- header-end -->
 
-<div class="container mt-5 pt-5">
+    <div class="container mt-5 pt-5">
 
-   <h2 class="text-white fw-bold mb-4 mt-5 text-center">AI Suggested 6-Day Workout Plan</h2>
+        <h2 class="text-white fw-bold mb-4 mt-5 text-center">AI Suggested 6-Day Workout Plan</h2>
 
-{% for day, exercises in workouts.items %}
-<h3 class="text-white">{{ day }}</h3>
-<div class="row mb-4">
-    {% for ex in exercises %}
-    <div class="col-md-4 mb-3">
-        <div class="card bg-dark text-light p-3 shadow">
-            <h5 style="color: #ffc107; text-shadow: 0 0 6px rgba(255, 193, 7, 0.5);">{{ ex.name }}</h5>
-            <h6>Muscle Group: {{ ex.muscle_group }}</h6>
-            <p>{{ ex.description }}</p>
-            <p>Experience Level: {{ ex.experience_level }}</p>
+        {% for day, exercises in workouts.items %}
+        <h3 class="text-white">{{ day }}</h3>
+        <div class="row mb-4">
+            {% for ex in exercises %}
+            <div class="col-md-4 mb-3">
+                <div class="card bg-dark text-light p-3 shadow">
+                    <h5 style="color: #ffc107; text-shadow: 0 0 6px rgba(255, 193, 7, 0.5);">{{ ex.name }}</h5>
+                    <h6>Muscle Group: {{ ex.muscle_group }}</h6>
+                    <p>{{ ex.description }}</p>
+                    <p>Experience Level: {{ ex.experience_level }}</p>
 
-            {% if ex.video_url %}
-            <video src="{{ ex.video_url }}" controls muted width="100%" style="margin-top:10px;"></video>
-            {% endif %}
+                    {% if ex.video_url %}
+                    <video src="{{ ex.video_url }}" controls muted width="100%" style="margin-top:10px;"></video>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
         </div>
-    </div>
-    {% endfor %}
-</div>
-{% endfor %}
+        {% endfor %}
 
-</div>
+    </div>
+
+    <div id="workout-lock-wrapper">
+
+        <div id="workout-content" class="container mt-5 pt-5">
+
+            <h2 class="fw-bold text-light text-center mb-4">
+                Your AI Generated Workout Plan
+            </h2>
+
+            <div class="card bg-dark text-light p-4 shadow">
+                {{ workout_plan|linebreaks }}
+            </div>
+
+        </div>
+
+        {% if not subscription_active %}
+        <div class="lock-overlay">
+
+            <div class="lock-card" style="border: 1px solid #611c219a;">
+
+                <h2>🔒 Premium Feature</h2>
+
+                <p>
+                    AI-generated personalized workouts are available only for subscribed members.
+                    Unlock this feature to get your custom workout plan.
+                </p>
+
+                <a href="{% url 'subscribe' %}" class="subscribe-btn">
+                    Subscribe Now
+                </a>
+
+                <button class="close-lock" onclick="closeLock()">
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+        {% endif %}
+
+    </div>
 
 
     <!-- features_area_start  -->
@@ -156,7 +196,8 @@
                 <div class="col-xl-12">
                     <div class="section_title text-center mb-73">
                         <h3>Our Features</h3>
-                        <p>There are many variations of passages of lorem Ipsum available, but the majority <br> have suffered alteration.</p>
+                        <p>There are many variations of passages of lorem Ipsum available, but the majority <br> have
+                            suffered alteration.</p>
                     </div>
                 </div>
             </div>
@@ -204,7 +245,7 @@
 
 
     <!-- JS here -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'web/js/vendor/modernizr-3.5.0.min.js' %}"></script>
     <script src="{% static 'web/js/popper.min.js' %}"></script>
     <script src="{% static 'web/js/owl.carousel.min.js' %}"></script>
@@ -234,44 +275,44 @@
 
     <script src="{% static 'web/js/main.js' %}"></script>
     <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
-  
+
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'web/js/jquery.sticky.js' %}"></script>
 
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    let countdownEl = document.getElementById("countdown");
-    if (!countdownEl) return; 
+        document.addEventListener("DOMContentLoaded", function () {
+            let countdownEl = document.getElementById("countdown");
+            if (!countdownEl) return;
 
-    let expiryDate = new Date("{{ profile.subscription_expiry }}").getTime();
+            let expiryDate = new Date("{{ profile.subscription_expiry }}").getTime();
 
-    let x = setInterval(function() {
-        let now = new Date().getTime();
-        let distance = expiryDate - now;
+            let x = setInterval(function () {
+                let now = new Date().getTime();
+                let distance = expiryDate - now;
 
-        if (distance < 0) {
-            clearInterval(x);
-            countdownEl.innerHTML = "Expired";
-        } else {
-            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
-        }
-    }, 60000); 
+                if (distance < 0) {
+                    clearInterval(x);
+                    countdownEl.innerHTML = "Expired";
+                } else {
+                    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
+                }
+            }, 60000);
 
-    let now = new Date().getTime();
-    let distance = expiryDate - now;
-    if (distance >= 0) {
-        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
-    } else {
-        countdownEl.innerHTML = "Expired";
-    }
-});
-</script>
+            let now = new Date().getTime();
+            let distance = expiryDate - now;
+            if (distance >= 0) {
+                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
+            } else {
+                countdownEl.innerHTML = "Expired";
+            }
+        });
+    </script>
 
     <script>
         $('#datepicker').datepicker({
@@ -288,15 +329,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
         });
 
-        window.addEventListener("scroll", function() {
-    var header = document.getElementById("sticky-header");
+        window.addEventListener("scroll", function () {
+            var header = document.getElementById("sticky-header");
 
-    if (window.scrollY > 100) {
-        header.classList.add("sticky");
-    } else {
-        header.classList.remove("sticky");
-    }
-});
+            if (window.scrollY > 100) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        });
+    </script>
+    <script>
+        function closeLock() {
+            window.location.href = "{% url 'home' %}";
+        }
     </script>
 </body>
 

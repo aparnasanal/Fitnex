@@ -21,34 +21,45 @@ def is_profile_complete(profile):
 
 @login_required
 def diet_engine(request):
-  profile = ProfileDb.objects.get(user=request.user)
 
-  if not profile.Age or not profile.Height or not profile.Weight:
-    messages.error(request, "Complete profile first")
-    return redirect('profile_setup')
-  activity_multiplier = activity_multipliers.get(profile.Activity_level)
-  if not activity_multiplier:
-    messages.error(request, "Select activity level")
-    return redirect('profile_setup')
+    profile = ProfileDb.objects.get(user=request.user)
+    subscription_active = request.user.profiledb.subscription_active()
 
-  if profile.Gender == "male":
-    bmr = (10 * profile.Weight) + (6.25 * profile.Height) - (5 * profile.Age) + 5
-  else:
-    bmr = (10 * profile.Weight) + (6.25 * profile.Height) - (5 * profile.Age) - 161
+    context = {
+        "profile": profile,
+        "subscription_active": subscription_active
+    }
 
-  
-  tdee = bmr * activity_multipliers[profile.Activity_level]
+    # If not subscribed → just load page (modal will show)
+    if not subscription_active:
+        return render(request, "diet.html", context)
 
-  if profile.Goal == 'fat_loss':
+    if not profile.Age or not profile.Height or not profile.Weight:
+        messages.error(request, "Complete profile first")
+        return redirect('profile_setup')
+
+    activity_multiplier = activity_multipliers.get(profile.Activity_level)
+    if not activity_multiplier:
+        messages.error(request, "Select activity level")
+        return redirect('profile_setup')
+
+    if profile.Gender == "male":
+        bmr = (10 * profile.Weight) + (6.25 * profile.Height) - (5 * profile.Age) + 5
+    else:
+        bmr = (10 * profile.Weight) + (6.25 * profile.Height) - (5 * profile.Age) - 161
+
+    tdee = bmr * activity_multipliers[profile.Activity_level]
+
+    if profile.Goal == 'fat_loss':
         calories = tdee - 500
-  elif profile.Goal == 'muscle_gain':
-      calories = tdee + 300
-  else:
-      calories = tdee
+    elif profile.Goal == 'muscle_gain':
+        calories = tdee + 300
+    else:
+        calories = tdee
 
-  ai_diet = generate_ai_diet(profile, calories)
+    ai_diet = generate_ai_diet(profile, calories)
 
-  return render(request, "diet.html", {
-      "diet_plan": ai_diet,
-      "calories": round(calories)
-  })
+    context["diet_plan"] = ai_diet
+    context["calories"] = round(calories)
+
+    return render(request, "diet.html", context)

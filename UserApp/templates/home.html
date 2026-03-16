@@ -78,9 +78,7 @@
                                     <nav>
                                         <ul id="navigation">
                                             <li><a class="active" href="{% url 'home' %}">home</a></li>
-                                            <li><a href="{% url 'diet' %}">
-                                                    My Diet
-                                                </a></li>
+                                            <li><a href="{% url 'diet' %}">Diet</a></li>
                                             <li><a href="{% url 'workout_videos' %}">Workouts</a></li>
                                             <li><a href="{% url 'progress_dashboard' %}">Progress</a></li>
                                             <li><a href="{% url 'contact' %}">Contact</a></li>
@@ -207,6 +205,14 @@
         </div>
     </div>
     <!--/ catagory_area  -->
+
+    <div id="subscribeModal" class="subscribe-modal">
+        <div class="modal-box">
+            <h3>Subscription Required</h3>
+            <p>Please subscribe to access this feature.</p>
+            <a href="{% url 'subscribe' %}">Subscribe</a>
+        </div>
+    </div>
 
     <!-- features_area_start  -->
     <div class="features_area">
@@ -598,39 +604,39 @@
 
     <script src="{% static 'web/js/main.js' %}"></script>
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    let countdownEl = document.getElementById("countdown");
-    if (!countdownEl) return; 
+        document.addEventListener("DOMContentLoaded", function () {
+            let countdownEl = document.getElementById("countdown");
+            if (!countdownEl) return;
 
-    let expiryDate = new Date("{{ profile.subscription_expiry }}").getTime();
+            let expiryDate = new Date("{{ profile.subscription_expiry }}").getTime();
 
-    let x = setInterval(function() {
-        let now = new Date().getTime();
-        let distance = expiryDate - now;
+            let x = setInterval(function () {
+                let now = new Date().getTime();
+                let distance = expiryDate - now;
 
-        if (distance < 0) {
-            clearInterval(x);
-            countdownEl.innerHTML = "Expired";
-        } else {
-            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
-        }
-    }, 60000); 
+                if (distance < 0) {
+                    clearInterval(x);
+                    countdownEl.innerHTML = "Expired";
+                } else {
+                    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
+                }
+            }, 60000);
 
-    let now = new Date().getTime();
-    let distance = expiryDate - now;
-    if (distance >= 0) {
-        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
-    } else {
-        countdownEl.innerHTML = "Expired";
-    }
-});
-</script>
+            let now = new Date().getTime();
+            let distance = expiryDate - now;
+            if (distance >= 0) {
+                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
+            } else {
+                countdownEl.innerHTML = "Expired";
+            }
+        });
+    </script>
 
     <script>
 
@@ -690,6 +696,16 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
     </script>
+
+   <script>
+function openModal(){
+    document.getElementById("subscribeModal").style.display = "flex";
+}
+
+function closeModal(){
+    document.getElementById("subscribeModal").style.display = "none";
+}
+</script>
 </body>
 
 </html>
