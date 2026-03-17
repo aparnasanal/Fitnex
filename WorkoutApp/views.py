@@ -53,17 +53,17 @@ def filtered_workout(request, m_name):
 
 
 def ai_suggestions(request):
-    profile = request.user.profiledb 
-    subscription_active = request.user.profiledb.subscription_active()
-    
+    profile = request.user.profiledb
+    subscription_active = profile.subscription_active()
+
     context = {
         "profile": profile,
         "subscription_active": subscription_active
     }
-    
+
     if not subscription_active:
         return render(request, "ai_suggestions.html", context)
-    
+
     workouts = get_ai_workout_plan(profile)
     context["workouts"] = workouts
 

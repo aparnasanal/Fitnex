@@ -130,8 +130,8 @@
     </div>
 
     <!-- PROGRESS -->
-     <div id="progress-lock-wrapper">
-        <div id="progress-content" class="container text-center" style="margin-top: 50px;">
+    <div id="progress-lock-wrapper">
+      <div id="progress-content" class="container text-center" style="margin-top: 50px;">
 
         <h2 style="color:white;margin-bottom:30px;">Progress Dashboard</h2>
 
@@ -187,31 +187,31 @@
 
       </div>
       {% if not subscription_active %}
-    <div class="lock-overlay">
+      <div class="lock-overlay">
 
         <div class="lock-card" style="border: 1px solid #611c219a;">
 
-            <h2>🔒 Premium Feature</h2>
+          <h2>🔒 Premium Feature</h2>
 
-            <p>
-                Progress tracking is available only for subscribed members.
-                Unlock this feature to track your fitness journey.
-            </p>
+          <p>
+            AI-generated personalized workouts, diet plans, and chatbot guidance
+            are available only for subscribed users.
+          </p>
 
-            <a href="{% url 'subscribe' %}" class="subscribe-btn">
-                Subscribe Now
-            </a>
+          <a href="{% url 'subscribe' %}" class="subscribe-btn">
+            Subscribe Now
+          </a>
 
-            <button class="close-lock" onclick="closeLock()">
-                Close
-            </button>
+          <button class="close-lock" onclick="closeLock()">
+            Close
+          </button>
 
         </div>
 
-    </div>
-    {% endif %}
+      </div>
+      {% endif %}
 
-     </div>
+    </div>
 
 
 
@@ -530,6 +530,12 @@
           let now = new Date().getTime();
           let distance = expiryDate - now;
 
+          if (timeLeft > 0) {
+            setTimeout(function () {
+              location.reload();
+            }, timeLeft);
+          }
+
           if (distance < 0) {
             clearInterval(x);
             countdownEl.innerHTML = "Expired";
@@ -556,14 +562,14 @@
 
     <script>
 
-function closeLock(){
+      function closeLock() {
 
-    window.location.href = "{% url 'home' %}";
-    document.querySelector(".lock-overlay").style.display = "none";
+        window.location.href = "{% url 'home' %}";
+        document.querySelector(".lock-overlay").style.display = "none";
 
-}
+      }
 
-</script>
+    </script>
 
 </body>
 

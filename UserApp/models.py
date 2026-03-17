@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime, date
+from django.utils import timezone
 
 # Create your models here.
 
@@ -43,10 +44,13 @@ class ProfileDb(models.Model):
   Experience_level = models.CharField(max_length=20, choices=EXPERIENCE_LEVEL, null=True, blank=True)
   
   is_subscribed = models.BooleanField(default=False)
-  subscription_expiry = models.DateField(null=True, blank=True)
+  subscription_expiry = models.DateTimeField(null=True, blank=True)
+  email_sent = models.BooleanField(default=False)
 
   def subscription_active(self):
-        return self.is_subscribed and self.subscription_expiry and self.subscription_expiry >= date.today()
+    if self.is_subscribed and self.subscription_expiry:
+        return self.subscription_expiry >= timezone.now()
+    return False
 
   def __str__(self):
         return self.user.username

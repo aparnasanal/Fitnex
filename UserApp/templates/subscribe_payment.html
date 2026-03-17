@@ -4,9 +4,10 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Subscribe - AI Fitness</title>
+  <title>Subscribe Fitnex</title>
   <link rel="stylesheet" href="{% static 'web/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'web/css/style.css' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'web/img/logo.png' %}">
 </head>
 
 <body>
@@ -28,7 +29,7 @@
             <div class="single_prising text-center">
               <div class="prising_header">
                 <h3>Subscribe</h3>
-                <span>₹499/month</span>
+                <span>₹299/month</span>
               </div>
               <div class="pricing_body">
                 <ul>
@@ -70,8 +71,7 @@ var options = {
         })
         .then(res => res.json())
         .then(data => {
-            alert(data.message);
-            window.location.href = "{% url 'home' %}";
+            window.location.href = "/?payment=success";
         });
     },
     "theme": {

@@ -206,14 +206,6 @@
     </div>
     <!--/ catagory_area  -->
 
-    <div id="subscribeModal" class="subscribe-modal">
-        <div class="modal-box">
-            <h3>Subscription Required</h3>
-            <p>Please subscribe to access this feature.</p>
-            <a href="{% url 'subscribe' %}">Subscribe</a>
-        </div>
-    </div>
-
     <!-- features_area_start  -->
     <div class="features_area">
         <div class="container">
@@ -314,7 +306,7 @@
                     <div class="single_prising text-center">
                         <div class="prising_header">
                             <h3>Subscribe</h3>
-                            <span>₹499/month</span>
+                            <span>₹299/month</span>
                         </div>
                         <div class="pricing_body">
                             <ul>
@@ -355,6 +347,12 @@
         </div>
 
     </div>
+
+    {% if request.GET.payment == "success" %}
+    <div style="text-align:center; background:#28a745; color:white; padding:10px; border-radius:6px; margin:10px;">
+        🎉 Payment Successful! Subscription Activated.
+    </div>
+    {% endif %}
     <!-- footer_start  -->
     <footer class="footer">
         <div class="footer_top">
@@ -608,7 +606,7 @@
             let countdownEl = document.getElementById("countdown");
             if (!countdownEl) return;
 
-            let expiryDate = new Date("{{ profile.subscription_expiry }}").getTime();
+            let expiryDate = new Date("{{ profile.subscription_expiry|date:'c' }}").getTime();
 
             let x = setInterval(function () {
                 let now = new Date().getTime();
@@ -621,23 +619,14 @@
                     let days = Math.floor(distance / (1000 * 60 * 60 * 24));
                     let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
-                }
-            }, 60000);
+                    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            let now = new Date().getTime();
-            let distance = expiryDate - now;
-            if (distance >= 0) {
-                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m";
-            } else {
-                countdownEl.innerHTML = "Expired";
-            }
+                    countdownEl.innerHTML =
+                        days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+                }
+            }, 1000);
         });
     </script>
-
     <script>
 
         function toggleChat() {
@@ -697,15 +686,22 @@
 
     </script>
 
-   <script>
-function openModal(){
-    document.getElementById("subscribeModal").style.display = "flex";
-}
+    <script>
+        function openModal() {
+            document.getElementById("subscribeModal").style.display = "flex";
+        }
 
-function closeModal(){
-    document.getElementById("subscribeModal").style.display = "none";
-}
-</script>
+        function closeModal() {
+            document.getElementById("subscribeModal").style.display = "none";
+        }
+    </script>
+
+    <script>
+        setTimeout(() => {
+            let msg = document.getElementById("success-msg");
+            if (msg) msg.style.display = "none";
+        }, 3000);
+    </script>
 </body>
 
 </html>

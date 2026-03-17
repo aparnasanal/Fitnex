@@ -12,9 +12,13 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import os
 from dotenv import load_dotenv
-from datetime import date, timedelta
+from datetime import timedelta
+from django.utils import timezone
 from django.conf import settings
 import razorpay
+from django.core.mail import send_mail
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 
 # profile completion
@@ -31,6 +35,7 @@ def is_profile_complete(profile):
 def homepage(request):
   muscle = MuscleDb.objects.all()
   profile = request.user.profiledb
+  subscription_active = profile.subscription_active()
   remaining_days = None
   if request.user.is_authenticated:
         profile, created = ProfileDb.objects.get_or_create(user=request.user)
@@ -38,14 +43,33 @@ def homepage(request):
           messages.warning(request, "Please complete your profile.")
           return redirect('profile_setup')
   if profile.is_subscribed and profile.subscription_expiry:
-        remaining_days = (profile.subscription_expiry - date.today()).days
-        if remaining_days <= 0:
-            profile.is_subscribed = False
-            profile.subscription_expiry = None
-            profile.save()
-            remaining_days = None
+    remaining_time = profile.subscription_expiry - timezone.now()
+
+    if remaining_time.total_seconds() <= 0:
+        if not profile.email_sent:
+            send_mail(
+                "Subscription Expired",
+                f"""Hey {request.user.username},
+
+            Your subscription has expired, and access to AI-powered workout plans, personalized diet suggestions, and premium features is currently unavailable.
+
+            Renew your subscription to continue your fitness journey without interruption.
+
+            – Team Fitnex
+            """,
+                settings.EMAIL_HOST_USER,
+                [request.user.email],
+                fail_silently=False,
+            )
+            profile.email_sent = True
+        print("Sending email to:", request.user.email)
+        profile.is_subscribed = False
+        profile.subscription_expiry = None
+        profile.save()
+            
         
-  return render(request, "home.html", {"muscle" : muscle, "remaining_days": remaining_days, "profile": profile})
+  return render(request, "home.html", {"muscle" : muscle, "remaining_days": remaining_days,
+                                       "profile": profile, "subscription_active": subscription_active})
 
 def user_login(request):
   if request.user.is_authenticated:
@@ -83,6 +107,12 @@ def signup(request):
     email = request.POST.get('email')
     password1 = request.POST.get('password1')
     password2 = request.POST.get('password2')
+    
+    try:
+        validate_email(email)
+    except ValidationError:
+        messages.error(request, "Enter a valid email address")
+        return redirect('signup')
 
     if not username:
             messages.error(request, "Username can't be empty")
@@ -175,10 +205,8 @@ def save_message(request):
 @login_required
 def subscribe(request):
     profile = request.user.profiledb
-
-    # Render the payment page even on GET
     client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
-    order_amount = 49900  # ₹499 in paise
+    order_amount = 29900 
     order_currency = 'INR'
     order_receipt = f"order_rcptid_{request.user.id}"
 
@@ -204,7 +232,8 @@ def subscribe_success(request):
         data = json.loads(request.body)
         profile = request.user.profiledb
         profile.is_subscribed = True
-        profile.subscription_expiry = date.today() + timedelta(days=30)
+        profile.subscription_expiry = timezone.now() + timedelta(minutes=2)
+        profile.email_sent = False
         profile.save()
         return JsonResponse({"message": "Payment successful! Subscription activated."})
     return JsonResponse({"error": "Invalid request"}, status=400)
