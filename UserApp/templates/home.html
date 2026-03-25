@@ -360,14 +360,15 @@
                 <div class="row">
                     <div class="col-xl-3 col-md-6 col-lg-3 ">
                         <div class="footer_widget">
-                            <div class="footer_logo">
-                                <a href="#">
-                                    <img src="{% static 'web/img/footer_logo.png' %}" alt="">
+                            <div class="footer_logo" style="margin-left: -60px;">
+                                <a href="{% url 'home' %}" class="text-center">
+                                    <img src="{% static 'web/img/logo.png' %}" alt="" height="150px">
+                                    <h1 class="text-white" style="margin-top: -30px; margin-left: -30px;">FITNEX.</h1>
                                 </a>
                             </div>
-                            <p>5th flora, 700/D kings road, green <br> lane New York-1782 <br>
-                                <a href="#">+10 367 826 2567</a> <br>
-                                <a href="#">contact@carpenter.com</a>
+                            <p>3rd floor, GZone bulding <br> Kakkanad, Ernakulam <br>
+                                <a href="#">+91 8694512074</a> <br>
+                                <a href="#">fitnex@gmail.com</a>
                             </p>
                             <p>
 
@@ -412,10 +413,11 @@
                                 Useful Links
                             </h3>
                             <ul class="links">
-                                <li><a href="#">Pricing</a></li>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#"> Gallery</a></li>
-                                <li><a href="#"> Contact</a></li>
+                                <li><a href="{% url 'workout_videos' %}">Workout Videos</a></li>
+                                <li><a href="{% url 'progress_dashboard' %}">Progress Tracking</a></li>
+                                <li><a href="{% url 'diet' %}">AI Diet Suggestion</a></li>
+                                <li><a href="{% url 'ai_suggestions' %}">AI Workout Suggestion</a></li>
+                                <li><a href="{% url 'contact' %}">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -424,12 +426,11 @@
                             <h3 class="footer_title">
                                 Subscribe
                             </h3>
-                            <form action="#" class="newsletter_form">
-                                <input type="text" placeholder="Enter your mail">
-                                <button type="submit">Subscribe</button>
-                            </form>
-                            <p class="newsletter_text">Esteem spirit temper too say adieus who direct esteem esteems
-                                luckily.</p>
+                            <p>Get personalized AI-powered guidance for your workouts, diet plans, and overall fitness,
+                            so you can achieve your health goals with confidence and consistency.</p>
+                            <div class="pricing_btn mt-5">
+                                <a href="{% url 'subscribe' %}" class="boxed-btn3">Subscribe Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -443,9 +444,8 @@
                         <p class="copy_right text-center">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;
-                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This
-                            template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | <a
+                                href="{% url 'home' %}" target="_blank">Fitnex Team.</a>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>
@@ -457,7 +457,7 @@
 
 
     <style>
-        /* Floating AI Button */
+        
 
         #ai-chat-button {
             position: fixed;
@@ -481,7 +481,7 @@
         }
 
 
-        /* Chatbox */
+        
 
         #ai-chatbox {
             position: fixed;
@@ -499,7 +499,7 @@
         }
 
 
-        /* Header */
+        
 
         #ai-header {
             background: #8b0000;
@@ -511,7 +511,7 @@
         }
 
 
-        /* Messages */
+        
 
         #ai-messages {
             flex: 1;
@@ -522,7 +522,6 @@
         }
 
 
-        /* Input */
 
         #ai-input-area {
             display: flex;

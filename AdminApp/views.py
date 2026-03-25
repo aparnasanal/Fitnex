@@ -38,9 +38,9 @@ def dashboard(request):
   #-------------- chart ----------------------------------------
   
   today = timezone.now().date()
-  seven_days_ago = today - timedelta(days=6)  #including today
+  seven_days_ago = today - timedelta(days=6) 
   
-  labels = [(today - timedelta(days=i)).strftime("%d %b") for i in reversed(range(7))]    # labels for 7 days
+  labels = [(today - timedelta(days=i)).strftime("%d %b") for i in reversed(range(7))]   
   
   # Users active per day
   active_users_counts = []
@@ -74,10 +74,9 @@ def dashboard(request):
     .annotate(total_logged=Count('id'))
     .order_by('-total_logged')[:5]
 )
-  # Find the maximum count for scaling
+  
   max_count = max([w['total_logged'] for w in top_workouts_raw], default=1)
 
-# Add a 'bar_width' field (percentage)
   top_workouts = []
   for w in top_workouts_raw:
       width = int((w['total_logged'] / max_count) * 100)  # scale to 0-100%

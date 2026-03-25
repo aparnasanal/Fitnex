@@ -30,7 +30,7 @@ def diet_engine(request):
         "subscription_active": subscription_active
     }
 
-    # If not subscribed → just load page (modal will show)
+    
     if not subscription_active:
         return render(request, "diet.html", context)
 

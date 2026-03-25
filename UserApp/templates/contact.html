@@ -209,6 +209,107 @@
     </section>
     <!-- ================ contact section end ================= -->
 
+    <!-- footer_start  -->
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 col-lg-3 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo" style="margin-left: -60px;">
+                                <a href="{% url 'home' %}" class="text-center">
+                                    <img src="{% static 'web/img/logo.png' %}" alt="" height="150px">
+                                    <h1 class="text-white" style="margin-top: -30px; margin-left: -30px;">FITNEX.</h1>
+                                </a>
+                            </div>
+                            <p>3rd floor, GZone bulding <br> Kakkanad, Ernakulam <br>
+                                <a href="#">+91 8694512074</a> <br>
+                                <a href="#">fitnex@gmail.com</a>
+                            </p>
+                            <p>
+
+
+
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-twitter-alt"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-pinterest"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-youtube-play"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-6 col-lg-4 offset-xl-1">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Useful Links
+                            </h3>
+                            <ul class="links">
+                                <li><a href="{% url 'workout_videos' %}">Workout Videos</a></li>
+                                <li><a href="{% url 'progress_dashboard' %}">Progress Tracking</a></li>
+                                <li><a href="{% url 'diet' %}">AI Diet Suggestion</a></li>
+                                <li><a href="{% url 'ai_suggestions' %}">AI Workout Suggestion</a></li>
+                                <li><a href="{% url 'contact' %}">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-6 col-lg-4">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Subscribe
+                            </h3>
+                            <p>Get personalized AI-powered guidance for your workouts, diet plans, and overall fitness,
+                            so you can achieve your health goals with confidence and consistency.</p>
+                            <div class="pricing_btn mt-5">
+                                <a href="{% url 'subscribe' %}" class="boxed-btn3">Subscribe Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right_text">
+            <div class="container">
+                <div class="footer_border"></div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="copy_right text-center">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | <a
+                                href="{% url 'home' %}" target="_blank">Fitnex Team.</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer_end  -->
 
     <!-- JS here -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

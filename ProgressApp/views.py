@@ -37,14 +37,12 @@ def save_progress(request):
         return redirect('progress_dashboard')
 
 def progress_dashboard(request):
-    # Get user profile
+   
     profile = ProfileDb.objects.get(user=request.user)
     goal = profile.Goal 
 
-    # Get all progress entries for the user, ordered by date
     progress_entries = ProgressDb.objects.filter(user=request.user).order_by("date")
 
-    # Prepare lists for charts
     dates = []
     weights = []
     body_fats = []
@@ -56,8 +54,7 @@ def progress_dashboard(request):
             weights.append(float(p.body_weight))
         if p.body_fat is not None:
             body_fats.append(float(p.body_fat))
-
-    # Weight progress interpretation
+ 
     weight_status = "Not enough data yet."
     weight_color = "#ffffff"  
     fat_status = "Not enough data yet."
@@ -77,7 +74,7 @@ def progress_dashboard(request):
             weight_status = "Perfect! Weight maintained.." if abs(end-start) <= 1 else "Weight fluctuating."
             weight_color = "#3EFFC1" if abs(weights[-1]-weights[0]) <= 1 else "#ff4c4c"
 
-    # Body fat progress interpretation
+    
     fat_status = ""
     if len(body_fats) >= 2:
         start_fat = body_fats[0]
@@ -92,7 +89,6 @@ def progress_dashboard(request):
             fat_status = "Body fat maintained.." if abs(end_fat-start_fat) <= 1 else "Body fat fluctuating."
             fat_color = "#3EFFC1" if abs(body_fats[-1]-body_fats[0]) <= 1 else "#ff4c4c"
 
-    # Strength chart data
     logs = WorkoutLog.objects.filter(progress__user=request.user).order_by("progress__date")
     strength_labels = []
     strength_data = []
