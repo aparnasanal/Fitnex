@@ -9,35 +9,45 @@
 </head>
 <body>
 
-  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
-                <div class="mdc-card p-0">
-                  <h6 class="card-title card-padding pb-0">Messages</h6>
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th class="text-center">NAME</th>
-                          <th class="text-center">EMAIL</th>
-                          <th class="text-center">SUBJECT</th>
-                          <th class="text-center">MESSAGE</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for m in msg %}
-                        <tr>
-                          <td class="text-center">{{m.Name}}</td>
-                          <td class="text-center">{{m.Email}}</td>
-                          <td class="text-center">{{m.Subject}}</td>
-                          <td class="text-center">{{m.Message}}</td>
-                        </tr>
-                        {% endfor %}
-                        
-                          
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
+  <div class="mdc-card p-2" style="max-width:850px; margin:auto; border-radius: 20px;">
+
+    <h6 class="card-title text-center mt-3 mb-3" style="font-size:24px;">
+      <b>Messages</b>
+    </h6>
+
+    <div class="table-responsive" style="max-height:300px; overflow-y:auto;">
+
+      <table class="table table-sm text-center"
+             style="font-size:13px; width:95%; margin:auto;">
+
+        <thead>
+          <tr>
+            <th class="text-center" style="padding:15px;">Name</th>
+            <th class="text-center" style="padding:15px;">Email</th>
+            <th class="text-center" style="padding:15px;">Subject</th>
+            <th class="text-center" style="padding:15px;">Message</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for m in msg %}
+          <tr>
+            <td class="text-center" style="padding:15px;">{{m.Name}}</td>
+            <td class="text-center" style="padding:15px;">{{m.Email}}</td>
+            <td class="text-center" style="padding:15px;">{{m.Subject}}</td>
+            <td class="text-center" style="padding:15px; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+              {{m.Message}}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+</div>
 
 
               <div class="container mb-5" style="margin-top: 470px;"></div>

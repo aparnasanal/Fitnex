@@ -18,82 +18,113 @@
   <div class="mdc-layout-grid">
     <div class="mdc-layout-grid__inner">
 
-      <!-- User Info Card -->
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-        <div class="mdc-card red-black-card p-3 mb-3">
-          <div class="card-inner p-4">
-            <h5 class="card-title mb-3">👤 {{ user.username }} - Progress Overview</h5>
-            <p>Email: {{ user.email }}</p>
-            <p>Goal: {{ user.profiledb.Goal|default:"-" }}</p>
-            <p>Activity Level: {{ user.profiledb.Activity_level|default:"-" }}</p>
-            <p>Profile Complete:
-              {% if user.profiledb.Age and user.profiledb.Weight %}
-              ✅
-              {% else %}
-              ❌
-              {% endif %}
-            </p>
-            <p>Total Workouts: <strong>{{ logs|length }}</strong></p>
+      <!-- Compact User Info Card -->
+<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+  <div class="mdc-card red-black-card p-2 mb-2" style="max-width: 600px; margin:auto;">
+    <div class="card-inner p-3">
 
-            <p>Last Workout:
-              {% if logs %}
-              {{ logs.0.date_logged|date:"d M Y" }}
-              {% else %}
-              -
-              {% endif %}
-            </p>
-          </div>
-        </div>
+      <h6 class="card-title mb-2 text-center">
+        <b>{{ user.username }} - Overview</b>
+      </h6>
+
+      <div style="font-size:13px; line-height:1.4;">
+
+        <p class="mb-1"><strong>Email:</strong> {{ user.email }}</p>
+
+        <p class="mb-1">
+          <strong>Goal:</strong> {{ user.profiledb.Goal|default:"-" }}
+        </p>
+
+        <p class="mb-1">
+          <strong>Activity:</strong> {{ user.profiledb.Activity_level|default:"-" }}
+        </p>
+
+        <p class="mb-1">
+          <strong>Workouts:</strong> {{ logs|length }}
+        </p>
+
+        <p class="mb-0">
+          <strong>Last:</strong>
+          {% if logs %}
+            {{ logs.0.date_logged|date:"d M Y" }}
+          {% else %}
+            -
+          {% endif %}
+        </p>
+
       </div>
 
-      <!-- Workout Log Table -->
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-        <div class="mdc-card red-black-card p-3 mb-3">
-          <div class="card-inner p-4">
-            <h5 class="card-title mb-3">📊 All Workout Logs</h5>
-            <div class="table-responsive" style="max-height:400px; overflow-y:auto;">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th class="text-center">Date Logged</th>
-                    <th class="text-center">Workout</th>
-                    <th class="text-center">Muscle Group</th>
-                    <th class="text-center">Reps</th>
-                    <th class="text-center">Sets</th>
-                    <th class="text-center">Weight</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for log in logs %}
-                  <tr>
-                    <td class="text-center">{{ log.date_logged|date:"d M Y H:i" }}</td>
-                    <td class="text-center">{{ log.workout.Name }}</td>
-                    <td class="text-center">{{ log.workout.Muscle_Group }}</td>
-                    <td class="text-center">{{ log.reps }}</td>
-                    <td class="text-center">{{ log.sets }}</td>
-                    <td class="text-center">{{ log.weight }}</td>
-                  </tr>
-                  {% empty %}
-                  <tr>
-                    <td colspan="6" class="text-center text-muted">No workouts logged yet.</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+    </div>
+  </div>
+</div>
+
+      <!-- Compact Workout Log Table (Inline Styling Only) -->
+<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
+  <div class="mdc-card red-black-card p-2 mb-2" style="max-width:850px; margin:auto;">
+    <div class="card-inner p-3">
+
+      <h6 class="card-title mb-2 text-center" style="font-size:14px;">
+        <b>Workout Logs</b>
+      </h6>
+
+      <div class="table-responsive" style="max-height:300px; overflow-y:auto;">
+
+        <table class="table table-hover table-sm text-center"
+               style="font-size:13px; width:90%; margin:auto;">
+
+          <thead>
+            <tr>
+              <th style="padding:5px;">Date</th>
+              <th style="padding:5px;">Workout</th>
+              <th style="padding:5px;">Muscle</th>
+              <th style="padding:5px;">Reps</th>
+              <th style="padding:5px;">Sets</th>
+              <th style="padding:5px;">Weight</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for log in logs %}
+            <tr>
+              <td style="padding:5px;">{{ log.date_logged|date:"d M" }}</td>
+              <td style="padding:5px;">{{ log.workout.Name }}</td>
+              <td style="padding:5px;">{{ log.workout.Muscle_Group }}</td>
+              <td style="padding:5px;">{{ log.reps }}</td>
+              <td style="padding:5px;">{{ log.sets }}</td>
+              <td style="padding:5px;">{{ log.weight }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="6" class="text-muted text-center" style="padding:5px;">
+                No logs yet
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- Progress Chart -->
+<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
+  <div class="mdc-card red-black-card p-2 mb-2" style="max-width:850px; margin:auto;">
+    <div class="card-inner p-3">
+
+      <h6 class="card-title mb-2 text-center" style="font-size:14px;">
+        <b>Performance</b>
+      </h6>
+
+      <div style="height:220px;">
+        <canvas id="progressChart" style="width:100%; height:100%;"></canvas>
       </div>
 
-      <!--x Progress Charts -->
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-        <div class="mdc-card red-black-card p-3 mb-3">
-          <div class="card-inner p-4">
-            <h5 class="card-title mb-3">📈 Performance Charts</h5>
-            <canvas id="progressChart" height="200"></canvas>
-          </div>
-        </div>
-      </div>
+    </div>
+  </div>
+</div>
 
     </div>
   </div>

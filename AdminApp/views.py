@@ -3,6 +3,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 from AdminApp.models import *
 from UserApp.models import *
@@ -128,8 +129,10 @@ def admin_login(request):
                 request.session['password'] = passw
                 return redirect(dashboard)
             else:
+                messages.warning(request, "Username Does'nt Exist")
                 return redirect(admin_loginpage)
         else:
+            messages.warning(request, "Invalid Username or Password")
             return redirect(admin_loginpage)
 
 
@@ -247,7 +250,10 @@ def view_users(request):
     total_workouts=Count('logs'),
     last_workout=Max('logs__date_logged')
 )
-    return render(request, 'view_users.html', {'users': users})
+    subscribers = ProfileDb.objects.filter(is_subscribed=True).select_related('user')
+    total_subscribers = subscribers.count()
+    
+    return render(request, 'view_users.html', {'users': users, 'subscribers':subscribers, 'total_subscribers' : total_subscribers})
  
 def delete_user(request, user_id):
     user = User.objects.get(id=user_id)

@@ -10,145 +10,215 @@
   <title>View Muscle Groups</title>
 </head>
 <body>
-<div class="mdc-card red-black-card p-3 mb-3">
-  <div class="card-inner p-4">
-    <h5 class="card-title mb-3">📋 All Users </h5>
-    <div class="table-responsive">
-      <div class="container mt-4">
 
-<table class="table table-hover table-bordered align-middle">
-  <thead class="table-dark">
-    <tr>
-      <th class="text-center text-white">User</th>
-      <th class="text-center text-white">Email</th>
-      <th class="text-center text-white">Goal</th>
-      <th class="text-center text-white">Activity</th>
-      <th class="text-center text-white">Total Workouts</th>
-      <th class="text-center text-white">Last Workout</th>
-      <th class="text-center text-white">Status</th>
-      <th class="text-center text-white">Actions</th>
-    </tr>
-  </thead>
+<!-- All Users Table -->
+<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
+  <div class="mdc-card red-black-card p-2 mb-2" style="max-width: 900px; margin:auto;">
+    <div class="card-inner p-3">
 
-  <tbody>
-  {% for user in users %}
-  <tr>
+      <h2 class="card-title text-center mb-4" style="font-size: 30px;"><b>All Users</b></h2>
 
-    <!-- USER INFO -->
-    <td class="text-center">
-      <div class="d-flex align-items-center">
-        <div class="avatar-circle me-2">
-          {{ user.username|first|upper }}
-        </div>
-        <div>
-          <strong>{{ user.username }}</strong><br>
-          <small class="text-muted">ID: {{ user.id }}</small>
-        </div>
-      </div>
-    </td>
+      <div class="table-responsive" style="max-height:600px; overflow-y:auto;">
 
-    <!-- EMAIL -->
-    <td class="text-center">{{ user.email }}</td>
+        <table class="table table-hover table-sm align-left text-left" style="font-size:13px; width:95%; margin:auto;">
 
-    <!-- GOAL -->
-    <td class="text-center">{{ user.profiledb.Goal|default:"-" }}</td>
+          <thead class="table-dark">
+            <tr>
+              <th class="text-center">User</th>
+              <th class="text-center">Email</th>
+              <th class="text-center">Goal</th>
+              <th class="text-center">Activity</th>
+              <th class="text-center">Workouts</th>
+              <th class="text-center">Last</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
 
-    <!-- ACTIVITY LEVEL -->
-    <td class="text-center">{{ user.profiledb.Activity_level|default:"-" }}</td>
+          <tbody>
+          {% for user in users %}
+          <tr>
+            <td class="text-center">
+              <div class="d-flex align-items-left justify-content-left">
+                <div class="avatar-circle me-2">
+                  {{ user.username|first|upper }}
+                </div>
+                <div>
+                  <strong>{{ user.username }}</strong><br>
+                  <small class="text-muted">#{{ user.id }}</small>
+                </div>
+              </div>
+            </td>
+            <td class="text-center">{{ user.email }}</td>
+            <td class="text-center">{{ user.profiledb.Goal|default:"-" }}</td>
+            <td class="text-center">{{ user.profiledb.Activity_level|default:"-" }}</td>
+            <td class="text-center">
+              <span class="badge bg-primary">
+                {{ user.total_workouts }}
+              </span>
+            </td>
+            <td class="text-center">
+              {% if user.last_workout %}
+                {{ user.last_workout|date:"d M" }}
+              {% else %}
+                <small class="text-muted">None</small>
+              {% endif %}
+            </td>
+            <td class="text-center">
+              {% if user.profiledb and user.profiledb.Age and user.profiledb.Weight %}
+                <span class="badge bg-success">✓</span>
+              {% else %}
+                <span class="badge bg-warning text-dark">!</span>
+              {% endif %}
+            </td>
+            <td class="text-center">
+              <a href="{% url 'user_detail' user.id %}" class="btn btn-sm btn-info p-1">
+                <i class="bi bi-eye"></i>
+              </a>
 
-    <!-- TOTAL WORKOUTS -->
-    <td class="text-center">
-      <span class="badge bg-primary">
-        {{ user.total_workouts }}
-      </span>
-    </td>
+              <a href="#"
+                 class="btn btn-sm btn-outline-danger p-1"
+                 data-bs-toggle="modal"
+                 data-bs-target="#deleteModal{{user.id}}">
+                 <i class="bi bi-trash"></i>
+              </a>
+            </td>
 
-    <!-- LAST WORKOUT -->
-    <td class="text-center">
-      {% if user.last_workout %}
-        {{ user.last_workout|date:"d M Y" }}
-      {% else %}
-        <span class="text-muted">No workouts</span>
-      {% endif %}
-    </td>
+          </tr>
+          <div class="modal fade" id="deleteModal{{user.id}}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+              <div class="modal-content">
 
-    <!-- PROFILE STATUS -->
-    <td class="text-center">
-      {% if user.profiledb and user.profiledb.Age and user.profiledb.Weight %}
-        <span class="badge bg-success">Complete</span>
-      {% else %}
-        <span class="badge bg-warning text-dark">Incomplete</span>
-      {% endif %}
-    </td>
+                <div class="modal-header py-2">
+                  <h6 class="modal-title text-danger">Delete</h6>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-    <!-- ACTIONS -->
-    <td class="text-center">
-      <a href="{% url 'user_detail' user.id %}" class="btn btn-sm btn-info">
-        <i class="bi bi-eye"></i>
-      </a>
+                <div class="modal-body text-center p-2">
+                  <p>Delete <strong>{{user.username}}</strong>?</p>
+                </div>
 
-      <a href="#" 
-   class="btn btn-sm btn-outline-danger"
-   data-bs-toggle="modal"
-   data-bs-target="#deleteModal{{user.id}}">
-   <i class="bi bi-trash"></i>
-</a>
-    </td>
-    <div class="modal fade" id="deleteModal{{user.id}}" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+                <div class="modal-footer p-2">
+                  <button class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <a href="{% url 'delete_user' user.id %}" class="btn btn-sm btn-danger">
+                    Delete
+                  </a>
+                </div>
 
-      <div class="modal-header">
-        <h5 class="modal-title text-danger">
-          <i class="bi bi-exclamation-triangle"></i> Delete User
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+              </div>
+            </div>
+          </div>
 
-      <div class="modal-body text-center">
+          {% endfor %}
+          </tbody>
 
-        <div style="font-size:40px;color:red;">
-          <i class="bi bi-trash"></i>
-        </div>
-
-        <p class="mt-3">
-          Are you sure you want to delete  
-          <strong>{{user.username}}</strong> ?
-        </p>
-
-        <small class="text-muted">
-          This will remove all workouts and progress data.
-        </small>
+        </table>
 
       </div>
+    </div>
+  </div>
+</div>
 
-      <div class="modal-footer">
+<!-- Subscribed Users Table -->
+<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8 mt-5">
+  <div class="mdc-card p-2" style="max-width:900px; margin:auto; border-radius: 20px;">
 
-        <button class="btn btn-secondary"
-                data-bs-dismiss="modal">
-          Cancel
-        </button>
+    <h2 class="text-center mt-3 mb-4" style="font-size:30px;">
+      <b>Subscribed Users </b><p class="mt-3">Total Subscribed Users: {{ total_subscribers }}</p>
+    </h2>
 
-        <a href="{% url 'delete_user' user.id %}"
-           class="btn btn-danger">
-           Delete User
-        </a>
+    <div class="table-responsive text-left" style="max-height:300px; overflow-y:auto;">
 
-      </div>
+      <table class="table table-sm  text-left"
+             style="font-size:13px; width:95%; margin:auto;">
+
+        <thead class="table-dark">
+          <tr>
+            <th class="text-center" style="padding:15px;">ID</th>
+            <th class="text-center" style="padding:15px;">Name</th>
+            <th class="text-center" style="padding:15px;">Email</th>
+            <th class="text-center" style="padding:15px;">Goal</th>
+            <th class="text-center" style="padding:15px;">Plan</th>
+            <th class="text-center" style="padding:15px;">Expiry</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for sub in subscribers %}
+          <tr>
+            <td class="text-center" style="padding:15px;">{{ forloop.counter }}</td>
+
+            <td class="text-center" style="padding:15px;">
+              <div class="d-flex align-items-left justify-content-left">
+                <div class="avatar-circle me-2">
+                  {{ sub.user.username|first|upper }}
+                </div>
+                <div>
+                  <strong>{{ sub.user.username }}</strong><br>
+                  <small class="text-muted">#{{ sub.user.id }}</small>
+                </div>
+              </div>
+            </td>
+
+            <td class="text-center" style="padding:15px;">
+              {{ sub.user.email }}
+            </td>
+
+            <td class="text-center" style="padding:15px;">
+              {{ sub.Goal|default:"-" }}
+            </td>
+
+            <td class="text-center" style="padding:15px;">
+              {{ sub.Experience_level|default:"-" }}
+            </td>
+
+            <td class="text-center" style="padding:15px;">
+              {% if sub.subscription_expiry %}
+                {{ sub.subscription_expiry|date:"d M Y" }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+
+          </tr>
+
+          {% empty %}
+          <tr>
+            <td class="text-center" colspan="6" style="padding:15px; color:gray;">
+              No subscribed users
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
 
     </div>
   </div>
 </div>
 
-  </tr>
-  {% endfor %}
-  </tbody>
+<style>
+  .table td, .table th {
+    padding: 5px 6px;
+    vertical-align: middle;
+  }
 
-</table>
-</div>
-    </div>
-  </div>
-</div>
+  .avatar-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    background: #ff5722;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-title {
+    font-size: 14px;
+  }
+</style>
 
 <div class="container mb-5" style="margin-top: 220px;"></div>
 
