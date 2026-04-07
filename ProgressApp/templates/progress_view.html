@@ -198,11 +198,11 @@
             are available only for subscribed users.
           </p>
 
-          <a href="{% url 'subscribe' %}" class="subscribe-btn">
+          <a href="{% url 'subscribe' %}" class="success-btn">
             Subscribe Now
           </a>
 
-          <button class="close-lock" onclick="closeLock()">
+          <button class="fail-btn" onclick="closeLock()">
             Close
           </button>
 
@@ -216,21 +216,6 @@
 
 
     <!-- END PROGRESS -->
-
-    <div id="subscribeModal" class="subscribe-modal">
-      <div class="modal-box">
-        <h3>Subscription Required</h3>
-        <p>You need an active subscription to view your progress.</p>
-
-        <a href="{% url 'subscribe' %}" class="subscribe-btn">Subscribe</a>
-        <button id="closeModal">Close</button>
-      </div>
-    </div>
-
-
-
-
-
 
     <style>
       a.graph-float-btn {

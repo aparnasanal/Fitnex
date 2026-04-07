@@ -232,11 +232,21 @@ def subscribe_success(request):
         data = json.loads(request.body)
         profile = request.user.profiledb
         profile.is_subscribed = True
-        profile.subscription_expiry = timezone.now() + timedelta(minutes=2)
+        profile.subscription_expiry = timezone.now() + timedelta(minutes=40)
         profile.email_sent = False
         profile.save()
         return JsonResponse({"message": "Payment successful! Subscription activated."})
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+# def mock_success(request):
+#     profile = request.user.profiledb
+#     profile.is_subscribed = True
+#     profile.subscription_expiry = timezone.now() + timedelta(minutes=2)
+#     profile.email_sent = False
+#     profile.save()
+#     return redirect(homepage)
+    
+    
 
 
 #--------------------------------------------------------------------------------------------------------------

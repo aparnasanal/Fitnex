@@ -45,14 +45,14 @@ def dashboard(request):
   
   # Users active per day
   active_users_counts = []
-  for i in reversed(range(7)):
+  for i in reversed(range(2)):
      day = today - timedelta(days=i)
      count = User.objects.filter(last_login__date=day).count()
      active_users_counts.append(count)
 
    # New signups per day
   new_signups_counts = []
-  for i in reversed(range(7)):
+  for i in reversed(range(5)):
      day = today - timedelta(days=i)
      count = User.objects.filter(date_joined__date=day).count()
      new_signups_counts.append(count)
@@ -106,7 +106,7 @@ def dashboard(request):
         # table
         'recent_signups': recent_signups,
         'recent_workouts': recent_workouts,
-        # top workouts
+      
         'top_workouts' : top_workouts,
     }
 

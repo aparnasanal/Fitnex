@@ -289,7 +289,9 @@
     </div>
 
 
-
+    {% if profile.is_subscribed == True %}
+    <div></div>
+    {% else %}
     <div class="pricing_area">
         <div class="container">
             <div class="row">
@@ -324,6 +326,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
     {% endblock %}
 
@@ -429,7 +432,11 @@
                             <p>Get personalized AI-powered guidance for your workouts, diet plans, and overall fitness,
                             so you can achieve your health goals with confidence and consistency.</p>
                             <div class="pricing_btn mt-5">
+                                {% if profile.is_subscribed == True %}
+                                <h4 class="text-white">Already Subscribed</h4>
+                                {% else %}
                                 <a href="{% url 'subscribe' %}" class="boxed-btn3">Subscribe Now</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

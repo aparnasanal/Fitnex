@@ -20,5 +20,6 @@ urlpatterns = [
   path('chatbot/', views.chatbot, name="chatbot"),
   path('subscribe/', views.subscribe, name="subscribe"),
   path('subscribe/success', views.subscribe_success, name="subscribe_success"),
+  # path('subscribe/mock_success', views.mock_success, name="mock_success"),
 
 ]
