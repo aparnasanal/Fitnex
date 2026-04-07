@@ -178,6 +178,27 @@ def profile_setup(request):
       
   return render(request, "profile_setup.html")
 
+@login_required
+def edit_profile(request):
+
+  profile = ProfileDb.objects.get_or_create(user=request.user)[0]
+
+  if request.method == "POST":
+      profile.Age = request.POST.get('age')
+      profile.Gender = request.POST.get('gender')
+      profile.Height = request.POST.get('height')
+      profile.Weight = request.POST.get('weight')
+      profile.Target_weight = request.POST.get('targetweight')
+      profile.Goal = request.POST.get('goal')
+      profile.Activity_level = request.POST.get('activity')
+      profile.Experience_level = request.POST.get('experience')
+
+      profile.save()
+
+      return redirect(homepage)
+      
+  return render(request, "edit_profile.html")
+
 
 def user_logout(request):
     logout(request)

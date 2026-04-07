@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Setup</title>
+    <link rel="stylesheet" href="{% static 'login/css/style.css' %}">
+</head>
+
+<body>
+    <div class="login-container" style="max-width: 1300px; margin: auto;">
+        <div class="login-card" style="max-width: 1200px; width: 100%; margin: auto;">
+            <div class="login-header">
+
+                <h2 style="padding-top: 20px;"><b>EDIT PROFILE</b></h2>
+                <p style="padding-bottom: 20px;"><b>Edit your profile section.</b></p>
+            </div>
+
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == "error" %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            <form class="login-form" id="loginForm" method="POST" novalidate action="{% url 'profile_setup' %}">
+                {% csrf_token %}
+
+                <!-- ROW 1 -->
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+
+                <div class="form-row" style="margin-bottom: 50px; margin-top: 50px;">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input type="text" name="age" value="{{profile.Age}}" id="age" required>
+                            <label>Age</label>
+                            <span class="input-line"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <select name="gender" id="gender" required>
+                                <option disabled selected hidden>{{profile.Gender}}</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+
+                            <span class="input-line"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input type="text" name="height" id="height" value="{{profile.Height}}" required>
+                            <label>Height (cm)</label>
+                            <span class="input-line"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input type="text" name="weight" id="weight" required value="{{profile.Weight}}">
+                            <label>Weight (kg)</label>
+                            <span class="input-line"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW 2 -->
+                <div class="form-row" style="margin-bottom: 50px;">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input type="text" name="targetweight" id="targetweight" required value="{{profile.Target_weight}}">
+                            <label>Target Weight (kg)</label>
+                            <span class="input-line"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <select name="goal" id="goal" required>
+                                <option disabled selected hidden>{{profile.Goal}}</option>
+                                <option value="Fat Loss">Fat Loss</option>
+                                <option value="Muscle Gain">Muscle Gain</option>
+                                <option value="Maintenance">Maintenance</option>
+                            </select>
+                            <label for="">Goal</label>
+                            <span class="input-line"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <select name="activity" id="activity" required>
+                                <option disabled selected hidden>{{profile.Activity_level}}</option>
+                                <option value="Sedentary">Sedentary</option>
+                                <option value="Light">Light</option>
+                                <option value="Moderate">Moderate</option>
+                                <option value="Active">Active</option>
+                            </select>
+                            <label for="">Activity Level</label>
+                            <span class="input-line"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <select name="experience" id="experience" required>
+                                <option disabled selected hidden>{{profile.Experience_level}}</option>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                            <label for="">Experience Level</label>
+                            <span class="input-line"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn btn" style="width: 50%; margin-left: 300px;">
+                    <span class="btn-text">Update Profile</span>
+                </button>
+            </form>
+
+
+        </div>
+
+        <div class="background-effects">
+            <div class="glow-orb glow-orb-1"></div>
+            <div class="glow-orb glow-orb-2"></div>
+            <div class="glow-orb glow-orb-3"></div>
+        </div>
+    </div>
+
+    <!-- <script src="../../shared/js/form-utils.js"></script> -->
+    <script src="{% static 'login/js/script.js' %}"></script>
+</body>
+
+</html>

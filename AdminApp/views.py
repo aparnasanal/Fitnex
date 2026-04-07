@@ -262,5 +262,5 @@ def delete_user(request, user_id):
  
 def user_detail(request, user_id):
     user = get_object_or_404(User, id=user_id)
-    logs = user.logs.select_related('workout','progress').order_by('-date_logged')
+    logs = WorkoutLog.objects.filter(user=user)
     return render(request, 'user_detail.html', {'user': user, 'logs': logs})

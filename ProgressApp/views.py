@@ -31,7 +31,7 @@ def save_progress(request):
             if workouts[i]:
 
                 WorkoutLog.objects.create(
-                    user=request.user, progress=progress, workout_id=workouts[i], weight=weight[i] if weight[i] else None,
+                    user=request.user, progress=progress, date_logged=date, workout_id=workouts[i], weight=weight[i] if weight[i] else None,
                     reps=reps[i] if reps[i] else None, sets=sets[i] if sets[i] else None)
 
         return redirect('progress_dashboard')
