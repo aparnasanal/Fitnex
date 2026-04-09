@@ -43,33 +43,30 @@ def dashboard(request):
   
   labels = [(today - timedelta(days=i)).strftime("%d %b") for i in reversed(range(7))]   
   
-  # Users active per day
   active_users_counts = []
   for i in reversed(range(2)):
      day = today - timedelta(days=i)
      count = User.objects.filter(last_login__date=day).count()
      active_users_counts.append(count)
 
-   # New signups per day
   new_signups_counts = []
   for i in reversed(range(5)):
      day = today - timedelta(days=i)
      count = User.objects.filter(date_joined__date=day).count()
      new_signups_counts.append(count)
 
-   # Workouts logged per day
   workouts_counts = []
   for i in reversed(range(7)):
      day = today - timedelta(days=i)
      count = WorkoutLog.objects.filter(date_logged__date=day).count()
      workouts_counts.append(count)
      
-     # ------------------------ Table -------------------------
+     # ------------------------ table -------------------------
      
   recent_signups = User.objects.order_by('-date_joined')[:5]
   recent_workouts = WorkoutLog.objects.select_related('user', 'workout').order_by('-date_logged')[:5]
   
-  # --------------------- Top workouts --------------------------
+  # --------------------- top workouts --------------------------
   top_workouts_raw = (
     WorkoutLog.objects.values('workout__Name')
     .annotate(total_logged=Count('id'))
@@ -80,7 +77,7 @@ def dashboard(request):
 
   top_workouts = []
   for w in top_workouts_raw:
-      width = int((w['total_logged'] / max_count) * 100)  # scale to 0-100%
+      width = int((w['total_logged'] / max_count) * 100) 
       top_workouts.append({
         'workout__Name': w['workout__Name'],
         'total_logged': w['total_logged'],
@@ -146,7 +143,7 @@ def view_message(request):
    return render(request, "view_messages.html", {"msg" : msg})
 
 
-#--------------------------------MUSCLE GROUPS--------------------------------
+#-------------------------------- muscle groups --------------------------------
 
 
 def add_muscle(request):
@@ -192,7 +189,7 @@ def delete_muscle(request, m_id):
    return redirect(view_muscle)
 
 
-#--------------------------------WORKOUT--------------------------------
+#-------------------------------- workout --------------------------------
 
 def add_workout(request):
    muscle = MuscleDb.objects.all()
@@ -243,7 +240,7 @@ def delete_workout(request, w_id):
 
    return redirect(view_workout)
 
-#--------------------------------------------------------------------------------------------------------
+#--------------------------------------- users -------------------------------------------------------------
 
 def view_users(request):
     users = User.objects.select_related('profiledb').annotate(
