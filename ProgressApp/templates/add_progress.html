@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Progress</title>
   <link rel="stylesheet" href="{% static 'login/css/style.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'web/img/logo.png' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'web/img/logo.png' %}">
 
 </head>
 
@@ -57,12 +57,33 @@
 
           <div class="form-group">
             <div class="input-wrapper">
-              <input type="text" name="bodyfat" required>
+              <input type="text" name="bodyfat">
               <label>Body Fat (%)</label>
               <span class="input-line"></span>
             </div>
-          </div>
 
+          </div>
+          <button type="button" id="bfInfoBtn" class="info-btn">?</button>
+        </div>
+
+        <div id="bfPopup" class="popup hidden">
+          <div class="popup-content">
+            <h3>Body Fat Formula</h3>
+
+            <p><b>Men:</b></p>
+            <p>86.010 × log10(waist − neck)</p>
+            <p>− 70.041 × log10(height)</p>
+            <p>+ 36.76</p>
+
+            <br>
+
+            <p><b>Women:</b></p>
+            <p>163.205 × log10(waist + hip − neck)</p>
+            <p>− 97.684 × log10(height)</p>
+            <p>− 78.387</p>
+
+            <button onclick="closePopup()">Close</button>
+          </div>
         </div>
 
 
@@ -184,6 +205,42 @@
     .workout-row:first-child .remove-btn {
       display: none;
     }
+
+    .info-btn {
+  margin-left: 8px;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: #ff7a18;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.hidden {
+  display: none;
+}
   </style>
 
 
@@ -217,6 +274,19 @@
         row.remove();
       }
 
+    }
+  </script>
+
+  <script>
+    const btn = document.getElementById("bfInfoBtn");
+    const popup = document.getElementById("bfPopup");
+
+    btn.addEventListener("click", () => {
+      popup.classList.remove("hidden");
+    });
+
+    function closePopup() {
+      popup.classList.add("hidden");
     }
   </script>
 

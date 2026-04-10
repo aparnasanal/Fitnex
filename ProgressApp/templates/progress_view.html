@@ -408,7 +408,7 @@
         id: 'prOutline',
         afterDatasetsDraw(chart) {
           const ctx = chart.ctx;
-          const meta = chart.getDatasetMeta(0); // base dataset
+          const meta = chart.getDatasetMeta(0); 
 
           meta.data.forEach((bar, i) => {
             const pr = prData[i];
@@ -416,7 +416,6 @@
             const delta = deltaData[i];
             const latest = base + delta;
 
-            // Only draw outline if PR is higher than current latest
             if (pr <= latest) return;
 
             const prY = chart.scales.y.getPixelForValue(pr);
@@ -432,7 +431,6 @@
             ctx.strokeRect(left, prY, barWidth, barBottom - prY);
             ctx.restore();
 
-            // PR label at the top of outline
             ctx.save();
             ctx.fillStyle = '#FFD700';
             ctx.font = 'bold 10px sans-serif';

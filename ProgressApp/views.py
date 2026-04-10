@@ -17,7 +17,7 @@ def save_progress(request):
 
         date = request.POST.get('date')
         weight = request.POST.get('bodyweight')
-        body_fat = request.POST.get('bodyfat')
+        body_fat = request.POST.get('bodyfat') or None
         user = request.POST.get('user')
 
         progress = ProgressDb.objects.create(user=request.user, date=date, body_weight=weight, body_fat=body_fat)

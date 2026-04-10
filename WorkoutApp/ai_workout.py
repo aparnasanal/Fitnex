@@ -11,9 +11,6 @@ client = OpenAI(
 
 
 def clean_json(text):
-    """
-    Removes markdown or unwanted text around JSON
-    """
     text = re.sub(r"```json", "", text)
     text = re.sub(r"```", "", text)
     text = text.strip()
@@ -92,8 +89,6 @@ Format:
 
     except Exception as e:
         print("AI Workout JSON failed:", e)
-
-        # Emergency fallback
         full_plan = {
             f"Day {i}": [
                 {
@@ -107,7 +102,6 @@ Format:
             for i in range(1, 8)
         }
 
-    # Attach DB video URLs
     for day, exercises in full_plan.items():
         for ex in exercises:
             db_match = WorkoutDb.objects.filter(
